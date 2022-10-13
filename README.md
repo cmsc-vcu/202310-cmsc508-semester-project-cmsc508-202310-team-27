@@ -17,7 +17,7 @@ The directory structure in this GitHub is to allow the project to have all its r
 |---|---|
 | Documentation |  all documentation the project team has created to describe project related assignments, such as, the design diagrams, configuration of the peoject, etc. |
 | SQL Scripts |  all the scripts written by the memebers of the team will be stored in this foilder. |
-| Phase1 |  all documentation including the individual pieces into this README for the final submission. |
+| Phase1 |  all documentation including the individual pieces into the README for the final submission. |
 | Phase2 | This file contains the overall submission, with embedded images or links to relevant files, either within this folder or not. |
 | Requirements | Project requirements for phase 1 and phase 2 such as objectives and deliverables. |
 
