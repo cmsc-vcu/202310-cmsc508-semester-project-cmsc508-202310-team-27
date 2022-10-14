@@ -22,5 +22,44 @@ There are five entities in our system, each with unique properties and primary k
 # ER Diagram
 ![ERD](/updated_ER.drawio-1.png)
 
+# Relational Schema and FDs
 
-<!-- ![Patient](./Patient.jpg) -->
+Patient (Patient ID, gender, age, ethnicity, socioeconomic)
+Patient ID -> gender, age, ethnicity, socioeconomic
+
+Region (Country, Nationality, Environment)
+Country -> Nationality, Environment
+
+Disease (Name, Type, transmission, communicable, fatality)
+Name -> Type, transmission, communicable, fatality
+
+Treatment (Treatment ID, stage, cost, treatment options)
+Treatment ID -> stage, cost, treatment options
+
+Medical Check-up(Patient ID, date, time, reason, documentation)
+Patient ID -> date, time, reason, documentation
+
+# Queries
+1. What stage of cancer of this patient in?
+2. The cost of the Alzheimer’s treatment?
+3. How many people have this disease?
+4. What is the fatality rate of COVID in Mexico?
+5. What treatment is viable for Ebola?
+6. What date did this patient receive their check-up in the hospital?
+7. What is the “transmission” value for the flu?
+8. How many Asian people have the mad cow disease?
+9. What is the curability of stage II Leukemia?
+10. When is the next medical checkup for this specific person?
+11. What is the socioeconomic of this patient?
+12. What is this patient’s medical history?
+13. What is the reason for this patient’s medical checkup?
+14. What type of disease is E.Coli?
+15. What is the environmental status of Egypt?
+16. How many people from the USE got their medical checkups in the year 2020?
+17. Are there cases of Ebola in environments below 50 Fahrenheit?
+18. What are this patient’s medical notes?
+19. Does Parkinson’s disease affect Asian people more so than European?
+20. Does diabetes affect Asian people more than arthritis?
+
+# Sample Data
+![Patient](./Patient.jpg)
