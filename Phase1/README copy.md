@@ -26,15 +26,19 @@ Patient (Patient ID, gender, age, ethnicity, socioeconomic)
 Patient ID -> gender, age, ethnicity, socioeconomic
 
 Region (Country, Nationality, Environment)
+
 Country -> Nationality, Environment
 
 Disease (Name, Type, transmission, communicable, fatality)
+
 Name -> Type, transmission, communicable, fatality
 
 Treatment (Treatment ID, stage, cost, treatment options)
+
 Treatment ID -> stage, cost, treatment options
 
 Medical Check-up(Patient ID, date, time, reason, documentation)
+
 Patient ID -> date, time, reason, documentation
 
 # Queries
