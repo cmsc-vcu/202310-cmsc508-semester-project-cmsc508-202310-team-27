@@ -14,7 +14,7 @@ We will use various data sets for this project’s entities, such as diseases, p
 ## ER Diagram
 ![ERD](updated_ER.drawio-1.png)
 
-## Relational Schema and FDs
+## Relational Schemas and FDs
 
 Patient (<ins>Patient ID</ins>, gender, age, ethnicity, socioeconomic)<br />
 Patient ID -> gender, age, ethnicity, socioeconomic
