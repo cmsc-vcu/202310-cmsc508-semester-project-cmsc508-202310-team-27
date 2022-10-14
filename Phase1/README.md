@@ -14,6 +14,8 @@ We will use various data sets for this project’s entities, such as diseases, p
 # ER Diagram
 ![ERD](updated_ER.drawio-1.png)
 
+A database is in Boyce-Codd Normal Form if every non-prime attribute depends on every other prime attribute and there is no functional redundancy. This is how our diagram is defined since each characteristic solely depends on the distinct ID that characterizes each schema.
+
 # Relational Schemas
 Patient (<ins>Patient ID</ins>, gender, age, ethnicity, socioeconomic)<br />
 Gets(<ins>Patient ID,....</ins>)<br />
@@ -25,6 +27,8 @@ Present(<ins>Country, Name</ins>)<br />
 Treatment (<ins>Treatment ID</ins>, stage, cost, treatment_Opt)<br />
 DiseaseChkUp(<ins>CheckUp_ID,Disease_ID</ins>)<br />
 Location(<ins>Patient_ID, Country</ins>)<br />
+Disease_CheckUp(<ins>CheckUp_ID,Disease_ID</ins>)<br />
+DrCheckUp(<ins>Dr_ID,CheckUp_ID</ins>)<br />
 
 # Functional Dependency
 Patient_ID -> gender, age, ethnicity, socioeconomic<br />
@@ -37,8 +41,10 @@ Country,Name -><br />
 Treatment_ID -> stage, cost, treatment_Opt<br />
 CheckUp_ID,Disease_ID ->
 Patient_ID,Country -> <br />
+CheckUp_ID,Dr_ID -><br />
 
-The domain of each relationship is shown in the relational schemas and functional dependence above, and the primary keys are underlined. The distinctive identifiers between the two tables that are related will be my foreign keys. As an example of the link between the Patient and Region, consider Patient ID and Country.
+
+The listing of relations is shown in the relational schemas and functional dependencies above. You can also see the entities attributes as well as their domain and type. Constraints are a set of guidelines that make sure the consistency of the data is not disrupted when an authorized user alters the database. The domain of each relationship is shown in the relational schemas and functional dependencies above, and the primary keys are underlined. My foreign keys serve as the distinguishing identifiers between the two connected tables; as an illustration, think of the relationship between Patient ID and Country and Region.
 
 # Queries
 1. What stage of cancer of this patient in?
