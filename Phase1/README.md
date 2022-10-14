@@ -56,8 +56,8 @@ The domain of each relationship is shown in the relational schemas and functiona
 20. Does diabetes affect Asian people more than arthritis?
 
 ## Sample Data
-![Patient](./Sample_Data.png)
-<!-- ![Patient](./medical_checkups-1.png)
-![Patient](./Region-1.png)
-![Patient](./Disease-1.png)
-![Patient](./Treatment-1.png)
+![Patient](./Doc1-1.png)
+<!-- <!-- ![Patient](./medical_checkups-1.png) -->
+![Patient](./Doc1-2.png)
+![Patient](./Doc1-3.png)
+<!-- ![Patient](./Treatment-1.png) -->
