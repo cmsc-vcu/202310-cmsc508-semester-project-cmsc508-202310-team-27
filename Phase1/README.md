@@ -22,16 +22,21 @@ Diagnose(<ins>Patient_ID,Name</ins>)<br />
 Disease (<ins>Name</ins>, Type, transmission, communicable, fatality)<br />
 Region (<ins>Country</ins>, Nationality, Environment)<br />
 Present(<ins>Country, Name</ins>)<br />
-Treatment (<ins>Treatment ID</ins>, stage, cost, treatment options)<br />
+Treatment (<ins>Treatment ID</ins>, stage, cost, treatment_Opt)<br />
 DiseaseChkUp(<ins>CheckUp_ID,Disease_ID</ins>)<br />
 Location(<ins>Patient_ID, Country</ins>)<br />
 
 # Functional Dependency
-Patient ID -> gender, age, ethnicity, socioeconomic<br />
-Country -> Nationality, Environment<br />
+Patient_ID -> gender, age, ethnicity, socioeconomic<br />
+Patient_ID, -> <br />
+Patient_ID -> date, time, reason, documentation<br />
+Patient_ID,Name -> <br />
 Name -> Type, transmission, communicable, fatality<br />
-Treatment ID -> stage, cost, treatment options<br />
-Patient ID -> date, time, reason, documentation<br />
+Country -> Nationality, Environment<br />
+Country,Name -><br />
+Treatment_ID -> stage, cost, treatment_Opt<br />
+CheckUp_ID,Disease_ID ->
+Patient_ID,Country -> <br />
 
 The domain of each relationship is shown in the relational schemas and functional dependence above, and the primary keys are underlined. The distinctive identifiers between the two tables that are related will be my foreign keys. As an example of the link between the Patient and Region, consider Patient ID and Country.
 
