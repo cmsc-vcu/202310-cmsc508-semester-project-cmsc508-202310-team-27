@@ -20,7 +20,7 @@ We will use various data sets for this project’s entities, such as diseases, p
 There are five entities in our system, each with unique properties and primary keys that define data sets. We are able to establish relationships between the entities using these entities, such as Person to Doctor. We will be able to use queries to discover specific information thanks to the development of this database. 
 
 # ER Diagram
-![ERD](/updated_ER.drawio-1.jpg)
+![ERD](/updated_ER.drawio-1.png)
 
 
 <!-- ![Patient](./Patient.jpg) -->
