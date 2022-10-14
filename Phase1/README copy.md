@@ -59,3 +59,7 @@ Patient ID -> date, time, reason, documentation
 
 ## Sample Data
 ![Patient](./Patient.png)
+![Patient](./medical_checkups-1.jpg)
+![Patient](./Region-1.jpg)
+![Patient](./Disease-1.jpg)
+![Patient](./Treatment-1.jpg)
