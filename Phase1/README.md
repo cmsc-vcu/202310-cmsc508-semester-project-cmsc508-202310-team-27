@@ -54,8 +54,8 @@ Patient ID -> date, time, reason, documentation
 20. Does diabetes affect Asian people more than arthritis?
 
 ## Sample Data
-![Patient](./Patient.png)
-![Patient](./medical_checkups-1.png)
+![Patient](./Sample_Data.png)
+<!-- ![Patient](./medical_checkups-1.png)
 ![Patient](./Region-1.png)
 ![Patient](./Disease-1.png)
-![Patient](./Treatment-1.png)
+![Patient](./Treatment-1.png) -->
