@@ -23,4 +23,4 @@ There are five entities in our system, each with unique properties and primary k
 ![ERD](/updated_ER.drawio-1.png)
 
 
-![Patient](./Patient.jpg)
+<!-- ![Patient](./Patient.jpg) -->
