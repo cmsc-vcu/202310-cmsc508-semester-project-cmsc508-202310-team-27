@@ -31,6 +31,8 @@ Treatment ID -> stage, cost, treatment options
 Medical Check-up(<ins>Patient ID</ins>, date, time, reason, documentation)<br />
 Patient ID -> date, time, reason, documentation
 
+The relational schema above shows the domains of each relation and underlined are primary keys.
+
 ## Queries
 1. What stage of cancer of this patient in?
 2. The cost of the Alzheimer’s treatment?
