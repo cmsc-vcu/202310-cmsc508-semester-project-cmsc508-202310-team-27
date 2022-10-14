@@ -19,10 +19,12 @@ Patient (<ins>Patient ID</ins>, gender, age, ethnicity, socioeconomic)<br />
 Region (<ins>Country</ins>, Nationality, Environment)<br />
 Disease (<ins>Name</ins>, Type, transmission, communicable, fatality)<br />
 Treatment (<ins>Treatment ID</ins>, stage, cost, treatment options)<br />
-Medical Check-up(<ins>Patient ID</ins>, date, time, reason, documentation)<br />
-# Functional Dependency
+Medical_CheckUp(<ins>Patient ID</ins>, date, time, reason, documentation)<br />
+DiseaseChkUp(<ins>CheckUp_ID,Disease_ID</ins>)<br />
+DrChkUp(<ins>Doctor_ID, CheckUp_ID</ins>)<br />
 
-Patient ID -> gender, age, ethnicity, socioeconomic
+# Functional Dependency
+Patient ID -> gender, age, ethnicity, socioeconomic<br />
 Country -> Nationality, Environment<br />
 Name -> Type, transmission, communicable, fatality<br />
 Treatment ID -> stage, cost, treatment options<br />
