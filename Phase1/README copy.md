@@ -22,6 +22,7 @@ There are five entities in our system, each with unique properties and primary k
 # Relational Schema and FDs
 
 Patient (Patient ID, gender, age, ethnicity, socioeconomic)
+
 Patient ID -> gender, age, ethnicity, socioeconomic
 
 Region (Country, Nationality, Environment)
