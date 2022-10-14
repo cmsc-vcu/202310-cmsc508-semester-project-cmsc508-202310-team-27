@@ -19,16 +19,16 @@ We will use various data sets for this project’s entities, such as diseases, p
 Patient (<ins>Patient ID</ins>, gender, age, ethnicity, socioeconomic)<br />
 Patient ID -> gender, age, ethnicity, socioeconomic
 
-Region (Country, Nationality, Environment)<br />
+Region (<ins>Country</ins>, Nationality, Environment)<br />
 Country -> Nationality, Environment
 
-Disease (Name, Type, transmission, communicable, fatality)<br />
+Disease (<ins>Name</ins>, Type, transmission, communicable, fatality)<br />
 Name -> Type, transmission, communicable, fatality
 
-Treatment (Treatment ID, stage, cost, treatment options)<br />
+Treatment (<ins>Treatment ID</ins>, stage, cost, treatment options)<br />
 Treatment ID -> stage, cost, treatment options
 
-Medical Check-up(Patient ID, date, time, reason, documentation)<br />
+Medical Check-up(<ins>Patient ID</ins>, date, time, reason, documentation)<br />
 Patient ID -> date, time, reason, documentation
 
 ## Queries
