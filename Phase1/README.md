@@ -16,20 +16,22 @@ We will use various data sets for this project’s entities, such as diseases, p
 
 ## Relational Schema and FDs
 
-Patient (Patient ID, gender, age, ethnicity, socioeconomic)<br />
+Patient (<ins>Patient ID</ins>, gender, age, ethnicity, socioeconomic)<br />
 Patient ID -> gender, age, ethnicity, socioeconomic
 
-Region (Country, Nationality, Environment)<br />
+Region (<ins>Country</ins>, Nationality, Environment)<br />
 Country -> Nationality, Environment
 
-Disease (Name, Type, transmission, communicable, fatality)<br />
+Disease (<ins>Name</ins>, Type, transmission, communicable, fatality)<br />
 Name -> Type, transmission, communicable, fatality
 
-Treatment (Treatment ID, stage, cost, treatment options)<br />
+Treatment (<ins>Treatment ID</ins>, stage, cost, treatment options)<br />
 Treatment ID -> stage, cost, treatment options
 
-Medical Check-up(Patient ID, date, time, reason, documentation)<br />
+Medical Check-up(<ins>Patient ID</ins>, date, time, reason, documentation)<br />
 Patient ID -> date, time, reason, documentation
+
+The domain of each relationship is shown in the relational schemas and functional dependence above, and the primary keys are underlined. The distinctive identifiers between the two tables that are related will be my foreign keys. As an example of the link between the Patient and Region, consider Patient ID and Country.
 
 ## Queries
 1. What stage of cancer of this patient in?
@@ -58,4 +60,4 @@ Patient ID -> date, time, reason, documentation
 <!-- ![Patient](./medical_checkups-1.png)
 ![Patient](./Region-1.png)
 ![Patient](./Disease-1.png)
-![Patient](./Treatment-1.png) -->
+![Patient](./Treatment-1.png)
