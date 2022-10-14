@@ -31,7 +31,7 @@ Treatment ID -> stage, cost, treatment options
 Medical Check-up(<ins>Patient ID</ins>, date, time, reason, documentation)<br />
 Patient ID -> date, time, reason, documentation
 
-The relational schema above shows the domains of each relation and underlined are primary keys.
+The domain of each relationship is shown in the relational schemas and functional dependence above, and the primary keys are underlined. The distinctive identifiers between the two tables that are related will be my foreign keys. As an example of the link between the Patient and Region, consider Patient ID and Country.
 
 ## Queries
 1. What stage of cancer of this patient in?
