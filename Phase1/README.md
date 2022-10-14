@@ -7,4 +7,4 @@ For example, here is an example of embedding an image in the README.md file. Thi
 
 ![MySql logo](./logo-mysql-170x115.png "mysql description")
 
-![Patient](./Patient.pdf)
+![Patient](./Patient.png)
