@@ -14,22 +14,19 @@ We will use various data sets for this project’s entities, such as diseases, p
 # ER Diagram
 ![ERD](updated_ER.drawio-1.png)
 
-# Relational Schemas and FDs
-
+# Relational Schemas
 Patient (<ins>Patient ID</ins>, gender, age, ethnicity, socioeconomic)<br />
-Patient ID -> gender, age, ethnicity, socioeconomic
-
 Region (<ins>Country</ins>, Nationality, Environment)<br />
-Country -> Nationality, Environment
-
 Disease (<ins>Name</ins>, Type, transmission, communicable, fatality)<br />
-Name -> Type, transmission, communicable, fatality
-
 Treatment (<ins>Treatment ID</ins>, stage, cost, treatment options)<br />
-Treatment ID -> stage, cost, treatment options
-
 Medical Check-up(<ins>Patient ID</ins>, date, time, reason, documentation)<br />
-Patient ID -> date, time, reason, documentation
+# Functional Dependency
+
+Patient ID -> gender, age, ethnicity, socioeconomic
+Country -> Nationality, Environment<br />
+Name -> Type, transmission, communicable, fatality<br />
+Treatment ID -> stage, cost, treatment options<br />
+Patient ID -> date, time, reason, documentation<br />
 
 The domain of each relationship is shown in the relational schemas and functional dependence above, and the primary keys are underlined. The distinctive identifiers between the two tables that are related will be my foreign keys. As an example of the link between the Patient and Region, consider Patient ID and Country.
 
