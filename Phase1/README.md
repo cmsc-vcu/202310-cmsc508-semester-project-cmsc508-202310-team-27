@@ -11,10 +11,10 @@ In light of today’s modern society, scientists around the world are innovating
 We will use various data sets for this project’s entities, such as diseases, people, gender, ages, and doctor’s appointments, to create linkages between them. We want to be able to retrieve certain information based on specified attributes, hence the goal of our project is to build a database to find the linkages between the entities. For instance, if we need to obtain information about a primary key, we can just type its ID into the data set and receive all of the pertinent details.<br />
 &nbsp; &nbsp; &nbsp; &nbsp;There are five entities in our system, each with unique properties and primary keys that define data sets. We are able to establish relationships between the entities using these entities, such as Person to Doctor. We will be able to use queries to discover specific information thanks to the development of this database. 
 
-## ER Diagram
+# ER Diagram
 ![ERD](updated_ER.drawio-1.png)
 
-## Relational Schemas and FDs
+# Relational Schemas and FDs
 
 Patient (<ins>Patient ID</ins>, gender, age, ethnicity, socioeconomic)<br />
 Patient ID -> gender, age, ethnicity, socioeconomic
@@ -33,7 +33,7 @@ Patient ID -> date, time, reason, documentation
 
 The domain of each relationship is shown in the relational schemas and functional dependence above, and the primary keys are underlined. The distinctive identifiers between the two tables that are related will be my foreign keys. As an example of the link between the Patient and Region, consider Patient ID and Country.
 
-## Queries
+# Queries
 1. What stage of cancer of this patient in?
 2. The cost of the Alzheimer’s treatment?
 3. How many people have this disease?
@@ -55,7 +55,7 @@ The domain of each relationship is shown in the relational schemas and functiona
 19. Does Parkinson’s disease affect Asian people more so than European?
 20. Does diabetes affect Asian people more than arthritis?
 
-## Sample Data
+# Sample Data
 ![Patient](./Doc1-1.png)
 <!-- <!-- ![Patient](./medical_checkups-1.png) -->
 ![Patient](./Doc1-2.png)
