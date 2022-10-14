@@ -16,12 +16,15 @@ We will use various data sets for this project’s entities, such as diseases, p
 
 # Relational Schemas
 Patient (<ins>Patient ID</ins>, gender, age, ethnicity, socioeconomic)<br />
-Region (<ins>Country</ins>, Nationality, Environment)<br />
-Disease (<ins>Name</ins>, Type, transmission, communicable, fatality)<br />
-Treatment (<ins>Treatment ID</ins>, stage, cost, treatment options)<br />
+Gets(<ins>Patient ID,....</ins>)<br />
 Medical_CheckUp(<ins>Patient ID</ins>, date, time, reason, documentation)<br />
+Diagnose(<ins>Patient_ID,Name</ins>)<br />
+Disease (<ins>Name</ins>, Type, transmission, communicable, fatality)<br />
+Region (<ins>Country</ins>, Nationality, Environment)<br />
+Present(<ins>Country, Name</ins>)<br />
+Treatment (<ins>Treatment ID</ins>, stage, cost, treatment options)<br />
 DiseaseChkUp(<ins>CheckUp_ID,Disease_ID</ins>)<br />
-DrChkUp(<ins>Doctor_ID, CheckUp_ID</ins>)<br />
+Location(<ins>Patient_ID, Country</ins>)<br />
 
 # Functional Dependency
 Patient ID -> gender, age, ethnicity, socioeconomic<br />
