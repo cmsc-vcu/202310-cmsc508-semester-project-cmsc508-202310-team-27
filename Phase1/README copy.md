@@ -10,15 +10,15 @@ In light of today’s modern society, scientists around the world are innovating
 &nbsp; &nbsp; &nbsp; &nbsp;The biology department at Virginia Commonwealth University is in need of a database that allows for a quick and easy retrieval of data associated with certain key concepts or names and attributes. It seems like they have too much data everywhere in their system,
 making it difficult for them to group their patients into their corresponding type of disease and treatments for them. Data is to be stored about patients, diseases, ages, and doctor’s appointment. This data includes the disease name, complications, activity habits, and family history, Data to be stored about the patients include location in between doctor’s appointments, patient’s ID, date when they weren’t visiting the doctor. Data stored about the doctor’s visit include the date the patients visited the doctors, and time.
 
-# Database Description
+## Database Description
 We will use various data sets for this project’s entities, such as diseases, people, gender, ages, and doctor’s appointments, to create linkages between them. We want to be able to retrieve certain information based on specified attributes, hence the goal of our project is to build a database to find the linkages between the entities. For instance, if we need to obtain information about a primary key, we can just type its ID into the data set and receive all of the pertinent details.
 
 &nbsp; &nbsp; &nbsp; &nbsp;There are five entities in our system, each with unique properties and primary keys that define data sets. We are able to establish relationships between the entities using these entities, such as Person to Doctor. We will be able to use queries to discover specific information thanks to the development of this database. 
 
-# ER Diagram
+## ER Diagram
 ![ERD](/updated_ER.drawio-1.png)
 
-# Relational Schema and FDs
+## Relational Schema and FDs
 
 Patient (Patient ID, gender, age, ethnicity, socioeconomic)<br />
 Patient ID -> gender, age, ethnicity, socioeconomic
@@ -35,7 +35,7 @@ Treatment ID -> stage, cost, treatment options
 Medical Check-up(Patient ID, date, time, reason, documentation)<br />
 Patient ID -> date, time, reason, documentation
 
-# Queries
+## Queries
 1. What stage of cancer of this patient in?
 2. The cost of the Alzheimer’s treatment?
 3. How many people have this disease?
@@ -57,5 +57,5 @@ Patient ID -> date, time, reason, documentation
 19. Does Parkinson’s disease affect Asian people more so than European?
 20. Does diabetes affect Asian people more than arthritis?
 
-# Sample Data
-![Patient](./Patient.jpg)
+## Sample Data
+![Patient](./Patient.png)
