@@ -16,7 +16,7 @@ We will use various data sets for this project’s entities, such as diseases, p
 
 ## Relational Schema and FDs
 
-Patient (Patient ID, gender, age, ethnicity, socioeconomic)<br />
+Patient (<insPatient ID>, gender, age, ethnicity, socioeconomic)<br />
 Patient ID -> gender, age, ethnicity, socioeconomic
 
 Region (Country, Nationality, Environment)<br />
