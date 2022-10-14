@@ -14,7 +14,7 @@ We will use various data sets for this project’s entities, such as diseases, p
 # ER Diagram
 ![ERD](updated_ER.drawio-1.png)
 
-A database is in Boyce-Codd Normal Form if every non-prime attribute depends on every other prime attribute and there is no functional redundancy. This is how our diagram is defined since each characteristic solely depends on the distinct ID that characterizes each schema.
+A database is in Boyce-Codd Normal Form if every non-prime attribute depends on every other prime attribute and there is no functional redundancy. You can see that this is how our diagram is constructed based on the concept of a BCNF as each non-prime attribute exclusively depends on the prime attribute that distinguishes each schema. A database is in 4NF if there are no multi-value dependencies and based on this diagram, we don't have any multi-value dependencies. A database is 4NF if there are no multi-value dependencies, and according to this diagram, there aren't any.
 
 # Relational Schemas
 Patient (<ins>Patient ID</ins>, gender, age, ethnicity, socioeconomic)<br />
