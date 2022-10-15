@@ -78,4 +78,5 @@ The listing of relations is shown in the relational schemas and functional depen
 <!-- <!-- ![Patient](./medical_checkups-1.png) -->
 ![Patient](./Doc1-2.png)
 ![Patient](./Doc1-3.png)
+![Patient](./Doc1-4.png)
 
