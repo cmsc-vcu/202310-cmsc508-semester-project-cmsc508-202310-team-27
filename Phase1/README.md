@@ -18,7 +18,7 @@ A database is in Boyce-Codd Normal Form if every non-prime attribute depends on 
 
 # Relational Schemas
 Patient (<ins>Patient ID</ins>, gender, age, ethnicity, socioeconomic)<br />
-Gets(<ins>Patient ID,....</ins>)<br />
+Gets(<ins>Patient ID,Check-up_ID</ins>)<br />
 Medical_CheckUp(<ins>Patient ID</ins>, date, time, reason, documentation)<br />
 Diagnose(<ins>Patient_ID,Name</ins>)<br />
 Disease (<ins>Name</ins>, Type, transmission, communicable, fatality)<br />
@@ -32,7 +32,7 @@ DrCheckUp(<ins>Dr_ID,CheckUp_ID</ins>)<br />
 
 # Functional Dependency
 Patient_ID -> gender, age, ethnicity, socioeconomic<br />
-Patient_ID, -> <br />
+Patient_ID,Check-up_ID -> <br />
 Patient_ID -> date, time, reason, documentation<br />
 Patient_ID,Name -> <br />
 Name -> Type, transmission, communicable, fatality<br />
