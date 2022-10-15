@@ -18,10 +18,12 @@ A database is in Boyce-Codd Normal Form if every non-prime attribute depends on 
 
 # Relational Schemas
 Patient (<ins>Patient ID</ins>, gender, age, ethnicity, socioeconomic)<br />
-Gets(<ins>Patient ID,....</ins>)<br />
-Medical_CheckUp(<ins>Patient ID</ins>, date, time, reason, documentation)<br />
+Gets(<ins>Patient ID,Check-up_ID</ins>)<br />
+Medical_CheckUp(<ins>Check-up_ID</ins>, date, time, reason, documentation)<br />
 Diagnose(<ins>Patient_ID,Name</ins>)<br />
-Disease (<ins>Name</ins>, Type, transmission, communicable, fatality)<br />
+Perform(<ins>Check-up_ID,Doctor_ID</ins>)<br />
+Doctor(<ins>Doctor_ID</ins>, Name)<br />
+Disease (<ins>Disease_ID</ins>, Name, Type, transmission, communicable, fatality)<br />
 Region (<ins>Country</ins>, Nationality, Environment)<br />
 Present(<ins>Country, Name</ins>)<br />
 Treatment (<ins>Treatment ID</ins>, stage, cost, treatment_Opt)<br />
@@ -32,11 +34,14 @@ DrCheckUp(<ins>Dr_ID,CheckUp_ID</ins>)<br />
 
 # Functional Dependency
 Patient_ID -> gender, age, ethnicity, socioeconomic<br />
-Patient_ID, -> <br />
+Patient_ID,Check-up_ID -> <br />
 Patient_ID -> date, time, reason, documentation<br />
 Patient_ID,Name -> <br />
-Name -> Type, transmission, communicable, fatality<br />
+Disease_ID -> Name, Type, transmission, communicable, fatality<br />
+Check-up_ID,Doctor_ID -> <br />
+Doctor_ID -> Name <br />
 Country -> Nationality, Environment<br />
+Country, Name -> <br />
 Country,Name -><br />
 Treatment_ID -> stage, cost, treatment_Opt<br />
 CheckUp_ID,Disease_ID ->
@@ -74,3 +79,4 @@ The listing of relations is shown in the relational schemas and functional depen
 ![Patient](./Doc1-2.png)
 ![Patient](./Doc1-3.png)
 ![Patient](./Doc1-4.png)
+
