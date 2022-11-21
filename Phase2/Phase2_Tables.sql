@@ -117,7 +117,7 @@ CREATE TABLE Disease(
 DROP TABLE IF EXISTS Treatment;
 CREATE TABLE Treatment(
     Treatment_ID INT NOT NULL,
-    Treatment_stage VARCHAR(255) NOT NULL,
+    Treatment_stage INT NOT NULL,
     Treatment_cost INT NOT NULL,
     Treatment_option VARCHAR(255) NOT NULL,
 
@@ -263,8 +263,16 @@ SELECT * FROM Region;
 
 
 INSERT INTO Medical_Check_up(Medical_Check_up_ID, Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation) VALUES
-
-  ;
+  (111,"3/23/19","12:00 PM","High temperature","The patient has high temperature"),
+  (745,"2/27/15","4:45 PM","Headaches","The patient has a headache and hasn't been able to sleep well due to this, therefore, more test will be done"),
+  (944,"10/23/18","8:30 AM","High temperature","The patient has high temperature"),
+  (43,"6/22/15","6:20 AM","Bladder changes	The patient needs further test"),
+  (564,"4/13/20","6:55 PM","Cough","The patient is not feeling good, has a really bad cough"),
+  (943,"5/16/20","5:50 PM","Eating problems	Patient has not appetite"),
+  (200,"12/22/22","11:30 AM","Severe fatigue","The patient has fainted due to fatigue"),
+  (223,"6/20/21","7:23 AM","Trouble urinating","The patient hasn't been able to urinate properly and occasional bladder pain is involved"),
+  (102,"11/15/22","10:30 AM","Nausea","The patient has been feeling nauseous for the past week"),
+  (434,"1/27/18","8:50 AM","Nose bleeding","The patient is suffering form severe dehydration");
 
 SELECT * FROM Medical_Check_up;
 
@@ -330,15 +338,15 @@ SELECT * FROM Treatment;
 
 
 INSERT INTO Doctor(Doctor_ID, Doctor_name) VALUES
-  (1,"Dr. Shepherd"),
-  (2,"Dr. McIness"),
-  (3,	"Dr.Tang"),
-  (4,	"Dr.Roland"),
-  (5,	"Dr. Albert"),
-  (6,	"Dr. Kim"),
-  (7,	"Dr. Tran"),
-  (8,	"Dr. Ramirez"),
-  (9,	"Dr. Ruiz"),
-  (10,	"Dr. Camero");
+  (1,"Dr.Shepherd"),
+  (2,"Dr.McIness"),
+  (3,"Dr.Tang"),
+  (4,"Dr.Roland"),
+  (5,"Dr.Albert"),
+  (6,"Dr.Lopez"),
+  (7,"Dr.Tran"),
+  (8,"Dr.Ramirez"),
+  (9,"Dr.Ruiz"),
+  (10,"Dr.Camero");
 
 SELECT * FROM Doctor;
