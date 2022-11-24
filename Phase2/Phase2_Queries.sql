@@ -4,27 +4,23 @@
 -- What stage of cancer is this patient in?
 -- (skills: select, aggregate)
 
-SELECT
-    CONCAT(Patient_first_name, ' ', Patient_last_name) AS "Name",
-    Disease_stage,
-    Disease_name
-FROM
-    Patient a 
-LEFT JOIN Disease b ON (Patient_ID = Disease_Patient_ID)
-WHERE 
-    1=1
-    AND Disease_name LIKE 'Cancer'
-ORDER BY Disease_stage, Disease_name;
+SELECT CONCAT(Patient_first_name,' ', Patient_last_name)
+        AS "Name",Disease_name, Disease_stage
+FROM Patient a
+LEFT JOIN Disease b
+    ON (Patient_ID = Disease_Patient_ID)
+WHERE 1=1
+        AND Disease_name LIKE 'Cancer'
+ORDER BY  Disease_stage, Disease_name;
 
 -- task 2
 -- Write a query to display the cost of the Alzheimer’s treatment?
--- (skills: select, limit)
+-- (skills: select, join)
 
-SELECT 
-    Disease_name,
-    Treatment_cost
-FROM Disease a 
-LEFT JOIN Treatment b ON (Disease_ID = Treatment_Disease_ID)
+SELECT Disease_name, Treatment_cost
+FROM Disease a
+LEFT JOIN Treatment b
+    ON (Disease_ID = Treatment_Disease_ID)
 WHERE Disease_name = "Alzheimer";
 
 -- task 3
@@ -33,22 +29,18 @@ WHERE Disease_name = "Alzheimer";
 -- Write a query to list all the patients that have cancer
 -- (skills: select, where)
 
-SELECT 
-    Disease_ID as People,
-    Disease_name
+SELECT Disease_ID AS People, Disease_name
 FROM Disease
-WHERE
-    Disease_name LIKE 'Cancer';
+WHERE Disease_name LIKE 'Cancer';
 
 -- task 4
 -- What is the fatality rate of COVID in Mexico?
 -- (skills: select, Join)
 
-SELECT 
-    Region_country_short_name,
-    Disease_fatality
-FROM Region a 
-    JOIN Disease b ON (Region_Disease_ID = Disease_ID)
+SELECT Region_country_short_name, Disease_fatality
+FROM Region a
+JOIN Disease b
+    ON (Region_Disease_ID = Disease_ID)
 WHERE Region_country_short_name = 'Mexico';
 
 -- task 5
@@ -57,26 +49,25 @@ WHERE Region_country_short_name = 'Mexico';
 -- (there are several possible ways to code this in SQL)
 -- (skills: select, aggregate, order by)
 
-SELECT  
-    Disease_name,
-    Treatment_option
-FROM Treatment a 
-JOIN Disease b ON (Disease_ID = Treatment_Disease_ID)
-WHERE 
-    1=1
-    AND Disease_name = 'Ebola';
+SELECT Disease_name, Treatment_option
+FROM Treatment a
+JOIN Disease b
+    ON (Disease_ID = Treatment_Disease_ID)
+WHERE 1=1
+        AND Disease_name = 'Ebola';
 
 
 -- task 6
 -- What date did the patients receive their check-up in the hospital?
 -- (skills: select, order by)
 
-SELECT 
-    CONCAT(Patient_first_name,' ',Patient_last_name) AS 'Patient',
-    Medical_Check_up_date
-FROM Patient a 
-JOIN Medical_Check_up b ON (Patient_ID = Medical_Check_up_Patient_ID)
-ORDER BY Medical_Check_up_date;
+SELECT CONCAT(Patient_first_name,' ',Patient_last_name)
+        AS 'Patient', 
+        Medical_Check_up_date
+FROM Patient a
+JOIN Medical_Check_up b
+    ON (Patient_ID = Medical_Check_up_Patient_ID)
+ORDER BY  Medical_Check_up_date;
 
 -- task 7
 -- How is the flu transmitted?
@@ -84,23 +75,20 @@ ORDER BY Medical_Check_up_date;
 
 SELECT *
 FROM Disease
-WHERE
-    1=1
-    AND Disease_name = 'Flu';
+WHERE 1=1
+        AND Disease_name = 'Flu';
 
 -- task 8
 -- How many Asian people have the mad cow disease?
 -- (skills: select, where, aggregate)
 
-SELECT 
-    count(Patient_ethnicity) as 'Ethnicity',
-    Disease_name
-FROM Patient a 
-JOIN Disease b ON (Patient_ID = Disease_Patient_ID)
-WHERE
-    1=1
-    AND Disease_name LIKE 'Mad Cow'
-GROUP BY disease_name;
+SELECT count(Patient_ethnicity) AS 'Ethnicity', Disease_name
+FROM Patient a
+JOIN Disease b
+    ON (Patient_ID = Disease_Patient_ID)
+WHERE 1=1
+        AND Disease_name LIKE 'Mad Cow'
+GROUP BY  disease_name;
 
 -- task 9
 -- Leukemia is a very serious disease that depending on the stage
@@ -108,70 +96,49 @@ GROUP BY disease_name;
 -- What is the curability of stage II Leukemia?
 -- (skills: select, where, order by)
 
-SELECT 
-country_code,
-country_short_name,
-country_abbr,
-country_wb_abbr,
-country_region
-FROM COUNTRY
-WHERE
-1=1
-AND country_abbr != country_wb_abbr
-ORDER BY country_abbr, country_wb_abbr;
+SELECT
+FROM
+WHERE 1=1
+        AND
+ORDER BY  ;
 
 -- task 10
--- Now, let's investigate the "income category" field.
--- List the income categories and the number of countries in each in 
--- descending order of most countries to least.
+-- When is the next medical checkup for this specific person?
 -- (skills: select, aggregate, group by, order by)
 
-SELECT 
-country_income_category,
-COUNT(*) AS Countries
-FROM COUNTRY
-GROUP BY country_income_category
-ORDER BY 2 DESC;
+SELECT
+FROM
+GROUP BY  ;
 
 -- task 11
--- mystery task.  Looking at the table from Task 10, write the
--- next obvious query based on the results in the table.
--- At a minimum, your query should put country short name in the first column.
--- you will be scored on the number of records returned and the value(s) 
--- in the first column.
+-- What is the socioeconomic of this patient?
 
-SELECT 
-country_short_name,
-country_income_category,
-country_region
-FROM COUNTRY
-WHERE
-1=1
-AND country_income_category = '';
+SELECT
+FROM
+WHERE 1=1
+        AND ;
 
 -- task 12
--- OK, this HAS to be an error. Let's make a assumption that the country 
--- in question, because they are oil-rich, are "high income".  
--- Write an update comment to correct the issue.
--- NOTE - if you get this wrong, all subsequent tables will be wrong!
+-- List every patient's medical history?
 
-UPDATE COUNTRY
-SET country_income_category = 'High income'  
-WHERE country_income_category = '';
+SELECT
+FROM
+WHERE 1=1
+        AND ;
 
 -- task 13
 -- Write a single query that shows the reason for the patients medical checkups 
 -- Display first name and last name of the patients and order by medical checkups
 -- (skills: select, Left Join, order by)
 
-SELECT 
-    CONCAT(Patient_first_name, ' ', Patient_last_name) AS "Name",
-    Medical_Check_up_reason
+SELECT CONCAT(Patient_first_name,' ', Patient_last_name)
+        AS "Name", Medical_Check_up_reason
 FROM Patient a
-LEFT JOIN Medical_Check_up b ON (Patient_ID = Medical_Check_up_Patient_ID)
-ORDER BY Medical_Check_up_reason;
+LEFT JOIN Medical_Check_up b
+    ON (Patient_ID = Medical_Check_up_Patient_ID)
+ORDER BY  Medical_Check_up_reason;
 
-
+------------------------------------PASSED THIS LINE, EVERYTHING NEEDS EDITING----------------------------------------------------------
 -- task 14
 -- Examine the result from task 13. It would be really cool to
 -- present the results of this table in a 2-D form, with 
@@ -185,12 +152,12 @@ ORDER BY Medical_Check_up_reason;
 -- (skills: select, aggregate, group by, nested query)
 
 SELECT
-country_region,
-SUM(CASE WHEN country_income_category = "High income" THEN country_count ELSE 0 END) AS High,
-SUM(CASE WHEN country_income_category = "Upper middle income" THEN country_count ELSE 0 END) AS Upper_Middle,
-SUM(CASE WHEN country_income_category = "Lower middle income" THEN country_count ELSE 0 END) AS Lower_Middle,
-SUM(CASE WHEN country_income_category = "Low income" THEN country_count ELSE 0 END) AS Low,
-SUM(country_count) AS "Row_Total"
+    country_region,
+    SUM(CASE WHEN country_income_category = "High income" THEN country_count ELSE 0 END) AS High,
+    SUM(CASE WHEN country_income_category = "Upper middle income" THEN country_count ELSE 0 END) AS Upper_Middle,
+    SUM(CASE WHEN country_income_category = "Lower middle income" THEN country_count ELSE 0 END) AS Lower_Middle,
+    SUM(CASE WHEN country_income_category = "Low income" THEN country_count ELSE 0 END) AS Low,
+    SUM(country_count) AS "Row_Total"
 FROM COUNTRY
 GROUP BY 
 country_region
