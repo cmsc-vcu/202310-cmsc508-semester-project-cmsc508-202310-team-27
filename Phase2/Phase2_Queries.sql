@@ -42,7 +42,7 @@ WHERE
 
 -- task 4
 -- What is the fatality rate of COVID in Mexico?
--- (skills: select, aggregate)
+-- (skills: select, Join)
 
 SELECT 
     Region_country_short_name,
@@ -52,55 +52,55 @@ FROM Region a
 WHERE Region_country_short_name = 'Mexico';
 
 -- task 5
--- Let's investigate the country_region field.
--- What is the domain of the country_region field? That is,
--- what are the unique values found there?
+-- What is the domain of the treatment_option field? That is,
+-- what treatment is viable for Ebola?
 -- (there are several possible ways to code this in SQL)
 -- (skills: select, aggregate, order by)
 
 SELECT  
-country_region
-FROM COUNTRY
-GROUP BY country_region;
+    Disease_name,
+    Treatment_option
+FROM Treatment a 
+JOIN Disease b ON (Disease_ID = Treatment_Disease_ID)
+WHERE 
+    1=1
+    AND Disease_name = 'Ebola';
 
 
 -- task 6
--- How many countries are in each region?
--- (skills: select, aggregate, group by, order by)
+-- What date did the patients receive their check-up in the hospital?
+-- (skills: select, order by)
 
 SELECT 
-country_region,
-COUNT(country_short_name)
-FROM COUNTRY
-GROUP BY country_region
-ORDER BY 2 DESC;
+    CONCAT(Patient_first_name,' ',Patient_last_name) AS 'Patient',
+    Medical_Check_up_date
+FROM Patient a 
+JOIN Medical_Check_up b ON (Patient_ID = Medical_Check_up_Patient_ID)
+ORDER BY Medical_Check_up_date;
 
 -- task 7
--- List the country full names and regions for all countries in north america
--- (skills: select, where, order by)
-
-SELECT 
-country_full_name,
-country_region
-FROM COUNTRY
-WHERE
-1=1
-AND country_region = 'North America'
-ORDER BY country_region;
-
--- task 8
--- The World Cup soccer tournament starts November 20.  The host country is Qatar.
--- What region contains Qatar?  List the region, country short name and full name
+-- How is the flu transmitted?
 -- (skills: select, where)
 
-SELECT 
-country_region,
-country_short_name,
-country_full_name
-FROM COUNTRY
+SELECT *
+FROM Disease
 WHERE
-1=1
-AND country_short_name = 'Qatar';
+    1=1
+    AND Disease_name = 'Flu';
+
+-- task 8
+-- How many Asian people have the mad cow disease?
+-- (skills: select, where, aggregate)
+
+SELECT 
+    count(Patient_ethnicity) as 'Ethnicity',
+    Disease_name
+FROM Patient a 
+JOIN Disease b ON (Patient_ID = Disease_Patient_ID)
+WHERE
+    1=1
+    AND Disease_name LIKE 'Mad Cow'
+GROUP BY disease_name;
 
 -- task 9
 -- There are two abbreviation fields in the data country_abbr and country_wb_abbr.
