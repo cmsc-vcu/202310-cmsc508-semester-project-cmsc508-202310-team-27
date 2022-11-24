@@ -48,7 +48,7 @@ SELECT
     Region_country_short_name,
     Disease_fatality
 FROM Region a 
-LEFT JOIN Disease b ON (Disease_ID = Region_Disease_ID)
+    JOIN Disease b ON (Region_Disease_ID = Disease_ID)
 WHERE Region_country_short_name = 'Mexico';
 
 -- task 5

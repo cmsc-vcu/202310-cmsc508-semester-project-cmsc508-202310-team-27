@@ -5,12 +5,14 @@
 -- store your drop table statements in this block
 --
 
+SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS Patient;
 DROP TABLE IF EXISTS Region;
 DROP TABLE IF EXISTS Medical_Check_up;
 DROP TABLE IF EXISTS Disease;
 DROP TABLE IF EXISTS Treatment;
 DROP TABLE IF EXISTS Doctor;
+SET FOREIGN_KEY_CHECKS = 1;
 
 -- task 2 - Create "Patient" table
 -- label the columns using the following schema:
@@ -162,7 +164,7 @@ INSERT INTO Patient(Patient_ID, Patient_first_name, Patient_last_name, Patient_g
   (2,"Luz","Jackson","Female",23,"White","Middle Class"),
   (3,"Alex","Carter","Male",54,"Asian","Low Class"),
   (4,"Kim","Long","Male",44,"African American","High Class"),
-  (5,"Praisy","Biguvu","Female"5,"Latinx","High Class"),
+  (5,"Praisy","Biguvu","Female",15,"Latinx","High Class"),
   (6,"Maisha","Mahamood","Female",50,"Latinx","Low Class"),
   (7,"Mir","Ali","Male",43,	"Asian","Middle Class"),
   (8,"David","Coleman","Male",56,"African American","High Class"),
@@ -193,11 +195,11 @@ INSERT INTO Patient(Patient_ID, Patient_first_name, Patient_last_name, Patient_g
   (33,"Jillian","Anderson","Male",99,"White","High Class"),
   (34,"Carlos","Johnson","Male",55,"Asian","Low Class"),
   (35,"Anthony","Williams","Male",20,"Asian","Middle Class"),
-  (36,"Jodi","Hughes","Male"8,"Asian","High Class"),
-  (37,"Brent","Ross","Male"6,"White","Low Class"),
-  (38,"Luke","Turner","Male"9,"African American","High Class"),
-  (39,"Frank","Davis","Male"2,"African American","Middle Class"),
-  (40,"Karen","Rosales","Female"5,"Latinx","Middle Class");
+  (36,"Jodi","Hughes","Male",18,"Asian","High Class"),
+  (37,"Brent","Ross","Male",60,"White","Low Class"),
+  (38,"Luke","Turner","Male",19,"African American","High Class"),
+  (39,"Frank","Davis","Male",22,"African American","Middle Class"),
+  (40,"Karen","Rosales","Female",35,"Latinx","Middle Class");
 
 SELECT * FROM Patient;
 
