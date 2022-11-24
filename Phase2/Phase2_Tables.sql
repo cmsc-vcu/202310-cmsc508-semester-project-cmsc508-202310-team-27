@@ -49,14 +49,15 @@ CREATE TABLE Patient(
 
 DROP TABLE IF EXISTS Region;
 CREATE TABLE Region(
+    Region_Disease_ID INT NOT NULL,
     Region_country_code VARCHAR(255) NOT NULL,
     Region_country_short_name VARCHAR(255),
     Region_nationality VARCHAR(255),
     Region VARCHAR(255),
     Region_environment VARCHAR(255),
 
-    primary key(Region_country_code)
-);
+    primary key(Region_country_code),
+    foreign key(Region_Disease_ID) REFERENCES Disease (Disease_ID));
 
 -- task 4 - Create "Medical_Check_up" table
 -- label the columns using the following schema:
@@ -71,14 +72,15 @@ CREATE TABLE Region(
 
 DROP TABLE IF EXISTS Medical_Check_up;
 CREATE TABLE Medical_Check_up(
+    Medical_Check_up_Patient_ID INT NOT NULL,
     Medical_Check_up_ID INT NOT NULL,
     Medical_Check_up_date VARCHAR(255) NOT NULL,
     Medical_Check_up_time VARCHAR(255) NOT NULL,
     Medical_Check_up_reason VARCHAR(255) NOT NULL,
     Medical_Check_up_documentation VARCHAR(255) NOT NULL,
 
-    primary key(Medical_Check_up_ID)
-);
+    primary key(Medical_Check_up_ID),
+    foreign key(Medical_Check_up_Patient_ID) REFERENCES Patient (Patient_ID));
 
 -- task 5 - Create "Disease" table
 -- label the columns using the following schema:
@@ -94,15 +96,17 @@ CREATE TABLE Medical_Check_up(
 
 DROP TABLE IF EXISTS Disease;
 CREATE TABLE Disease(
+    Disease_Patient_ID INT NOT NULL,
     Disease_ID INT NOT NULL,
     Disease_name VARCHAR(255) NOT NULL,
     Disease_type VARCHAR(255) NOT NULL,
+    Disease_stage INT NOT NULL,
     Disease_transmission VARCHAR(255) NOT NULL,
     Disease_communicable VARCHAR(255) NOT NULL,
     Disease_fatality VARCHAR(255) NOT NULL,
 
-    primary key(Disease_ID)
-);
+    primary key(Disease_ID),
+    foreign key(Disease_Patient_ID) REFERENCES Patient (Patient_ID));
 
 -- task 6 - Create "Treatment" table
 -- label the columns using the following schema:
@@ -116,13 +120,14 @@ CREATE TABLE Disease(
 
 DROP TABLE IF EXISTS Treatment;
 CREATE TABLE Treatment(
+    Treatment_Disease_ID INT NOT NULL,
     Treatment_ID INT NOT NULL,
     Treatment_stage INT NOT NULL,
     Treatment_cost INT NOT NULL,
     Treatment_option VARCHAR(255) NOT NULL,
 
-    primary key(Treatment_ID)
-);
+    primary key(Treatment_ID),
+    foreign key(Treatment_Disease_ID) REFERENCES Disease (Disease_ID));
 
 -- task 7 - Create "Doctor" table
 -- label the columns using the following schema:
@@ -207,47 +212,47 @@ SELECT * FROM Patient;
 --     take advantage of the VSCODE colors.
 
 
-INSERT INTO Region(Region_country_code, Region_country_short_name, Region_nationality, Region, Region_environment) VALUES
-  ("ABW","Aruba","Arubans","Latin America & Caribbean","Hot"),
-  ("AFG","Afghanistan","Afghans","South Asia","Dry continental climate"),
-  ("AGO","Angola","Angolans","Sub-Saharan Africa","Warm & Hot"),
-  ("ALB","Albania","Albanians","Europe & Central Asia","Warm & Hot"),
-  ("AND","Andorra","Andorrans","Europe & Central Asia","Warm & Cold"),
-  ("ARE","United Arab Emirates","The Emiratis","Middle East & North Africa","Hot & Cool"),
-  ("ARG","Argentina","Argentinians","Latin America & Caribbean","Mild to Warm && Very Hot "),
-  ("ARM","Armenia","Armenians","Europe & Central Asia","Hot & Cold"),
-  ("ASM","American Samoa","Samoans","East Asia & Pacific","Warm"),
-  ("ATG","Antigua and Barbuda","Antiguans","Latin America & Caribbean","Hot"),
-  ("AUS","Australia","Australians","East Asia & Pacific","Warm & Hot"),
-  ("AUT","Austria","Austrins","Europe & Central Asia","Warm & Humid"),
-  ("AZE","Azerbaijan","Azerbaijani","Europe & Central Asia","Hot & Cold"),
-  ("BDI","Burundi","Burundians","Sub-Saharan Africa","Warm or Hot"),
-  ("BEL","Belgium","Belgians","Europe & Central Asia","Slightly warm & Cold"),
-  ("BEN","Benin","Beninese","Sub-Saharan Africa","Warm"),
-  ("BFA","Burkina Faso","Burkinabé","Sub-Saharan Africa","Hot & Humid"),
-  ("BGD","Bangladesh","Bangladeshi","South Asia","Hot"),
-  ("BGR","Bulgaria","Bulgarians","Europe & Central Asia","Hot & Cold"),
-  ("BHR","Bahrain","Bahrainis","Middle East & North Africa","Hot and Slightly Cold"),
-  ("BHS","The Bahamas","Bahamians","Latin America & Caribbean","Hot"),
-  ("BIH","Bosnia and Herzegovina","Bosanac","Europe & Central Asia","Hot & Cool"),
-  ("BLR","Belarus","Belarusians","Europe & Central Asia","Hot & Cold"),
-  ("BLZ","Belize","Belizeans","Latin America & Caribbean","Hot & Humid"),
-  ("BMU","Bermuda","Bermudians","North America","Hot & Slightly Cold"),
-  ("BOL","Bolivia","Bolivian","Latin America & Caribbean","Hot & Humid"),
-  ("BRA","Brazil","Brazilian","Latin America & Caribbean","Hot & Cold"),
-  ("BRB","Barbados","Barbadians","Latin America & Caribbean","Warm"),
-  ("BRN","Brunei","Bruneian","East Asia & Pacific","Hot"),
-  ("BTN","Bhutan","Bhutanese","South Asia","Hot,Humid & Cold"),
-  ("BWA","Botswana","Batswana","Sub-Saharan Africa","Warm to Hot"),
-  ("CAF","Central African Republic","Sangos","Sub-Saharan Africa","Warm"),
-  ("CAN","Canada","Canadians","North America","Cold"),
-  ("CHE","Switzerland","Swiss","Europe & Central Asia","Warm & Slightly Cold"),
-  ("CHI","Channel Islands","Jersey","Europe & Central Asia","Hot & Cool"),
-  ("CHL","Chile","Chileans","Latin America & Caribbean","Warm"),
-  ("CHN","China","Chinese","East Asia & Pacific","Hot & Cold"),
-  ("CIV","Côte d'Ivoire","Ivorians","Sub-Saharan Africa","Hot & Humid"),
-  ("CMR","Cameroon","Cameroonian","Sub-Saharan Africa","Hot"),
-  ("COD","Dem. Rep. Congo","Congolese","Sub-Saharan Africa","Hot & Humid");
+INSERT INTO Region(Region_Disease_ID, Region_country_code, Region_country_short_name, Region_nationality, Region, Region_environment) VALUES
+  (1,"ABW","Aruba","Arubans","Latin America & Caribbean","Hot"),
+  (2,"AFG","Afghanistan","Afghans","South Asia","Dry continental climate"),
+  (3,"AGO","Angola","Angolans","Sub-Saharan Africa","Warm & Hot"),
+  (4,"ALB","Albania","Albanians","Europe & Central Asia","Warm & Hot"),
+  (5,"AND","Andorra","Andorrans","Europe & Central Asia","Warm & Cold"),
+  (6,"ARE","United Arab Emirates","The Emiratis","Middle East & North Africa","Hot & Cool"),
+  (7,"ARG","Argentina","Argentinians","Latin America & Caribbean","Mild to Warm && Very Hot "),
+  (8,"ARM","Armenia","Armenians","Europe & Central Asia","Hot & Cold"),
+  (9,"ASM","American Samoa","Samoans","East Asia & Pacific","Warm"),
+  (10,"ATG","Antigua and Barbuda","Antiguans","Latin America & Caribbean","Hot"),
+  (11,"AUS","Australia","Australians","East Asia & Pacific","Warm & Hot"),
+  (12,"AUT","Austria","Austrins","Europe & Central Asia","Warm & Humid"),
+  (13,"AZE","Azerbaijan","Azerbaijani","Europe & Central Asia","Hot & Cold"),
+  (14,"BDI","Burundi","Burundians","Sub-Saharan Africa","Warm or Hot"),
+  (15,"BEL","Belgium","Belgians","Europe & Central Asia","Slightly warm & Cold"),
+  (16,"BEN","Benin","Beninese","Sub-Saharan Africa","Warm"),
+  (17,"BFA","Burkina Faso","Burkinabé","Sub-Saharan Africa","Hot & Humid"),
+  (18,"BGD","Bangladesh","Bangladeshi","South Asia","Hot"),
+  (19,"BGR","Bulgaria","Bulgarians","Europe & Central Asia","Hot & Cold"),
+  (20,"BHR","Bahrain","Bahrainis","Middle East & North Africa","Hot and Slightly Cold"),
+  (21,"BHS","The Bahamas","Bahamians","Latin America & Caribbean","Hot"),
+  (22,"BIH","Bosnia and Herzegovina","Bosanac","Europe & Central Asia","Hot & Cool"),
+  (23,"BLR","Belarus","Belarusians","Europe & Central Asia","Hot & Cold"),
+  (24,"BLZ","Belize","Belizeans","Latin America & Caribbean","Hot & Humid"),
+  (25,"BMU","Bermuda","Bermudians","North America","Hot & Slightly Cold"),
+  (26,"BOL","Bolivia","Bolivian","Latin America & Caribbean","Hot & Humid"),
+  (27,"BRA","Brazil","Brazilian","Latin America & Caribbean","Hot & Cold"),
+  (28,"BRB","Barbados","Barbadians","Latin America & Caribbean","Warm"),
+  (29,"BRN","Brunei","Bruneian","East Asia & Pacific","Hot"),
+  (30,"BTN","Bhutan","Bhutanese","South Asia","Hot,Humid & Cold"),
+  (31,"BWA","Botswana","Batswana","Sub-Saharan Africa","Warm to Hot"),
+  (32,"CAF","Central African Republic","Sangos","Sub-Saharan Africa","Warm"),
+  (33,"CAN","Canada","Canadians","North America","Cold"),
+  (34,"CHE","Switzerland","Swiss","Europe & Central Asia","Warm & Slightly Cold"),
+  (35,"CHI","Channel Islands","Jersey","Europe & Central Asia","Hot & Cool"),
+  (36,"CHL","Chile","Chileans","Latin America & Caribbean","Warm"),
+  (37,"MEX","Mexico","Mexicans","North America","Hot & Cold"),
+  (38,"CMR","Cameroon","Cameroonian","Sub-Saharan Africa","Hot"),
+  (39,"COD","Dem. Rep. Congo","Congolese","Sub-Saharan Africa","Hot & Humid"),
+  (40,"GTM","Guatemala","Guatemalans","Central America","Hot & Humid");
 
 SELECT * FROM Region;
 
@@ -262,51 +267,51 @@ SELECT * FROM Region;
 --     take advantage of the VSCODE colors.
 
 
-INSERT INTO Medical_Check_up(Medical_Check_up_ID, Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation) VALUES
-  (110,"03/23/2019","12:00 PM","High temperature","The patient has high temperature"),
-  (111,"02/27/2015","4:45 PM","Headaches","The patient has a headache and hasn't been able to sleep well due to this, therefore, more test will be done"),
-  (112,"10/23/2018","8:30 AM","High temperature","The patient has high temperature"),
-  (113,"06/22/2015","6:20 AM","Bladder changes","The patient needs further test"),
-  (114,"04/13/2020","6:55 PM","Cough","The patient is not feeling good, has a really bad cough"),
-  (115,"05/16/2020","5:50 PM","Eating problems","Patient has not appetite"),
-  (116,"12/22/2022","11:30 AM","Severe fatigue","The patient has fainted due to fatigue"),
-  (117,"06/20/2021","7:23 AM","Trouble urinating","The patient hasn't been able to urinate properly and occasional bladder pain is involved"),
-  (118,"11/15/2022","10:30 AM","Nausea","The patient has been feeling nauseous for the past week"),
-  (119,"01/27/2018","8:50 AM","Nose bleeding","The patient is suffering form severe dehydration"),
-  (120,"12/12/2020","4:25 PM","Severe rash"," The patient has a severe rash accompanied with a fever"),
-  (121,"07/21/2018","5:30 PM","Skin infection","The patent has redness of skin and scrashes the skin constantly"),
-  (122,"10/12/2021","5:20 PM","",""),
-  (123,"03/12/2020","8:59 AM","",""),
-  (124,"04/04/2020","4:50 PM","",""),
-  (125,"04/07/2021","10:32 AM","",""),
-  (126,"05/12/2020","6:35 PM","",""),
-  (127,"05/21/2020","8:57 PM","",""),
-  (128,"06/12/2020","6:20 PM","",""),
-  (129,"06/11/2022","10:35 PM","",""),
-  (130,"07/06/2020","8:57 AM","",""),
-  (131,"07/19/2020","5:46 PM","",""),
-  (132,"07/22/2022","10:40 PM","",""),
-  (133,"08/12/2019","4:15 PM","",""),
-  (134,"08/23/2020","6:10 PM","",""),
-  (135,"08/25/2021","10:46 AM","",""),
-  (136,"08/28/2022","8:52 PM","",""),
-  (137,"09/18/2019","11:20 AM","",""),
-  (138,"09/20/2022","8:53 AM","",""),
-  (139,"09/09/2022","4:30 PM","",""),
-  (140,"10/03/2020","6:15 PM","",""),
-  (141,"10/08/2021","11:10 AM","",""),
-  (142,"10/09/2018","10:50 AM","",""),
-  (143,"11/11/2019","4:35 PM","",""),
-  (144,"11/12/2020","6:50 PM","",""),
-  (145,"11/27/2021","11:40 AM","",""),
-  (146,"11/23/2022","8:51 PM","",""),
-  (147,"01/01/2020","10:45 AM","",""),
-  (148,"01/02/2021","8:52 AM","",""),
-  (149,"01/03/2022","4:15 PM","","");
+INSERT INTO Medical_Check_up(Medical_Check_up_Patient_ID, Medical_Check_up_ID, Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation) VALUES
+  (1,110,"03/23/2019","12:00 PM","High temperature","The patient has high temperature"),
+  (2,111,"02/27/2015","4:45 PM","Headaches","The patient has a headache and hasn't been able to sleep well due to this, therefore, more test will be done"),
+  (3,112,"10/23/2018","8:30 AM","High temperature","The patient has high temperature"),
+  (4,113,"06/22/2015","6:20 AM","Bladder changes","The patient needs further test"),
+  (5,114,"04/13/2020","6:55 PM","Cough","The patient is not feeling good, has a really bad cough"),
+  (6,115,"05/16/2020","5:50 PM","Eating problems","Patient has not appetite"),
+  (7,116,"12/22/2022","11:30 AM","Severe fatigue","The patient has fainted due to fatigue"),
+  (8,117,"06/20/2021","7:23 AM","Trouble urinating","The patient hasn't been able to urinate properly and occasional bladder pain is involved"),
+  (9,118,"11/15/2022","10:30 AM","Nausea","The patient has been feeling nauseous for the past week"),
+  (10,119,"01/27/2018","8:50 AM","Nose bleeding","The patient is suffering form severe dehydration"),
+  (11,120,"12/12/2020","4:25 PM","Severe rash"," The patient has a severe rash accompanied with a fever"),
+  (12,121,"07/21/2018","5:30 PM","Skin infection","The patent has redness of skin and scrashes the skin constantly"),
+  (13,122,"10/12/2021","5:20 PM","",""),
+  (14,123,"03/12/2020","8:59 AM","",""),
+  (15,124,"04/04/2020","4:50 PM","",""),
+  (16,125,"04/07/2021","10:32 AM","",""),
+  (17,126,"05/12/2020","6:35 PM","",""),
+  (18,127,"05/21/2020","8:57 PM","",""),
+  (19,128,"06/12/2020","6:20 PM","",""),
+  (20,129,"06/11/2022","10:35 PM","",""),
+  (21,130,"07/06/2020","8:57 AM","",""),
+  (22,131,"07/19/2020","5:46 PM","",""),
+  (23,132,"07/22/2022","10:40 PM","",""),
+  (24,133,"08/12/2019","4:15 PM","",""),
+  (25,134,"08/23/2020","6:10 PM","",""),
+  (26,135,"08/25/2021","10:46 AM","",""),
+  (27,136,"08/28/2022","8:52 PM","",""),
+  (28,137,"09/18/2019","11:20 AM","",""),
+  (29,138,"09/20/2022","8:53 AM","",""),
+  (30,139,"09/09/2022","4:30 PM","",""),
+  (31,140,"10/03/2020","6:15 PM","",""),
+  (32,141,"10/08/2021","11:10 AM","",""),
+  (33,142,"10/09/2018","10:50 AM","",""),
+  (34,143,"11/11/2019","4:35 PM","",""),
+  (35,144,"11/12/2020","6:50 PM","",""),
+  (36,145,"11/27/2021","11:40 AM","",""),
+  (37,146,"11/23/2022","8:51 PM","",""),
+  (38,147,"01/01/2020","10:45 AM","",""),
+  (39,148,"01/02/2021","8:52 AM","",""),
+  (40,149,"01/03/2022","4:15 PM","","");
 
 SELECT * FROM Medical_Check_up;
 
--- task 11 - Insert records into Disease table using an API
+-- task 11 - Insert records into Disease table
 -- DATA PIPELINE TRICK:
 --   - create the appropriate INSERT command header
 --   - THEN, use a spreadsheet to turn each row of the CSV file into 
@@ -317,47 +322,47 @@ SELECT * FROM Medical_Check_up;
 --     take advantage of the VSCODE colors.
 
 
-INSERT INTO Disease(Disease_ID, Disease_name, Disease_type, Disease_transmission, Disease_communicable, Disease_fatality) VALUES
-  (1,"Alzheimer","Early on","","","Low"),
-  (2,"Asthma","Moderate","","","Low"),
-  (3,"Autoimmune Disease","Moderate","","","Low"),
-  (4,"E. Coli","Early on","Raw foods","Easy","Medium"),
-  (5,"Eczema","Early on","","","Low"),
-  (6,"Gonorrhea","Early on","Sexual contact","Moderate","Low"),
-  (7,"Hepatitis","Severe","Blood","Easy","Low"),
-  (8,"Lyme Disease","Moderate","Infected tick","Easy","Low"),
-  (9,"Malaria","Severe","Mosquitoes","Easy","Medium"),
-  (10,"Tuberculosis","Moderate","Air","Hard","Low"),
-  (11,"Celiac Disease","Early on","","","High"),
-  (12,"Cryptosporidiosis","Moderate","Parasite","Easy","Low"),
-  (13,"Cyclospora","Moderate","Ingestion","Moderate","Low"),
-  (14,"Arboviral Encephalitis","Early on","Infected tick or mosquitoes","Easy","Medium"),
-  (15,"Chlamydia","Early on","Sexual contact","Moderate","Low"),
-  (16,"Diphtheria","Early on","Poisonous bacteria","Moderate","Moderate"),
-  (17,"Chancroid","Severe","Sexual contact","Easy","Low"),
-  (18,"Chickenpox","Moderate","Varicella zoster vacteria","Easy","Low"),
-  (19,"Alphaviruses","Severe","Mosquitoes bites","Easy","Medium"),
-  (20,"Arthritis","Moderate","","","Low"),
-  (21,"","","","",""),
-  (22,"","","","",""),
-  (23,"","","","",""),
-  (24,"","","","",""),
-  (25,"","","","",""),
-  (26,"","","","",""),
-  (27,"","","","",""),
-  (28,"","","","",""),
-  (29,"","","","",""),
-  (30,"","","","",""),
-  (31,"","","","",""),
-  (32,"","","","",""),
-  (33,"","","","",""),
-  (34,"","","","",""),
-  (35,"","","","",""),
-  (36,"","","","",""),
-  (37,"","","","",""),
-  (38,"","","","",""),
-  (39,"","","","",""),
-  (40,"","","","","");
+INSERT INTO Disease(Disease_Patient_ID, Disease_ID, Disease_name, Disease_type, Disease_stage, Disease_transmission, Disease_communicable, Disease_fatality) VALUES
+  (1,01,"Alzheimer","Early on","1","","","Low"),
+  (2,2,"Asthma","Moderate","1","","","Low"),
+  (3,3,"Autoimmune Disease","Moderate","2","","","Low"),
+  (4,4,"E. Coli","Early on","1","Raw foods","Easy","Medium"),
+  (5,5,"Eczema","Early on","2","","","Low"),
+  (6,6,"Gonorrhea","Early on","2","Sexual contact","Moderate","Low"),
+  (7,7,"Hepatitis","Severe","2","Blood","Easy","Low"),
+  (8,8,"Lyme Disease","Moderate","1","Infected tick","Easy","Low"),
+  (9,9,"Malaria","Severe","2","Mosquitoes","Easy","Medium"),
+  (10,10,"Tuberculosis","Moderate","3","Air","Hard","Low"),
+  (11,11,"Celiac Disease","Early on","2","","","High"),
+  (12,12,"Cryptosporidiosis","Moderate","3","Parasite","Easy","Low"),
+  (13,13,"Cyclospora","Moderate","1","Ingestion","Moderate","Low"),
+  (14,14,"Arboviral Encephalitis","Early on","3","Infected tick or mosquitoes","Easy","Medium"),
+  (15,15,"Chlamydia","Early on","2","Sexual contact","Moderate","Low"),
+  (16,16,"Diphtheria","Early on","3","Poisonous bacteria","Moderate","Moderate"),
+  (17,17,"Chancroid","Severe","3","Sexual contact","Easy","Low"),
+  (18,18,"Chickenpox","Moderate","3","Varicella zoster vacteria","Easy","Low"),
+  (19,19,"Alphaviruses","Severe","2","Mosquitoes bites","Easy","Medium"),
+  (20,20,"Arthritis","Moderate","2","","","Low"),
+  (21,21,"Cancer","","1","","",""),
+  (22,22,"COVID","","2","","","High"),
+  (23,23,"","","3","","",""),
+  (24,24,"","","2","","",""),
+  (25,25,"","","1","","",""),
+  (26,26,"","","3","","",""),
+  (27,27,"","","2","","",""),
+  (28,28,"","","1","","",""),
+  (29,29,"","","3","","",""),
+  (30,30,"","","1","","",""),
+  (31,31,"","","1","","",""),
+  (32,32,"","","3","","",""),
+  (33,33,"","","1","","",""),
+  (34,34,"","","2","","",""),
+  (35,35,"","","3","","",""),
+  (36,36,"","","1","","",""),
+  (37,37,"","","3","","","Medium"),
+  (38,38,"","","2","","",""),
+  (39,39,"","","1","","",""),
+  (40,40,"","","2","","","");
 
 SELECT * FROM Disease;
 
@@ -372,47 +377,47 @@ SELECT * FROM Disease;
 --     take advantage of the VSCODE colors.
 
 
-INSERT INTO Treatment(Treatment_ID, Treatment_stage, Treatment_cost, Treatment_option) VALUES
-  (1,2,300,"Run a second test, then prescribe some antibiotics"),
-  (2,3,600,"Do a CT scan to see internally"),
-  (3,3,500,"Prescribe stronger medicine"),
-  (4,1,150,"Take a urine test to determine further complications"),
-  (5,2,250,"Prescribe Tylenol-Codeine Elixir"),
-  (6,3,300,"Run a blood test"),
-  (7,1,100,"Have an IV bag"),
-  (8,2,250,"Get an x-ray to see what is wrong internally"),
-  (9,1,150,"Have an IV bag"),
-  (10,4,750,"Do a CT scan to see internally"),
-  (11,2,350,"Prescribe some laxatives"),
-  (12,1,440,"Do a CT scan to see internally, and prescribe cough syrup"),
-  (13,2,500,"Get a x-ray and run blood tests"),
-  (14,1,250,"Do some basic metabolic panel to determine further complications"),
-  (15,2,400,"Execute vital sign tests to determine right treatments"),
-  (16,3,300,"Execute a hemorrhoidectomy to remove hemorrhoids"),
-  (17,2,190,"Based on previous medical history and patient's pain scale, a low back pain surgery is needed"),
-  (18,2,290,"A partial colectomy to remove part of the large intestine to treat cancer of the colon is needed"),
-  (19,3,350,"Take trimethoprim-sulfamethoxazole or Cotrim"),
-  (20,4,850,"Take paracetamol to relieve fever, and calamine lotion and cooling gels to ease itching"),
-  (21,2,550,""),
-  (22,3,330,""),
-  (23,2,119,""),
-  (24,3,290,""),
-  (25,3,180,""),
-  (26,2,210,""),
-  (27,1,310,""),
-  (28,1,110,""),
-  (29,3,390,""),
-  (30,1,980,""),
-  (31,2,750,""),
-  (32,1,600,""),
-  (33,1,500,""),
-  (34,3,350,""),
-  (35,2,750,""),
-  (36,1,650,""),
-  (37,1,200,""),
-  (38,3,500,""),
-  (39,3,550,""),
-  (40,1,250,"");
+INSERT INTO Treatment(Treatment_Disease_ID, Treatment_ID, Treatment_stage, Treatment_cost, Treatment_option) VALUES
+  (1,1,2,300,"Run a second test, then prescribe some antibiotics"),
+  (2,2,3,600,"Do a CT scan to see internally"),
+  (3,3,3,500,"Prescribe stronger medicine"),
+  (4,4,1,150,"Take a urine test to determine further complications"),
+  (5,5,2,250,"Prescribe Tylenol-Codeine Elixir"),
+  (6,6,3,300,"Run a blood test"),
+  (7,7,1,100,"Have an IV bag"),
+  (8,8,2,250,"Get an x-ray to see what is wrong internally"),
+  (9,9,1,150,"Have an IV bag"),
+  (10,10,4,750,"Do a CT scan to see internally"),
+  (11,11,2,350,"Prescribe some laxatives"),
+  (12,12,1,440,"Do a CT scan to see internally, and prescribe cough syrup"),
+  (13,13,2,500,"Get a x-ray and run blood tests"),
+  (14,14,1,250,"Do some basic metabolic panel to determine further complications"),
+  (15,15,2,400,"Execute vital sign tests to determine right treatments"),
+  (16,16,3,300,"Execute a hemorrhoidectomy to remove hemorrhoids"),
+  (17,17,2,190,"Based on previous medical history and patient's pain scale, a low back pain surgery is needed"),
+  (18,18,2,290,"A partial coloctomy to remove part of the large intestine to treat cancer of the colon is needed"),
+  (19,19,3,350,"Take trimethoprim-sulfamethoxazole or Cotrim"),
+  (20,20,4,850,"Take paracetamol to relieve fever, and calamine lotion and cooling gels to ease itching"),
+  (21,21,2,550,""),
+  (22,22,3,330,""),
+  (23,23,2,119,""),
+  (24,24,3,290,""),
+  (25,25,3,180,""),
+  (26,26,2,210,""),
+  (27,27,1,310,""),
+  (28,28,1,110,""),
+  (29,29,3,390,""),
+  (30,30,1,980,""),
+  (31,31,2,750,""),
+  (32,32,1,600,""),
+  (33,33,1,500,""),
+  (34,34,3,350,""),
+  (35,35,2,750,""),
+  (36,36,1,650,""),
+  (37,37,1,200,""),
+  (38,38,3,500,""),
+  (39,39,3,550,""),
+  (40,40,1,250,"");
 
 SELECT * FROM Treatment;
 
