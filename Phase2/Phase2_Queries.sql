@@ -103,9 +103,9 @@ WHERE
 GROUP BY disease_name;
 
 -- task 9
--- There are two abbreviation fields in the data country_abbr and country_wb_abbr.
--- List the country code, short name, abbr, wb_abbr and region for all the countries
--- where the abbr and wb_abbr are different.
+-- Leukemia is a very serious disease that depending on the stage
+-- it is on, a specific treatment needs to be implemented.
+-- What is the curability of stage II Leukemia?
 -- (skills: select, where, order by)
 
 SELECT 
