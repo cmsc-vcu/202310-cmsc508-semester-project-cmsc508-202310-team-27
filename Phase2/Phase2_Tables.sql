@@ -216,7 +216,7 @@ SELECT * FROM Patient;
 
 INSERT INTO Region(Region_Disease_ID, Region_country_code, Region_country_short_name, Region_nationality, Region, Region_environment) VALUES
   (1,"ABW","Aruba","Arubans","Latin America & Caribbean","Hot"),
-  (2,"AFG","Afghanistan","Afghans","South Asia","Dry continental climate"),
+  (2,"AFG","Afghanistan","Afghans","South Asia","Hot"),
   (3,"AGO","Angola","Angolans","Sub-Saharan Africa","Warm & Hot"),
   (4,"ALB","Albania","Albanians","Europe & Central Asia","Warm & Hot"),
   (5,"AND","Andorra","Andorrans","Europe & Central Asia","Warm & Cold"),
@@ -325,7 +325,7 @@ SELECT * FROM Medical_Check_up;
 
 
 INSERT INTO Disease(Disease_Patient_ID, Disease_ID, Disease_name, Disease_type, Disease_stage, Disease_transmission, Disease_communicable, Disease_fatality) VALUES
-  (1,01,"Alzheimer","Early on","1","","","Low"),
+  (1,1,"Alzheimer","Early on","1","","","Low"),
   (2,2,"Asthma","Moderate","1","","","Low"),
   (3,3,"Autoimmune Disease","Moderate","2","","","Low"),
   (4,4,"E. Coli","Early on","1","Raw foods","Easy","Medium"),
