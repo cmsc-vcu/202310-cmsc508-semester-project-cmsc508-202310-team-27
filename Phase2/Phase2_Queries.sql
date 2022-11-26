@@ -100,11 +100,12 @@ GROUP BY  disease_name;
 -- What is the curability of stage II Leukemia?
 -- (skills: select, where, order by)
 
-SELECT
-FROM
+SELECT disease_name, treatment_option, Disease_stage
+FROM Disease a
+JOIN Treatment b
+    ON (Disease_ID = Treatment_Disease_ID)
 WHERE 1=1
-        AND
-ORDER BY  ;
+        AND disease_name LIKE 'Leukemia';
 
 -- task 10
 -- When is the next medical checkup for this specific person?
