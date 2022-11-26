@@ -1,4 +1,8 @@
 -- homework5-ddl.sql
+-- Members:
+--          Lazaro Camero
+--          Mir Ali
+--          Khoi Tran
 
 -- task 1
 -- What stage of cancer is this patient in?
