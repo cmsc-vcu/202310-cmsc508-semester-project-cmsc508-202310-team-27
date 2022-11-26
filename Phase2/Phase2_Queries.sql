@@ -151,13 +151,19 @@ ORDER BY  Medical_Check_up_reason;
 -- What type of disease is E.Coli?
 -- (skills: select, aggregate, group by, nested query)
 
-
+SELECT Disease_name, Disease_type
+FROM Disease;
 
 -- task 15
--- What is the environmental status of Egypt?
+-- What is the environmental status of Canada?
 -- (skills: select, aggregate, group by, nested query, order by, limit)
 
-
+SELECT Region_country_short_name,
+         Region_environment
+FROM Region
+WHERE 1=1
+        AND Region_country_short_name = "Canada"
+ORDER BY Region_country_short_name, Region_environment;
 
 -- task 16
 -- How many people from the USE got their medical checkups in the year 2020?
