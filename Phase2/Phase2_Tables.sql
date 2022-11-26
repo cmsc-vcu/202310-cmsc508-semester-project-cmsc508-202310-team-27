@@ -278,7 +278,7 @@ INSERT INTO Medical_Check_up(Medical_Check_up_Patient_ID, Medical_Check_up_ID, M
   (3,112,"10/23/2018","8:30 AM","High temperature","The patient has high temperature"),
   (4,113,"06/22/2015","6:20 AM","Bladder changes","The patient needs further test"),
   (5,114,"04/13/2020","6:55 PM","Cough","The patient is not feeling good, has a really bad cough"),
-  (6,115,"05/16/2020","5:50 PM","Eating problems","Patient has not appetite"),
+  (6,115,"05/16/2020","5:50 PM","Eating problems","Patient has no appetite"),
   (7,116,"12/22/2022","11:30 AM","Severe fatigue","The patient has fainted due to fatigue"),
   (8,117,"06/20/2021","7:23 AM","Trouble urinating","The patient hasn't been able to urinate properly and occasional bladder pain is involved"),
   (9,118,"11/15/2022","10:30 AM","Nausea","The patient has been feeling nauseous for the past week"),

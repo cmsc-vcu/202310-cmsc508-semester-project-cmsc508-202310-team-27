@@ -108,28 +108,32 @@ WHERE 1=1
         AND disease_name LIKE 'Leukemia';
 
 -- task 10
--- When is the next medical checkup for this specific person?
+-- When was the last medical checkup of every patient?
 -- (skills: select, aggregate, group by, order by)
 
-SELECT
-FROM
-GROUP BY  ;
+SELECT CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name",
+        Medical_Check_up_date AS "Last Checkup"
+FROM Patient a
+JOIN Medical_Check_up b
+    ON (Patient_ID = Medical_Check_up_Patient_ID)
+ORDER BY  Patient_last_name, Medical_Check_up_date;
 
 -- task 11
--- What is the socioeconomic of this patient?
+-- What is the socioeconomic status of every patient?
 
-SELECT
-FROM
-WHERE 1=1
-        AND ;
+SELECT CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name",
+        Patient_socioeconomic_status
+FROM Patient;
 
 -- task 12
 -- List every patient's medical history?
 
 SELECT
-FROM
-WHERE 1=1
-        AND ;
+CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name",
+Medical_Check_up_documentation
+FROM Patient a 
+JOIN Medical_Check_up b ON (Patient_ID = Medical_Check_up_Patient_ID)
+ORDER BY Patient_last_name, Medical_Check_up_documentation;
 
 -- task 13
 -- Write a single query that shows the reason for the patients medical checkups 
