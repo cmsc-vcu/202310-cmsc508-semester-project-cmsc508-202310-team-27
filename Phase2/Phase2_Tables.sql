@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS Medical_Check_up;
 DROP TABLE IF EXISTS Disease;
 DROP TABLE IF EXISTS Treatment;
 DROP TABLE IF EXISTS Doctor;
+DROP TABLE IF EXISTS RegionRegion;
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- task 2 - Create "Patient" table
@@ -55,6 +56,7 @@ CREATE TABLE Patient(
 DROP TABLE IF EXISTS Region;
 CREATE TABLE Region(
     Region_Disease_ID INT NOT NULL,
+    Region_Patient_ID INT NOT NULL AUTO_INCREMENT, 
     Region_country_code VARCHAR(255) NOT NULL,
     Region_country_short_name VARCHAR(255),
     Region_nationality VARCHAR(255),
@@ -62,7 +64,9 @@ CREATE TABLE Region(
     Region_environment VARCHAR(255),
 
     primary key(Region_country_code),
-    foreign key(Region_Disease_ID) REFERENCES Disease (Disease_ID));
+    foreign key(Region_Disease_ID) REFERENCES Disease (Disease_ID),
+    foreign key(Region_Patient_ID) REFERENCES Patient (Patient_ID));
+
 
 -- task 4 - Create "Medical_Check_up" table
 -- label the columns using the following schema:
@@ -260,6 +264,7 @@ INSERT INTO Region(Region_Disease_ID, Region_country_code, Region_country_short_
   (40,"GTM","Guatemala","Guatemalans","Central America","Hot & Humid");
 
 SELECT * FROM Region;
+
 
 -- task 10 - Insert records into Medical_Check_up table using an API
 -- DATA PIPELINE TRICK:

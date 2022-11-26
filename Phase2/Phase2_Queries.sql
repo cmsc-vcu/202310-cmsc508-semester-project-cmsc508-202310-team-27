@@ -166,10 +166,17 @@ WHERE 1=1
 ORDER BY Region_country_short_name, Region_environment;
 
 -- task 16
--- How many people from the USE got their medical checkups in the year 2020?
+-- How many people got their medical checkups in the year 2020?
 -- (skills: select, where, subquery)
 
-
+SELECT COUNT(Patient_first_name) AS "People",
+         Medical_Check_up_date AS "MC_Date"
+FROM Patient a
+JOIN Medical_Check_up b
+    ON (Patient_ID = Medical_Check_up_Patient_ID)
+WHERE Medical_Check_up_date LIKE "2020"
+GROUP BY  Medical_Check_up_date
+ORDER BY  2;
 
 -- task 17
 -- Are there cases of Ebola in environments below 50 Fahrenheit?
@@ -183,11 +190,21 @@ ORDER BY Region_country_short_name, Region_environment;
 
 
 -- task 19 
--- Does Parkinson’s disease affect Asian people more so than European?
+-- Does Alzheimer’s disease affect Asian people more so than European?
 
 
 
 -- task 20
--- Does diabetes affect Asian people more than arthritis?
+-- Does Tuberculosis affect Asian people more than arthritis?
+
+SELECT Patient_ethnicity,
+         Disease_name
+FROM Patient a
+JOIN Disease b
+    ON (Patient_ID = Disease_Patient_ID)
+WHERE 1=1
+        AND Patient_ethnicity = "Asian"
+        AND Disease_name = "Tuberculosis"
+ORDER BY  Patient_ethnicity, Disease_name;
 
 
