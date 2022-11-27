@@ -235,4 +235,4 @@ FROM Patient a
 LEFT JOIN Disease b
     ON (Patient_ID = Disease_Patient_ID)
 WHERE Disease_name = 'Tuberculosis'
-GROUP BY  Patient_first_name, Patient_last_name ,Patient_ethnicity, Disease_name;
+GROUP BY  Patient_first_name, Patient_last_name ,Patient_ethnicity, Disease_name ;
