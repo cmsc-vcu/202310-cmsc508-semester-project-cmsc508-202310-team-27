@@ -407,7 +407,7 @@ INSERT INTO Treatment(Treatment_Disease_ID, Treatment_ID, Treatment_stage, Treat
   (17,17,2,190,"Based on previous medical history and patient's pain scale, a low back pain surgery is needed"),
   (18,18,2,290,"A partial coloctomy to remove part of the large intestine to treat cancer of the colon is needed"),
   (19,19,3,350,"Take trimethoprim-sulfamethoxazole or Cotrim"),
-  (20,20,4,850,"Take paracetamol to relieve fever, and calamine lotion and cooling gels to ease itching"),
+  (20,20,4,850,"Take paracetamol to relieve fever, and calamine lotion and cooling gels to ease itching. Come back for a checkup in two weeks"),
   (21,21,2,550,"Drink lots of clear fluids (e.g., water, tea) & Stay away from cigarette smoke"),
   (22,22,3,330,"Use a cool wet washcloth to soak off any crusting. Wash hands regularly and avoid touching your eyes"),
   (23,23,2,119,"Avoid foods that are milk-based, greasy, high-fiber, or very sweet. Do not eat solid food if you have signs of dehydration (thirst, light-headed, dark urine)"),
@@ -415,7 +415,7 @@ INSERT INTO Treatment(Treatment_Disease_ID, Treatment_ID, Treatment_stage, Treat
   (25,25,3,180,"Make sure you get plenty of rest, eat healthy foods, avoid alcohol, drink plenty of fluids, take aspirin or an aspirin substitute to reduce pain and fever, and gargle salt water to relieve sore throat"),
   (26,26,2,210,"There is no concrete treatment that can eradicate the disease. However, some medicine can help the patient feel better"),
   (27,27,1,310,"Take antibiotic gentamicin in combination with ampicillin"),
-  (28,28,1,110,"Take antibiotic, Vitamin A and rest well for a week"),
+  (28,28,1,110,"Take antibiotic, Vitamin A and rest well for a week. Come back for a checkup after a week"),
   (29,29,3,390,"Take some medicine for the fever such as acetaminophen"),
   (30,30,1,980,"The patient needs to be taken to intensive care to treat wounds. Medications to ease symptoms need to also be given to the patient"),
   (31,31,2,750,"Take some antiboitic"),
@@ -427,7 +427,7 @@ INSERT INTO Treatment(Treatment_Disease_ID, Treatment_ID, Treatment_stage, Treat
   (37,37,1,200,"There is no concrete treatment, however, you should rest as much as possible, drink plenty of fluids to help prevent dehydration and fatigue"),
   (38,38,3,500,"Supportive care (intravenous fluids, medicine to control fever and pain)"),
   (39,39,3,550,"There are different treatments but I would like you to start with yaking Azithromycin 1 gm orally in a single dose, and Ceftriaxone 250 mg IM in a single dose. Come back in two weeks"),
-  (40,40,1,250,"Prescribed a rescue inhalers to treat symptoms and controller inhalers to prevent the symptom from developing farther");
+  (40,40,1,250,"Prescribed a rescue inhalers to treat symptoms and controller inhalers to prevent the symptom from developing farther. Checkup is needed in 6 months");
 
 SELECT * FROM Treatment;
 

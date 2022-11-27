@@ -179,32 +179,60 @@ GROUP BY  Medical_Check_up_date
 ORDER BY  2;
 
 -- task 17
--- Are there cases of Ebola in environments below 50 Fahrenheit?
+-- Many of the patients that are seen here come from everywhere.
+-- Their origins come from places outside of the United States, therefore
+-- how many patients from Latin America & Caribbean have a disease?
 -- (skills: select, where, subqueries, joins)
 
-
-
--- task 18
--- What are this patient’s medical notes?
--- (skills: select, where, subqueries, joins, aggregate functions)
-
-
--- task 19 
--- Does Alzheimer’s disease affect Asian people more so than European?
-
-
-
--- task 20
--- Does Tuberculosis affect Asian people more than arthritis?
-
-SELECT Patient_ethnicity,
+SELECT COUNT(Patient_first_name) AS "Patient",
+         Region,
          Disease_name
 FROM Patient a
-JOIN Disease b
+JOIN Region b
+    ON (Patient_ID = Region_Patient_ID)
+JOIN Disease c
     ON (Patient_ID = Disease_Patient_ID)
-WHERE 1=1
-        AND Patient_ethnicity = "Asian"
-        AND Disease_name = "Tuberculosis"
-ORDER BY  Patient_ethnicity, Disease_name;
+WHERE Region = 'Latin America & Caribbean'
+GROUP BY  Region, Disease_name;
 
+-- task 18
+-- Some of the patients come for medical checkups, however, in the meanwhile
+-- they discover that there is something wrong with their health.
+-- List the reasons patients might return for a medical checkup and the symptoms 
+-- they have when going to see the doctor
+-- (skills: select, where, subqueries, joins, aggregate functions)
 
+SELECT CONCAT(Patient_first_name, ' ', Patient_last_name) AS "Name",
+        Disease_name, Medical_Check_up_reason, Medical_Check_up_documentation, Treatment_option
+FROM Patient a
+LEFT JOIN Medical_Check_up b
+    ON (Patient_ID = Medical_Check_up_Patient_ID)
+LEFT JOIN Disease c
+    ON (Patient_ID = Disease_Patient_ID)
+LEFT JOIN Treatment d
+    ON (Disease_Patient_ID = Treatment_Disease_ID)
+WHERE Treatment_option LIKE '%come back for a checkup%';
+
+-- task 19 
+-- Certain diseases affect one ethnic group more than others. Therefore, 
+-- list the ethnic group with the highest number of Alzheimer’s disease cases. Do Asians have a higher  
+-- prevalence of this illness than Europeans?
+
+SELECT CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name",
+         COUNT(Patient_ethnicity) AS "Ethnicity count", Patient_ethnicity, Disease_name
+FROM Patient a
+LEFT JOIN Disease b
+    ON (Patient_ID = Disease_Patient_ID)
+WHERE Disease_name LIKE '%Alzheimer%'
+GROUP BY Patient_first_name, Patient_last_name ,Patient_ethnicity, Disease_name;
+
+-- task 20
+-- What ethnic group does Tuberculosis affect?
+
+SELECT CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name",
+         COUNT(Patient_ethnicity) AS "Ethnicity count", Patient_ethnicity, Disease_name
+FROM Patient a
+LEFT JOIN Disease b
+    ON (Patient_ID = Disease_Patient_ID)
+WHERE Disease_name = 'Tuberculosis'
+GROUP BY  Patient_first_name, Patient_last_name ,Patient_ethnicity, Disease_name;
