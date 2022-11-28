@@ -1,4 +1,4 @@
--- Phase2_tables.sql
+-- Phase2_tables.ddl.sql
 -- DDL file
 -- Members:
 --          Lazaro Camero

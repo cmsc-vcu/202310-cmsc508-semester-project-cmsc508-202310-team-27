@@ -1,4 +1,4 @@
--- homework5-ddl.sql
+-- Phase2_queries.dml.sql
 -- Members:
 --          Lazaro Camero
 --          Mir Ali
