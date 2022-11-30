@@ -7,8 +7,12 @@
 -- REFERENCE
 -- Easy access to the table containing 
 -- doctor's and patient's information
+-- Show VIEW
 
 SELECT * FROM Doctor_Patients;
+
+-- Show Trigger audit
+SELECT * FROM Trigger_insert;
 
 -- task 1
 -- What stage of cancer is this patient in?
