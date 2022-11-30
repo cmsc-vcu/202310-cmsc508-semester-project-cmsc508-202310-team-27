@@ -92,8 +92,8 @@ CREATE TABLE Region(
     Region_environment VARCHAR(255),
 
     primary key(Region_country_code),
-    foreign key(Region_Disease_ID) REFERENCES Disease (Disease_ID),
-    foreign key(Region_Patient_ID) REFERENCES Patient (Patient_ID));
+    foreign key(Region_Disease_ID) REFERENCES Disease (Disease_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key(Region_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
 
 
 -- task 4 - Create "Medical_Check_up" table
