@@ -117,7 +117,7 @@ CREATE TABLE Medical_Check_up(
     Medical_Check_up_documentation VARCHAR(255) NOT NULL,
 
     primary key(Medical_Check_up_ID),
-    foreign key(Medical_Check_up_Patient_ID) REFERENCES Patient (Patient_ID));
+    foreign key(Medical_Check_up_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
 
 
 
@@ -145,7 +145,7 @@ CREATE TABLE Disease(
     Disease_fatality VARCHAR(255) NOT NULL,
 
     primary key(Disease_ID),
-    foreign key(Disease_Patient_ID) REFERENCES Patient (Patient_ID));
+    foreign key(Disease_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
 
 -- task 6 - Create "Treatment" table
 -- label the columns using the following schema:
@@ -166,7 +166,7 @@ CREATE TABLE Treatment(
     Treatment_option VARCHAR(255) NOT NULL,
 
     primary key(Treatment_ID),
-    foreign key(Treatment_Disease_ID) REFERENCES Disease (Disease_ID));
+    foreign key(Treatment_Disease_ID) REFERENCES Disease (Disease_ID) ON DELETE CASCADE ON UPDATE CASCADE);
 
 -- task 7 - Create "Doctor" table
 -- label the columns using the following schema:
