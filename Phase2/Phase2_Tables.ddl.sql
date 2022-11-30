@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS Medical_Check_up;
 DROP TABLE IF EXISTS Disease;
 DROP TABLE IF EXISTS Treatment;
 DROP TABLE IF EXISTS Doctor;
-DROP TABLE IF EXISTS RegionRegion;
+DROP TABLE IF EXISTS Trigger_insert;
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- task 2 - Create "Patient" table
@@ -42,6 +42,33 @@ CREATE TABLE Patient(
 
     primary key(Patient_ID)
 );
+
+-- BONUS Task - Create "Trigger_INSERT" table
+DROP TABLE IF EXISTS Trigger_insert;
+CREATE TABLE Trigger_insert (
+    Trigger_ID INT AUTO_INCREMENT,
+    Patient_ID INT NOT NULL,
+    Patient_first_name VARCHAR(255) NOT NULL,
+    Patient_last_name VARCHAR(255) NOT NULL,
+    Updated_date DATETIME DEFAULT NULL,
+    action VARCHAR(255) DEFAULT NULL,
+    
+    primary key(Trigger_ID)
+);
+
+-- Task Triggers:
+-- Create a trigger to update when a change has been made
+-- in the database
+DROP TRIGGER IF EXISTS after_patient_update;
+CREATE TRIGGER after_patient_update 
+    AFTER UPDATE ON Patient
+    FOR EACH ROW 
+ INSERT INTO Trigger_insert
+ SET action = 'update',
+     Patient_ID = OLD.Patient_ID,
+     Patient_first_name = OLD.Patient_first_name,
+     Patient_last_name = OLD.Patient_last_name,
+     Updated_date = NOW();
 
 -- task 3 - Create "Region" table
 -- label the columns using the following schema:
@@ -91,6 +118,8 @@ CREATE TABLE Medical_Check_up(
 
     primary key(Medical_Check_up_ID),
     foreign key(Medical_Check_up_Patient_ID) REFERENCES Patient (Patient_ID));
+
+
 
 -- task 5 - Create "Disease" table
 -- label the columns using the following schema:

@@ -4,6 +4,20 @@
 --          Mir Ali
 --          Khoi Tran
 
+-- -- Task Triggers:
+-- -- Create a trigger to update when a change has been made
+-- -- in the database
+
+-- CREATE TRIGGER after_patient_insert 
+--     AFTER UPDATE ON Patient
+--     FOR EACH ROW 
+--  INSERT INTO Trigger_insert
+--  SET action = 'update',
+--      Patient_ID = OLD.Patient_ID,
+--      Patient_first_name = OLD.Patient_first_name,
+--      Patient_last_name = OLD.Patient_last_name,
+--      changedat = NOW();
+
 -- task 1
 -- What stage of cancer is this patient in?
 -- (skills: select, aggregate)
@@ -148,11 +162,13 @@ LEFT JOIN Medical_Check_up b
 ORDER BY  Medical_Check_up_reason;
 
 -- task 14
--- What type of disease is E.Coli?
--- (skills: select, aggregate, group by, nested query)
+-- If a patient gets married and changes her last name,
+-- How can we manage this in the database? Write a query to update 
+-- the a patient's name.
 
-SELECT Disease_name, Disease_type
-FROM Disease;
+UPDATE Patient
+SET Patient_last_name = 'Poff'
+WHERE Patient_gender = 'Female' AND Patient_age = 23;
 
 -- task 15
 -- What is the environmental status of Canada?
