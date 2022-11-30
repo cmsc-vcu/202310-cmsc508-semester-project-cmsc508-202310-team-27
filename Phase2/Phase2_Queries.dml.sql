@@ -12,6 +12,7 @@
 SELECT * FROM Doctor_Patients;
 
 -- Show Trigger audit
+
 SELECT * FROM Trigger_insert;
 
 -- task 1

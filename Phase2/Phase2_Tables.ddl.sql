@@ -64,28 +64,24 @@ DROP TRIGGER IF EXISTS after_patient_update;
 CREATE TRIGGER after_patient_update 
     AFTER UPDATE ON Patient
     FOR EACH ROW 
-BEGIN
  INSERT INTO Trigger_insert
  SET action = 'UPDATE',
-     Patient_ID = OLD.Patient_ID,
-     Patient_first_name = OLD.Patient_first_name,
-     Patient_last_name = OLD.Patient_last_name,
-     Updated_date = NOW()
-END;
+     Patient_ID = NEW.Patient_ID,
+     Patient_first_name = NEW.Patient_first_name,
+     Patient_last_name = NEW.Patient_last_name,
+     Updated_date = NOW();
 
 
 DROP TRIGGER IF EXISTS after_patient_update;
 CREATE TRIGGER after_patient_update 
     AFTER INSERT ON Patient
     FOR EACH ROW 
-BEGIN
  INSERT INTO Trigger_insert
  SET action = 'INSERT',
-     Patient_ID = OLD.Patient_ID,
-     Patient_first_name = OLD.Patient_first_name,
-     Patient_last_name = OLD.Patient_last_name,
-     Updated_date = NOW()
-END;
+     Patient_ID = NEW.Patient_ID,
+     Patient_first_name = NEW.Patient_first_name,
+     Patient_last_name = NEW.Patient_last_name,
+     Updated_date = NOW();
 
 -- VIEW IMPLEMENTATION:
 -- Sometimes, it can be tedious to
