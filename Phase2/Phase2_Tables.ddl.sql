@@ -43,7 +43,8 @@ CREATE TABLE Patient(
     primary key(Patient_ID)
 );
 
--- BONUS Task - Create "Trigger_INSERT" table
+-- TRIGGER TASK 1: 
+-- Create "Trigger_INSERT" table
 DROP TABLE IF EXISTS Trigger_insert;
 CREATE TABLE Trigger_insert (
     Trigger_ID INT AUTO_INCREMENT,
@@ -56,7 +57,7 @@ CREATE TABLE Trigger_insert (
     primary key(Trigger_ID)
 );
 
--- Task Triggers:
+-- TRIGGER TASK 2:
 -- Create a trigger to update when a change has been made
 -- in the database
 DROP TRIGGER IF EXISTS after_patient_update;
@@ -69,6 +70,22 @@ CREATE TRIGGER after_patient_update
      Patient_first_name = OLD.Patient_first_name,
      Patient_last_name = OLD.Patient_last_name,
      Updated_date = NOW();
+
+-- VIEW IMPLEMENTATION:
+-- Sometimes, it can be tedious to
+-- write select statements to view a specific table.
+-- To avoid doing this each time, create a view that 
+-- stores a specific table in the database.
+DROP VIEW IF EXISTS Doctor_Patients;
+CREATE VIEW Doctor_Patients AS 
+SELECT Doctor_ID,
+         Doctor_name,
+         Doctor_start_date,
+         CONCAT(Patient_first_name,'', Patient_last_name) AS "Patient Name",
+         Patient_ethnicity, Patient_gender
+FROM Doctor a
+JOIN Patient b
+    ON (Doctor_Patient_ID = Patient_ID);
 
 -- task 3 - Create "Region" table
 -- label the columns using the following schema:
@@ -178,11 +195,13 @@ CREATE TABLE Treatment(
 
 DROP TABLE IF EXISTS Doctor;
 CREATE TABLE Doctor(
+    Doctor_Patient_ID INT NOT NULL,
     Doctor_ID INT NOT NULL,
     Doctor_name VARCHAR(255) NOT NULL,
+    Doctor_start_date VARCHAR(255) NOT NULL,
 
-    primary key(Doctor_ID)
-);
+    primary key(Doctor_ID),
+    foreign key(Doctor_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
 
 -- task 8 - Insert records into Patient table using an API
 -- DATA PIPELINE TRICK:
@@ -472,46 +491,46 @@ SELECT * FROM Treatment;
 --     take advantage of the VSCODE colors.
 
 
-INSERT INTO Doctor(Doctor_ID, Doctor_name) VALUES
-  (1,"Dr.Shepherd"),
-  (2,"Dr.McIness"),
-  (3,"Dr.Tang"),
-  (4,"Dr.Roland"),
-  (5,"Dr.Albert"),
-  (6,"Dr.Lopez"),
-  (7,"Dr.Tran"),
-  (8,"Dr.Ramirez"),
-  (9,"Dr.Ruiz"),
-  (10,"Dr.Camero"),
-  (11,"Dr.Rodriguez"),
-  (12,"Dr.Dihn"),
-  (13,"Dr.Cao"),
-  (14,"Dr.Try"),
-  (15,"Dr.Jackson"),
-  (16,"Dr.Gutierrez"),
-  (17,"Dr.Cabrera"),
-  (18,"Dr.Smith"),
-  (19,"Dr.Lee"),
-  (20,"Dr.Nguyen"),
-  (21,"Dr.Shah"),
-  (22,"Dr.Kim"),
-  (23,"Dr.Patel"),
-  (24,"Dr.Miller"),
-  (25,"Dr.Brown"),
-  (26,"Dr.Palmer"),
-  (27,"Dr.Goblin"),
-  (28,"Dr.Dollak"),
-  (29,"Dr.Goff"),
-  (30,"Dr.Guftaffson"),
-  (31,"Dr.Rossa"),
-  (32,"Dr.Glossner"),
-  (33,"Dr.Mehok"),
-  (34,"Dr.Mangieri"),
-  (35,"Dr.Mount"),
-  (36,"Dr.Navarrete"),
-  (37,"Dr.Bowman"),
-  (38,"Dr.Praska"),
-  (39,"Dr.Banes"),
-  (40,"Dr.Cermeno");
+INSERT INTO Doctor(Doctor_Patient_ID ,Doctor_ID, Doctor_name, Doctor_start_date) VALUES
+  (1,1,"Dr.Shepherd","2001-01-21"),
+  (2,2,"Dr.McIness","2004-10-01"),
+  (3,3,"Dr.Tang","2007-07-17"),
+  (4,4,"Dr.Roland","2013-06-04"),
+  (5,5,"Dr.Albert","2019-05-18"),
+  (6,6,"Dr.Lopez","2011-12-25"),
+  (7,7,"Dr.Tran","2001-05-16"),
+  (8,8,"Dr.Ramirez","2016-03-14"),
+  (9,9,"Dr.Ruiz","2017-01-26"),
+  (10,10,"Dr.Camero","2010-09-14"),
+  (11,11,"Dr.Rodriguez","2007-04-26"),
+  (12,12,"Dr.Dihn","2015-08-02"),
+  (13,13,"Dr.Cao","2006-08-20"),
+  (14,14,"Dr.Try","2001-08-23"),
+  (15,15,"Dr.Jackson","2001-09-08"),
+  (16,16,"Dr.Gutierrez","2018-12-29"),
+  (17,17,"Dr.Cabrera","2019-10-24"),
+  (18,18,"Dr.Smith","2006-05-01"),
+  (19,19,"Dr.Lee","2002-04-08"),
+  (20,20,"Dr.Nguyen","2017-12-28"),
+  (21,21,"Dr.Shah","2013-07-25"),
+  (22,22,"Dr.Kim","2000-07-20"),
+  (23,23,"Dr.Patel","2002-06-13"),
+  (24,24,"Dr.Miller","2010-01-02"),
+  (25,25,"Dr.Brown","2004-11-09"),
+  (26,26,"Dr.Palmer","2001-05-18"),
+  (27,27,"Dr.Goblin","2006-04-18"),
+  (28,28,"Dr.Dollak","2008-08-25"),
+  (29,29,"Dr.Goff","2009-11-06"),
+  (30,30,"Dr.Guftaffson","2005-03-03"),
+  (31,31,"Dr.Rossa","2009-06-14"),
+  (32,32,"Dr.Glossner","2006-04-01"),
+  (33,33,"Dr.Mehok","2002-06-07"),
+  (34,34,"Dr.Mangieri","1998-05-04"),
+  (35,35,"Dr.Mount","1994-07-12"),
+  (36,36,"Dr.Navarrete","1990-10-20"),
+  (37,37,"Dr.Bowman","1999-10-23"),
+  (38,38,"Dr.Praska","2000-03-03"),
+  (39,39,"Dr.Banes","2001-04-23"),
+  (40,40,"Dr.Cermeno","1993-08-12");
 
 SELECT * FROM Doctor;

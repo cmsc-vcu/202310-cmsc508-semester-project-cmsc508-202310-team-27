@@ -18,9 +18,14 @@
 --      Patient_last_name = OLD.Patient_last_name,
 --      changedat = NOW();
 
+-- REFERENCE
+-- Easy access to the table containing 
+-- doctor's and patient's information
+
+SELECT * FROM Doctor_Patients;
+
 -- task 1
 -- What stage of cancer is this patient in?
--- (skills: select, aggregate)
 
 SELECT CONCAT(Patient_first_name,' ', Patient_last_name)
         AS "Name",Disease_name, Disease_stage
@@ -33,7 +38,6 @@ ORDER BY  Disease_stage, Disease_name;
 
 -- task 2
 -- Write a query to display the cost of the Alzheimer’s treatment?
--- (skills: select, join)
 
 SELECT Disease_name, Treatment_cost
 FROM Disease a
@@ -45,7 +49,6 @@ WHERE Disease_name = "Alzheimer";
 -- How many people HAVE Cancer?, that is
 -- any type of cancer.
 -- Write a query to list all the patients that have cancer
--- (skills: select, where)
 
 SELECT Disease_ID AS People, Disease_name
 FROM Disease
@@ -53,7 +56,6 @@ WHERE Disease_name LIKE 'Cancer';
 
 -- task 4
 -- What is the fatality rate of COVID in Mexico?
--- (skills: select, Join)
 
 SELECT Region_country_short_name, Disease_fatality
 FROM Region a
@@ -65,7 +67,6 @@ WHERE Region_country_short_name = 'Mexico';
 -- What is the domain of the treatment_option field? That is,
 -- what treatment is viable for Ebola?
 -- (there are several possible ways to code this in SQL)
--- (skills: select, aggregate, order by)
 
 SELECT Disease_name, Treatment_option
 FROM Treatment a
@@ -77,7 +78,6 @@ WHERE 1=1
 
 -- task 6
 -- What date did the patients receive their check-up in the hospital?
--- (skills: select, order by)
 
 SELECT CONCAT(Patient_first_name,' ',Patient_last_name)
         AS 'Patient', 
@@ -89,7 +89,6 @@ ORDER BY  Medical_Check_up_date;
 
 -- task 7
 -- How is the flu transmitted?
--- (skills: select, where)
 
 SELECT *
 FROM Disease
@@ -98,7 +97,6 @@ WHERE 1=1
 
 -- task 8
 -- How many Asian people have the mad cow disease?
--- (skills: select, where, aggregate)
 
 SELECT count(Patient_ethnicity) AS 'Ethnicity', Disease_name
 FROM Patient a
@@ -112,7 +110,6 @@ GROUP BY  disease_name;
 -- Leukemia is a very serious disease that depending on the stage
 -- it is on, a specific treatment needs to be implemented.
 -- What is the curability of stage II Leukemia?
--- (skills: select, where, order by)
 
 SELECT disease_name, treatment_option, Disease_stage
 FROM Disease a
@@ -123,7 +120,6 @@ WHERE 1=1
 
 -- task 10
 -- When was the last medical checkup of every patient?
--- (skills: select, aggregate, group by, order by)
 
 SELECT CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name",
         Medical_Check_up_date AS "Last Checkup"
@@ -152,7 +148,6 @@ ORDER BY Patient_last_name, Medical_Check_up_documentation;
 -- task 13
 -- Write a single query that shows the reason for the patients medical checkups 
 -- Display first name and last name of the patients and order by medical checkups
--- (skills: select, Left Join, order by)
 
 SELECT CONCAT(Patient_first_name,' ', Patient_last_name)
         AS "Name", Medical_Check_up_reason
@@ -172,7 +167,6 @@ WHERE Patient_gender = 'Female' AND Patient_age = 23;
 
 -- task 15
 -- What is the environmental status of Canada?
--- (skills: select, aggregate, group by, nested query, order by, limit)
 
 SELECT Region_country_short_name,
          Region_environment
@@ -183,7 +177,6 @@ ORDER BY Region_country_short_name, Region_environment;
 
 -- task 16
 -- How many people got their medical checkups in the year 2020?
--- (skills: select, where, subquery)
 
 SELECT COUNT(Patient_first_name) AS "People",
          Medical_Check_up_date AS "MC_Date"
@@ -198,7 +191,6 @@ ORDER BY  2;
 -- Many of the patients that are seen here come from everywhere.
 -- Their origins come from places outside of the United States, therefore
 -- how many patients from Latin America & Caribbean have a disease?
--- (skills: select, where, subqueries, joins)
 
 SELECT COUNT(Patient_first_name) AS "Patient",
          Region,
@@ -216,7 +208,6 @@ GROUP BY  Region, Disease_name;
 -- they discover that there is something wrong with their health.
 -- List the reasons patients might return for a medical checkup and the symptoms 
 -- they have when going to see the doctor
--- (skills: select, where, subqueries, joins, aggregate functions)
 
 SELECT CONCAT(Patient_first_name, ' ', Patient_last_name) AS "Name",
         Disease_name, Medical_Check_up_reason, Medical_Check_up_documentation, Treatment_option
