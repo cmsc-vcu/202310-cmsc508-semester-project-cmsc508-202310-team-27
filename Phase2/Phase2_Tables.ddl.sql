@@ -9,7 +9,7 @@
 -- store your drop table statements in this block
 --
 
-SET FOREIGN_KEY_CHECKS = 0;
+-- SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS Patient;
 DROP TABLE IF EXISTS Region;
 DROP TABLE IF EXISTS Medical_Check_up;
@@ -17,7 +17,8 @@ DROP TABLE IF EXISTS Disease;
 DROP TABLE IF EXISTS Treatment;
 DROP TABLE IF EXISTS Doctor;
 DROP TABLE IF EXISTS Trigger_insert;
-SET FOREIGN_KEY_CHECKS = 1;
+DROP VIEW IF EXISTS Doctor_Patients;
+-- SET FOREIGN_KEY_CHECKS = 1;
 
 -- task 2 - Create "Patient" table
 -- label the columns using the following schema:
@@ -54,8 +55,7 @@ CREATE TABLE Trigger_insert (
     Updated_date DATETIME DEFAULT NULL,
     action VARCHAR(255) DEFAULT NULL,
     
-    primary key(Trigger_ID)
-);
+    primary key(Trigger_ID));
 
 -- TRIGGER TASK 2:
 -- Create a trigger to update when a change has been made
@@ -64,12 +64,28 @@ DROP TRIGGER IF EXISTS after_patient_update;
 CREATE TRIGGER after_patient_update 
     AFTER UPDATE ON Patient
     FOR EACH ROW 
+BEGIN
  INSERT INTO Trigger_insert
- SET action = 'update',
+ SET action = 'UPDATE',
      Patient_ID = OLD.Patient_ID,
      Patient_first_name = OLD.Patient_first_name,
      Patient_last_name = OLD.Patient_last_name,
-     Updated_date = NOW();
+     Updated_date = NOW()
+END;
+
+
+DROP TRIGGER IF EXISTS after_patient_update;
+CREATE TRIGGER after_patient_update 
+    AFTER INSERT ON Patient
+    FOR EACH ROW 
+BEGIN
+ INSERT INTO Trigger_insert
+ SET action = 'INSERT',
+     Patient_ID = OLD.Patient_ID,
+     Patient_first_name = OLD.Patient_first_name,
+     Patient_last_name = OLD.Patient_last_name,
+     Updated_date = NOW()
+END;
 
 -- VIEW IMPLEMENTATION:
 -- Sometimes, it can be tedious to
@@ -77,7 +93,7 @@ CREATE TRIGGER after_patient_update
 -- To avoid doing this each time, create a view that 
 -- stores a specific table in the database.
 DROP VIEW IF EXISTS Doctor_Patients;
-CREATE VIEW Doctor_Patients AS 
+CREATE VIEW Doctor_Patients AS( 
 SELECT Doctor_ID,
          Doctor_name,
          Doctor_start_date,
@@ -85,18 +101,9 @@ SELECT Doctor_ID,
          Patient_ethnicity, Patient_gender
 FROM Doctor a
 JOIN Patient b
-    ON (Doctor_Patient_ID = Patient_ID);
+    ON (Doctor_Patient_ID = Patient_ID));
 
 -- task 3 - Create "Region" table
--- label the columns using the following schema:
---  Region(
---              Region_country,
---              Region_country_short_name,
---              Region_nationality,
---              Region,
---              Region_environment,
--- Assign appropriate data types.
--- Assign an appropriate primary key.
 
 DROP TABLE IF EXISTS Region;
 CREATE TABLE Region(
@@ -114,15 +121,6 @@ CREATE TABLE Region(
 
 
 -- task 4 - Create "Medical_Check_up" table
--- label the columns using the following schema:
---  Medical_Check_up(
---              Medical_Check_up_ID,
---              Medical_Check_up_date,
---              Medical_Check_up_time,
---              Medical_Check_up_reason,
---              Medical_Check_up_documentation)
--- Assign appropriate data types.
--- Assign an appropriate primary key.
 
 DROP TABLE IF EXISTS Medical_Check_up;
 CREATE TABLE Medical_Check_up(
@@ -139,16 +137,6 @@ CREATE TABLE Medical_Check_up(
 
 
 -- task 5 - Create "Disease" table
--- label the columns using the following schema:
---  Disease(
---              Disease_ID,
---              Disease_name,
---              Disease_type,
---              Disease_transmission,
---              Disease_communicable,
---              Disease_fatality)
--- Assign appropriate data types.
--- Assign an appropriate primary key.
 
 DROP TABLE IF EXISTS Disease;
 CREATE TABLE Disease(
@@ -165,14 +153,6 @@ CREATE TABLE Disease(
     foreign key(Disease_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
 
 -- task 6 - Create "Treatment" table
--- label the columns using the following schema:
---  Treatment(
---              Treatment_ID,
---              Treatment_stage,
---              Treatment_cost,
---              Treatment_option)
--- Assign appropriate data types.
--- Assign an appropriate primary key.
 
 DROP TABLE IF EXISTS Treatment;
 CREATE TABLE Treatment(
@@ -186,12 +166,6 @@ CREATE TABLE Treatment(
     foreign key(Treatment_Disease_ID) REFERENCES Disease (Disease_ID) ON DELETE CASCADE ON UPDATE CASCADE);
 
 -- task 7 - Create "Doctor" table
--- label the columns using the following schema:
---  Doctor(
---              Doctor_ID,
---              Doctor_name)
--- Assign appropriate data types.
--- Assign an appropriate primary key.
 
 DROP TABLE IF EXISTS Doctor;
 CREATE TABLE Doctor(
@@ -204,14 +178,6 @@ CREATE TABLE Doctor(
     foreign key(Doctor_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
 
 -- task 8 - Insert records into Patient table using an API
--- DATA PIPELINE TRICK:
---   - create the appropriate INSERT command header
---   - THEN, use a spreadsheet to turn each row of the CSV file into 
---     an appropriately formatted VALUES statement,
---   - THEN, copy and paste the ENTIRE block of values into the DDL file below.
---   - This trick works with just about ANY table!
---   - Watch out for single apostrophes, they need to be manually converted to ''
---     take advantage of the VSCODE colors.
 
 
 INSERT INTO Patient(Patient_ID, Patient_first_name, Patient_last_name, Patient_gender, Patient_age, Patient_ethnicity, Patient_socioeconomic_status) VALUES
@@ -260,14 +226,6 @@ INSERT INTO Patient(Patient_ID, Patient_first_name, Patient_last_name, Patient_g
 SELECT * FROM Patient;
 
 -- task 9 - Insert records into Region table using an API
--- DATA PIPELINE TRICK:
---   - create the appropriate INSERT command header
---   - THEN, use a spreadsheet to turn each row of the CSV file into 
---     an appropriately formatted VALUES statement,
---   - THEN, copy and paste the ENTIRE block of values into the DDL file below.
---   - This trick works with just about ANY table!
---   - Watch out for single apostrophes, they need to be manually converted to ''
---     take advantage of the VSCODE colors.
 
 
 INSERT INTO Region(Region_Disease_ID, Region_country_code, Region_country_short_name, Region_nationality, Region, Region_environment) VALUES
@@ -316,14 +274,6 @@ SELECT * FROM Region;
 
 
 -- task 10 - Insert records into Medical_Check_up table using an API
--- DATA PIPELINE TRICK:
---   - create the appropriate INSERT command header
---   - THEN, use a spreadsheet to turn each row of the CSV file into 
---     an appropriately formatted VALUES statement,
---   - THEN, copy and paste the ENTIRE block of values into the DDL file below.
---   - This trick works with just about ANY table!
---   - Watch out for single apostrophes, they need to be manually converted to ''
---     take advantage of the VSCODE colors.
 
 
 INSERT INTO Medical_Check_up(Medical_Check_up_Patient_ID, Medical_Check_up_ID, Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation) VALUES
@@ -371,14 +321,6 @@ INSERT INTO Medical_Check_up(Medical_Check_up_Patient_ID, Medical_Check_up_ID, M
 SELECT * FROM Medical_Check_up;
 
 -- task 11 - Insert records into Disease table
--- DATA PIPELINE TRICK:
---   - create the appropriate INSERT command header
---   - THEN, use a spreadsheet to turn each row of the CSV file into 
---     an appropriately formatted VALUES statement,
---   - THEN, copy and paste the ENTIRE block of values into the DDL file below.
---   - This trick works with just about ANY table!
---   - Watch out for single apostrophes, they need to be manually converted to ''
---     take advantage of the VSCODE colors.
 
 
 INSERT INTO Disease(Disease_Patient_ID, Disease_ID, Disease_name, Disease_type, Disease_stage, Disease_transmission, Disease_communicable, Disease_fatality) VALUES
@@ -426,14 +368,6 @@ INSERT INTO Disease(Disease_Patient_ID, Disease_ID, Disease_name, Disease_type, 
 SELECT * FROM Disease;
 
 -- task 12 - Insert records into Patient table using an API
--- DATA PIPELINE TRICK:
---   - create the appropriate INSERT command header
---   - THEN, use a spreadsheet to turn each row of the CSV file into 
---     an appropriately formatted VALUES statement,
---   - THEN, copy and paste the ENTIRE block of values into the DDL file below.
---   - This trick works with just about ANY table!
---   - Watch out for single apostrophes, they need to be manually converted to ''
---     take advantage of the VSCODE colors.
 
 
 INSERT INTO Treatment(Treatment_Disease_ID, Treatment_ID, Treatment_stage, Treatment_cost, Treatment_option) VALUES
@@ -481,14 +415,6 @@ INSERT INTO Treatment(Treatment_Disease_ID, Treatment_ID, Treatment_stage, Treat
 SELECT * FROM Treatment;
 
 -- task 13 - Insert records into Doctor table using an API
--- DATA PIPELINE TRICK:
---   - create the appropriate INSERT command header
---   - THEN, use a spreadsheet to turn each row of the CSV file into 
---     an appropriately formatted VALUES statement,
---   - THEN, copy and paste the ENTIRE block of values into the DDL file below.
---   - This trick works with just about ANY table!
---   - Watch out for single apostrophes, they need to be manually converted to ''
---     take advantage of the VSCODE colors.
 
 
 INSERT INTO Doctor(Doctor_Patient_ID ,Doctor_ID, Doctor_name, Doctor_start_date) VALUES
