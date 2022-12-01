@@ -10,6 +10,7 @@
 --
 
 -- SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Patient;
 DROP TABLE IF EXISTS Region;
 DROP TABLE IF EXISTS Medical_Check_up;
@@ -19,6 +20,21 @@ DROP TABLE IF EXISTS Doctor;
 DROP TABLE IF EXISTS Trigger_insert;
 DROP VIEW IF EXISTS Doctor_Patients;
 -- SET FOREIGN_KEY_CHECKS = 1;
+
+-- USERS
+DROP TABLE IF EXISTS Users;
+CREATE TABLE Users(
+  username VARCHAR(255) NOT NULL,
+  PASSWORD VARCHAR(255) NOT NULL,
+  ROLE VARCHAR(255) NOT NULL,
+
+  primary key(username));
+
+INSERT INTO Users(username, PASSWORD, ROLE) VALUES
+('admin','password','admin'),
+('doctor','password','doctor'),
+('patient','password','patient');
+
 
 -- task 2 - Create "Patient" table
 -- label the columns using the following schema:
