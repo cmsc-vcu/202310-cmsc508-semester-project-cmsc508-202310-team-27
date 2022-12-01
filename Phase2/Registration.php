@@ -5,7 +5,7 @@
 
 <?php
     session_start();
-    include('config.php');
+    include('Config.php');
     if (isset($_POST['register'])) {
         $username = $_POST['username'];
         $email = $_POST['email'];

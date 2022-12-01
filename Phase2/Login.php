@@ -7,7 +7,7 @@
 
 <?php
     session_start();
-    include('config.php');
+    include('Config.php');
     if (isset($_POST['login'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
