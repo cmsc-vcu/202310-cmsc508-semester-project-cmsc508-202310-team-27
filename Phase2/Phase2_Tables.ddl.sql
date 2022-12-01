@@ -101,6 +101,17 @@ CREATE TRIGGER after_patient_update
      Patient_last_name = NEW.Patient_last_name,
      Updated_date = NOW();
 
+DROP TRIGGER IF EXISTS after_patient_update;
+CREATE TRIGGER after_patient_update 
+    AFTER DELETE ON Patient
+    FOR EACH ROW 
+ INSERT INTO Trigger_insert
+ SET action = 'DELETE',
+     Patient_ID = NEW.Patient_ID,
+     Patient_first_name = NEW.Patient_first_name,
+     Patient_last_name = NEW.Patient_last_name,
+     Updated_date = NOW();
+
 -- VIEW IMPLEMENTATION:
 -- Sometimes, it can be tedious to
 -- write select statements to view a specific table.
