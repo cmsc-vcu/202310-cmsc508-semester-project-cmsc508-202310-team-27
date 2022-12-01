@@ -21,7 +21,9 @@ DROP TABLE IF EXISTS Trigger_insert;
 DROP VIEW IF EXISTS Doctor_Patients;
 -- SET FOREIGN_KEY_CHECKS = 1;
 
--- USERS
+-- Create a table with information
+-- of the different roles for every
+-- person that logins the website
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users(
   username VARCHAR(255) NOT NULL,
