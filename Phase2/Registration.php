@@ -1,3 +1,8 @@
+<!-- 
+    Check if the supplied email is already registered.
+    If it's not, we enter the username, email, and password into the database.
+ -->
+
 <?php
     session_start();
     include('config.php');
