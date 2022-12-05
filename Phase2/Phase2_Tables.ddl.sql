@@ -55,7 +55,8 @@ CREATE TABLE Trigger_insert (
     Updated_date DATETIME DEFAULT NULL,
     action VARCHAR(255) DEFAULT NULL,
     
-    primary key(Trigger_ID));
+    primary key(Trigger_ID)
+);
 
 -- TRIGGER TASK 2:
 -- Create a trigger to update when a change has been made
@@ -97,7 +98,8 @@ SELECT Doctor_ID,
          Patient_ethnicity, Patient_gender
 FROM Doctor a
 JOIN Patient b
-    ON (Doctor_Patient_ID = Patient_ID));
+    ON (Doctor_Patient_ID = Patient_ID)
+);
 
 -- task 3 - Create "Region" table
 
