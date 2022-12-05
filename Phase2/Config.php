@@ -2,7 +2,7 @@
 
 <?php
     define('USER', 'alimm3');
-    define('PASSWORD', 'Shout4_alimm3_GOME');
+    define('PASSWORD', 'password');
     define('HOST', 'cmsc508.com');
     define('DATABASE', '202310_users_alimm3');
     try {
