@@ -27,6 +27,7 @@
     }
 ?>
 
+<link rel="stylesheet" type="text/css" href="style.css " >
 <form method="post" action="" name="signin-form">
   <div class="form-element">
     <label>Username</label>
