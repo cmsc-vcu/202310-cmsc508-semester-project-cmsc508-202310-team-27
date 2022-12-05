@@ -26,7 +26,7 @@
                 $_SESSION['user_id'] = $result['role'];
                 echo '<p class="success">Congratulations, you are logged in!</p>';
             } else {
-                echo '<p class="error">Username password</p>';
+                echo '<p class="error">Username and password combination is wrong!</p>';
             }
         }
     }
