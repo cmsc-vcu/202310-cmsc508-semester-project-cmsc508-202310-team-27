@@ -7,8 +7,9 @@
 
 <?php
     session_start();
-    include('Config.php');
-    if (isset($_POST['login'])) {
+    include('Config.php'); // This conencts this page with the database 
+    if (isset($_POST['login'])) {  
+        // Variables for Username and Password
         $username = $_POST['username'];
         $password = $_POST['password'];
         $query = $connection->prepare("SELECT * FROM users WHERE username=:username");
