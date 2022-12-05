@@ -1,10 +1,10 @@
 <!-- Connect to the database -->
 
 <?php
-    define('USER', 'root');
-    define('PASSWORD', '');
-    define('HOST', 'localhost');
-    define('DATABASE', 'test');
+    define('USER', 'alimm3');
+    define('PASSWORD', 'Shout4_alimm3_GOME');
+    define('HOST', 'cmsc508.com');
+    define('DATABASE', '202310_users_alimm3');
     try {
         $connection = new PDO("mysql:host=".HOST.";dbname=".DATABASE, USER, PASSWORD);
     } catch (PDOException $e) {
