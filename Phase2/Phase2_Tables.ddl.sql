@@ -10,6 +10,7 @@
 --
 
 -- SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Patient;
 DROP TABLE IF EXISTS Region;
 DROP TABLE IF EXISTS Medical_Check_up;
@@ -19,6 +20,23 @@ DROP TABLE IF EXISTS Doctor;
 DROP TABLE IF EXISTS Trigger_insert;
 DROP VIEW IF EXISTS Doctor_Patients;
 -- SET FOREIGN_KEY_CHECKS = 1;
+
+-- Create a table with information
+-- of the different roles for every
+-- person that logins the website
+DROP TABLE IF EXISTS Users;
+CREATE TABLE Users(
+  username VARCHAR(255) NOT NULL,
+  PASSWORD VARCHAR(255) NOT NULL,
+  ROLE VARCHAR(255) NOT NULL,
+
+  primary key(username));
+
+INSERT INTO Users(username, PASSWORD, ROLE) VALUES
+('admin','password','admin'),
+('doctor','password','doctor'),
+('patient','password','patient');
+
 
 -- task 2 - Create "Patient" table
 -- label the columns using the following schema:
@@ -79,6 +97,17 @@ CREATE TRIGGER after_patient_update
     FOR EACH ROW 
  INSERT INTO Trigger_insert
  SET action = 'INSERT',
+     Patient_ID = NEW.Patient_ID,
+     Patient_first_name = NEW.Patient_first_name,
+     Patient_last_name = NEW.Patient_last_name,
+     Updated_date = NOW();
+
+DROP TRIGGER IF EXISTS after_patient_update;
+CREATE TRIGGER after_patient_update 
+    AFTER DELETE ON Patient
+    FOR EACH ROW 
+ INSERT INTO Trigger_insert
+ SET action = 'DELETE',
      Patient_ID = NEW.Patient_ID,
      Patient_first_name = NEW.Patient_first_name,
      Patient_last_name = NEW.Patient_last_name,
