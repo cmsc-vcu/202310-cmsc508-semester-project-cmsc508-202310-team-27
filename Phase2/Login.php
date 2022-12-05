@@ -16,9 +16,9 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
         $query = $connection->prepare("SELECT * FROM Users WHERE username=:username");
-        $query->bindParam("username", $username);
+        $query->bindParam("username", $username,PDO::PARAM_STR);
         $query->execute();
-        $result = $query->fetchAll();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
             echo '<p class="error">Username password combination is wrong!</p>';
         } else {
