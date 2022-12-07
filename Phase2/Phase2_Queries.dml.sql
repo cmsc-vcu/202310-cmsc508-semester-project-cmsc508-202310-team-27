@@ -157,7 +157,7 @@ UPDATE Patient
 SET Patient_last_name = 'Poff'
 WHERE Patient_gender = 'Female' AND Patient_age = 23;
 
-
+SELECT * FROM Trigger_insert
 -- task 15
 -- What is the environmental status of Canada?
 

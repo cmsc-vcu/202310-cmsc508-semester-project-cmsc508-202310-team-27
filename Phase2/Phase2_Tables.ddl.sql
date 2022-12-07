@@ -12,10 +12,13 @@
 -- SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS Region;
 DROP TABLE IF EXISTS Medical_Check_up;
+DROP TABLE IF EXISTS Doctor_Checkups;
 DROP TABLE IF EXISTS Doctor;
+DROP TABLE IF EXISTS Region_Disease;
 DROP TABLE IF EXISTS Treatment;
 DROP TABLE IF EXISTS Disease;
 DROP TABLE IF EXISTS Patient;
+DROP TABLE IF EXISTS Patients_Checkups;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Trigger_insert;
 DROP VIEW IF EXISTS Doctor_Patients;
@@ -142,8 +145,8 @@ CREATE TRIGGER after_disease_update
     FOR EACH ROW 
  INSERT INTO Trigger_Disease
  SET action = 'INSERT',
-     Disease_ID = OLD.Disease_ID,
-     Disease_name = OLD.Disease_name,
+     Disease_ID = NEW.Disease_ID,
+     Disease_name = NEW.Disease_name,
      Updated_date = NOW();
 
 DROP TRIGGER IF EXISTS after_disease_update;
@@ -243,25 +246,41 @@ CREATE TABLE Region(
     Region_environment VARCHAR(255),
 
     primary key(Region_country_code),
-    foreign key(Region_Disease_ID) REFERENCES Disease (Disease_ID) ON DELETE CASCADE ON UPDATE CASCADE,
     foreign key(Region_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
 
+
+-- Join Table between Region and Disease
+DROP TABLE IF EXISTS Region_Disease;
+CREATE TABLE Region_Disease(
+    Region_Disease_ID INT AUTO_INCREMENT,
+    Region_country_code VARCHAR(255) NOT NULL,
+    Disease_ID INT NOT NULL,
+    Region_Disease_date  DATE NOT NULL,
+
+    primary key(Region_Disease_ID));
 
 -- task 4 - Create "Medical_Check_up" table
 
 DROP TABLE IF EXISTS Medical_Check_up;
 CREATE TABLE Medical_Check_up(
     Medical_Check_up_ID INT NOT NULL,
-    Medical_Check_up_Patient_ID INT NOT NULL,
     Medical_Check_up_date VARCHAR(255) NOT NULL,
     Medical_Check_up_time VARCHAR(255) NOT NULL,
     Medical_Check_up_reason VARCHAR(255) NOT NULL,
     Medical_Check_up_documentation VARCHAR(255) NOT NULL,
 
-    primary key(Medical_Check_up_ID),
-    foreign key(Medical_Check_up_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
+    primary key(Medical_Check_up_ID));
 
 
+-- Join table between Patient and Medical_Checkups
+DROP TABLE IF EXISTS Patients_Checkups;
+CREATE TABLE Patients_Checkups(
+    Patients_Checkups_ID INT AUTO_INCREMENT,
+    Medical_Check_up_ID INT NOT NULL,
+    Patient_ID INT NOT NULL,
+    Patients_Checkups_date  DATE NOT NULL,
+
+    primary key(Patients_Checkups_ID));
 
 -- task 5 - Create "Disease" table
 
@@ -306,6 +325,14 @@ CREATE TABLE Doctor(
     foreign key(Doctor_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
 
 
+DROP TABLE IF EXISTS Doctor_Checkups;
+CREATE TABLE Doctor_Checkups(
+    Doctor_Checkups_ID INT AUTO_INCREMENT,
+    Doctor_ID INT NOT NULL,
+    Doctor_name VARCHAR(255) NOT NULL,
+    Doctor_Checkups_date  DATE NOT NULL,
+
+    primary key(Doctor_Checkups_ID));
 
 -- task 8 - Insert records into Region table using an API
 
@@ -354,56 +381,74 @@ INSERT INTO Region( Region_Disease_ID, Region_Patient_ID, Region_country_code, R
 
 SELECT * FROM Region;
 
-
-
+INSERT INTO Region_Disease(Region_country_code, Disease_ID,Region_Disease_date) VALUES
+ 
+  ("ABW",1,'2022-06-20'),
+  ("CHL", 2, '2022-06-20'),
+  ("MEX", 3, '2022-06-20'),
+  ("GTM", 4, '2022-06-20'),
+  ("CMR", 5, '2022-06-20'),
+  ("COD", 6, '2022-06-20');
+    
+SELECT * FROM Region_Disease;
 -- task 9 - Insert records into Medical_Check_up table using an API
 
 
-INSERT INTO Medical_Check_up(Medical_Check_up_Patient_ID, Medical_Check_up_ID, Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation) VALUES
-  (1,110,"03/23/2019","12:00 PM","High temperature","The patient has high temperature"),
-  (2,111,"02/27/2015","4:45 PM","Headaches","The patient has a headache and hasn't been able to sleep well due to this, therefore, more test will be done"),
-  (3,112,"10/23/2018","8:30 AM","High temperature","The patient has high temperature"),
-  (4,113,"06/22/2015","6:20 AM","Bladder changes","The patient needs further test"),
-  (5,114,"04/13/2020","6:55 PM","Cough","The patient is not feeling good, has a really bad cough"),
-  (6,115,"05/16/2020","5:50 PM","Eating problems","Patient has no appetite"),
-  (7,116,"12/22/2022","11:30 AM","Severe fatigue","The patient has fainted due to fatigue"),
-  (8,117,"06/20/2021","7:23 AM","Trouble urinating","The patient hasn't been able to urinate properly and occasional bladder pain is involved"),
-  (9,118,"11/15/2022","10:30 AM","Nausea","The patient has been feeling nauseous for the past week"),
-  (10,119,"01/27/2018","8:50 AM","Nose bleeding","The patient is suffering form severe dehydration"),
-  (11,120,"12/12/2020","4:25 PM","Severe rash"," The patient has a severe rash accompanied with a fever"),
-  (12,121,"07/21/2018","5:30 PM","Skin infection","The patent has redness of skin and scrashes the skin constantly"),
-  (13,122,"10/12/2021","5:20 PM","Persisting cough & headache","The patient has a fever of 102° F or greater (which may indicate a more serious infection)"),
-  (14,123,"03/12/2020","8:59 AM","Unclear vision and red eyes","The patient has had redness, itching, tearing, burning sensation, pus-like discharge and/or crusting of the eyelids for several weeks"),
-  (15,124,"04/04/2020","4:50 PM","Watery, loose stools","The patient has cramping or pain in the abdomen, nausea, bloating"),
-  (16,125,"04/07/2021","10:32 AM","Extreme fatigue, and frequent naps","The patient has extreme fatigue accompanied by other symptoms, such as swollen lymph glands and spleen, sore throat, fever, loss of appetite"),
-  (17,126,"05/12/2020","6:35 PM","Insomnia, restlessness, slurred speech, or unresponsiveness","The patient seems to have a mental deterioration."),
-  (18,127,"05/21/2020","8:57 PM","Random fevers","The patient is pregnant and seems to have a self-limiting influenza-like illness"),
-  (19,128,"06/12/2020","6:20 PM","Cold, cough and a mild fever","The patient seems to have a cold with a runny nose and a mild fever"),
-  (20,129,"06/11/2022","10:35 PM","Fever and sore throat","The patient seems to have a mild fever, sore throat and a rash that starts on the face and spreads to the rest of the body"),
-  (21,130,"07/06/2020","8:57 AM","Painful muscle spasms"," The patient has painful muscle spasms and stiff, immovable muscles in the jaw & difficulty swallowing"),
-  (22,131,"07/19/2020","5:46 PM","Painful urination","The patient has pain while urinating as well as testicular pain"),
-  (23,132,"07/22/2022","10:40 PM","Memory loss & poor judgment","The patient's family is concern becasue the patient has had cases of memory loss, poor judgment, etc"),
-  (24,133,"08/12/2019","4:15 PM","Painful urination","The patient finds it painful to urinate. Abdominal or pelvic pain is also involved"),
-  (25,134,"08/23/2020","6:10 PM","Fever, fatigue","The patient has a variety of symptoms such as loss of appetite, nausea, vomiting, but the most concerning ones are fever and fatigue."),
-  (26,135,"08/25/2021","10:46 AM","pain, swelling","The patient has continuous joint pain and swelling of the area as well"),
-  (27,136,"08/28/2022","8:52 PM","Dry, cracked skin","The patient shows very dry and cracked skin with rashes"),
-  (28,137,"09/18/2019","11:20 AM","Nausea and vomiting","The patient seems to be vomiting often, diarrhea is also involved"),
-  (29,138,"09/20/2022","8:53 AM","Fever, headache and muscle pain","The patient shows a veriety of symptoms such as Severe headache, stiff neck, confusion, seizures. The patient's life may be in danger. Intensive care is needed"),
-  (30,139,"09/09/2022","4:30 PM","Fever, chills, and malaise","The patient seems to be developing his fever, and chills from multiple lesions and inguinal adenopathy"),
-  (31,140,"10/03/2020","6:15 PM","Shortness of breath and chest tightness or pain","The patient seems to be having wheezing when exhaling, shortness of breat and tightness of the chest"),
-  (32,141,"10/08/2021","11:10 AM","characteristic skin rash called erythema migrans","The patient has a characteristic skin rash called erythema migrans, as well as fever, headache and fatigue"),
-  (33,142,"10/09/2018","10:50 AM","Skin problems.Abdominal pain or digestive issues","The patient has Skin problems and abdominal pain"),
-  (34,143,"11/11/2019","4:35 PM","Drowsiness, fever","The patient seems to be feeling unwell lately. Fever has developed as well as muscle soreness or trembling"),
-  (35,144,"11/12/2020","6:50 PM","Ocasional confusion, and seizures","Patient has been having cases wehre he seems very confused. Seizures have also been present three times a week"),
-  (36,145,"11/27/2021","11:40 AM","Head usually hurts on both sides","The patient seems to be having serious headaches"),
-  (37,146,"11/23/2022","8:51 PM","New loss of taste or smell","The patient has lost the sense of smell and taste"),
-  (38,147,"01/01/2020","10:45 AM","Watery diarrhea","The patient has had Watery diarrhea for a weeks now and seems very dehydrated"),
-  (39,148,"01/02/2021","8:52 AM","fever and flu-like illness","The patient has a fever and flu-like illness"),
-  (40,149,"01/03/2022","4:15 PM","Aches and pains","The patient seems to be having aches and pains (eye pain, typically behind the eyes, muscle, joint, or bone pain)");
+INSERT INTO Medical_Check_up(Medical_Check_up_ID, Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation) VALUES
+  (110,"03/23/2019","12:00 PM","High temperature","The patient has high temperature"),
+  (111,"02/27/2015","4:45 PM","Headaches","The patient has a headache and hasn't been able to sleep well due to this, therefore, more test will be done"),
+  (112,"10/23/2018","8:30 AM","High temperature","The patient has high temperature"),
+  (113,"06/22/2015","6:20 AM","Bladder changes","The patient needs further test"),
+  (114,"04/13/2020","6:55 PM","Cough","The patient is not feeling good, has a really bad cough"),
+  (115,"05/16/2020","5:50 PM","Eating problems","Patient has no appetite"),
+  (116,"12/22/2022","11:30 AM","Severe fatigue","The patient has fainted due to fatigue"),
+  (117,"06/20/2021","7:23 AM","Trouble urinating","The patient hasn't been able to urinate properly and occasional bladder pain is involved"),
+  (118,"11/15/2022","10:30 AM","Nausea","The patient has been feeling nauseous for the past week"),
+  (119,"01/27/2018","8:50 AM","Nose bleeding","The patient is suffering form severe dehydration"),
+  (120,"12/12/2020","4:25 PM","Severe rash"," The patient has a severe rash accompanied with a fever"),
+  (121,"07/21/2018","5:30 PM","Skin infection","The patent has redness of skin and scrashes the skin constantly"),
+  (122,"10/12/2021","5:20 PM","Persisting cough & headache","The patient has a fever of 102° F or greater (which may indicate a more serious infection)"),
+  (123,"03/12/2020","8:59 AM","Unclear vision and red eyes","The patient has had redness, itching, tearing, burning sensation, pus-like discharge and/or crusting of the eyelids for several weeks"),
+  (124,"04/04/2020","4:50 PM","Watery, loose stools","The patient has cramping or pain in the abdomen, nausea, bloating"),
+  (125,"04/07/2021","10:32 AM","Extreme fatigue, and frequent naps","The patient has extreme fatigue accompanied by other symptoms, such as swollen lymph glands and spleen, sore throat, fever, loss of appetite"),
+  (126,"05/12/2020","6:35 PM","Insomnia, restlessness, slurred speech, or unresponsiveness","The patient seems to have a mental deterioration."),
+  (127,"05/21/2020","8:57 PM","Random fevers","The patient is pregnant and seems to have a self-limiting influenza-like illness"),
+  (128,"06/12/2020","6:20 PM","Cold, cough and a mild fever","The patient seems to have a cold with a runny nose and a mild fever"),
+  (129,"06/11/2022","10:35 PM","Fever and sore throat","The patient seems to have a mild fever, sore throat and a rash that starts on the face and spreads to the rest of the body"),
+  (130,"07/06/2020","8:57 AM","Painful muscle spasms"," The patient has painful muscle spasms and stiff, immovable muscles in the jaw & difficulty swallowing"),
+  (131,"07/19/2020","5:46 PM","Painful urination","The patient has pain while urinating as well as testicular pain"),
+  (132,"07/22/2022","10:40 PM","Memory loss & poor judgment","The patient's family is concern becasue the patient has had cases of memory loss, poor judgment, etc"),
+  (133,"08/12/2019","4:15 PM","Painful urination","The patient finds it painful to urinate. Abdominal or pelvic pain is also involved"),
+  (34,"08/23/2020","6:10 PM","Fever, fatigue","The patient has a variety of symptoms such as loss of appetite, nausea, vomiting, but the most concerning ones are fever and fatigue."),
+  (135,"08/25/2021","10:46 AM","pain, swelling","The patient has continuous joint pain and swelling of the area as well"),
+  (136,"08/28/2022","8:52 PM","Dry, cracked skin","The patient shows very dry and cracked skin with rashes"),
+  (137,"09/18/2019","11:20 AM","Nausea and vomiting","The patient seems to be vomiting often, diarrhea is also involved"),
+  (138,"09/20/2022","8:53 AM","Fever, headache and muscle pain","The patient shows a veriety of symptoms such as Severe headache, stiff neck, confusion, seizures. The patient's life may be in danger. Intensive care is needed"),
+  (139,"09/09/2022","4:30 PM","Fever, chills, and malaise","The patient seems to be developing his fever, and chills from multiple lesions and inguinal adenopathy"),
+  (140,"10/03/2020","6:15 PM","Shortness of breath and chest tightness or pain","The patient seems to be having wheezing when exhaling, shortness of breat and tightness of the chest"),
+  (141,"10/08/2021","11:10 AM","characteristic skin rash called erythema migrans","The patient has a characteristic skin rash called erythema migrans, as well as fever, headache and fatigue"),
+  (142,"10/09/2018","10:50 AM","Skin problems.Abdominal pain or digestive issues","The patient has Skin problems and abdominal pain"),
+  (143,"11/11/2019","4:35 PM","Drowsiness, fever","The patient seems to be feeling unwell lately. Fever has developed as well as muscle soreness or trembling"),
+  (144,"11/12/2020","6:50 PM","Ocasional confusion, and seizures","Patient has been having cases wehre he seems very confused. Seizures have also been present three times a week"),
+  (145,"11/27/2021","11:40 AM","Head usually hurts on both sides","The patient seems to be having serious headaches"),
+  (146,"11/23/2022","8:51 PM","New loss of taste or smell","The patient has lost the sense of smell and taste"),
+  (147,"01/01/2020","10:45 AM","Watery diarrhea","The patient has had Watery diarrhea for a weeks now and seems very dehydrated"),
+  (148,"01/02/2021","8:52 AM","fever and flu-like illness","The patient has a fever and flu-like illness"),
+  (149,"01/03/2022","4:15 PM","Aches and pains","The patient seems to be having aches and pains (eye pain, typically behind the eyes, muscle, joint, or bone pain)");
 
 SELECT * FROM Medical_Check_up;
 
 
+-- Populating the Join table between Patient and medical checkups.
+INSERT INTO Patients_Checkups(Medical_Check_up_ID, Patient_ID, Patients_Checkups_date ) VALUES
+
+  (1,1,'2019-02-12'),
+  (2, 2, '2019-02-12'),
+  (3, 3, '2019-02-12'),
+  (4, 4, '2019-02-12'),
+  (5, 5, '2019-02-12');
+
+SELECT * FROM Patients_Checkups;
 -- task 10 - Insert records into Patient table using an API
 
 
@@ -455,47 +500,47 @@ SELECT * FROM Patient;
 -- task 11 - Insert records into Disease table
 
 
-INSERT INTO Disease(Disease_Patient_ID, Disease_ID, Disease_name, Disease_type, Disease_stage, Disease_transmission, Disease_communicable, Disease_fatality) VALUES
-  (1,1,"Alzheimer","Early on","1","","","Low"),
-  (2,2,"Asthma","Moderate","1","","","Low"),
-  (3,3,"Autoimmune Disease","Moderate","2","","","Low"),
-  (4,4,"E. Coli","Early on","1","Raw foods","Easy","Medium"),
-  (5,5,"Eczema","Early on","2","","","Low"),
-  (6,6,"Gonorrhea","Early on","2","Sexual contact","Moderate","Low"),
-  (7,7,"Hepatitis","Severe","2","Blood","Easy","Low"),
-  (8,8,"Lyme Disease","Moderate","1","Infected tick","Easy","Low"),
-  (9,9,"Malaria","Severe","2","Mosquitoes","Easy","Medium"),
-  (10,10,"Tuberculosis","Moderate","3","Air","High","Low"),
-  (11,11,"Celiac Disease","Early on","2","","","High"),
-  (12,12,"Cryptosporidiosis","Moderate","3","Parasite","Easy","Low"),
-  (13,13,"Cyclospora","Moderate","1","Ingestion","Moderate","Low"),
-  (14,14,"Arboviral Encephalitis","Early on","3","Infected tick or mosquitoes","Easy","Medium"),
-  (15,15,"Chlamydia","Early on","2","Sexual contact","Moderate","Low"),
-  (16,16,"Diphtheria","Early on","3","Poisonous bacteria","Moderate","Moderate"),
-  (17,17,"Chancroid","Severe","3","Sexual contact","Easy","Low"),
-  (18,18,"Chickenpox","Moderate","3","Varicella zoster vacteria","Easy","Low"),
-  (19,19,"Alphaviruses","Severe","2","Mosquitoes bites","Easy","Medium"),
-  (20,20,"Arthritis","Moderate","2","Genetics","","Low"),
-  (21,21,"Cancer","Severe","1","Genetics","","Medium"),
-  (22,22,"COVID","Moderate","2","Direct contact & Air","","High"),
-  (23,23,"Lung Cancer","Severe","3","Genetics","","Medium"),
-  (24,24,"Monkeypox","Severe","2","Direct contact","Easy","Medium"),
-  (25,25,"Tuberculosis","Severe","1","Direct contact & Air","Easy","High"),
-  (26,26,"Skin Cancer","Severe","3","Genetics","","Medium"),
-  (27,27,"Heart disease","Severe","2","Genetics","","Low"),
-  (28,28,"Dengue","Moderate","1","People & Mosquitoes","Easy","Medium"),
-  (29,29,"Malaria","Moderate","3","Infected mosquitoes","","Low"),
-  (30,30,"Diarrheal Diseases","Severe","1","Uncleanliness","Easy","High"),
-  (31,31,"Respiratory Cancer","Severe","1","Genetics","","High"),
-  (32,32,"Conjunctivitis (pink eye)","Severe","3","People","Easy","High"),
-  (33,33,"Cold and Flu","Low","1","Direct contact","Easy","Low"),
-  (34,34,"Leukemia","Moderate","2","","","Moderate"),
-  (35,35,"Mononucleosis","Moderate","3","Saliva","Moderate","Medium"),
-  (36,36,"Mad Cow (BSE)","Moderate","2","Through ingestion of BSE-tainted beef and beef products","High","Low"),
-  (37,37,"Listeriosis","Moderate","3","Food & Mother to fetus","Moderate","Medium"),
-  (38,38,"Measles","High","2","Mucus particle in the Air","High","Low"),
-  (39,39,"Rubella","Low","1","Direct contact","Easy","High"),
-  (40,40,"Tetanus","Low","2","","","Medium");
+INSERT INTO Disease(Disease_ID, Disease_name, Disease_type, Disease_stage, Disease_transmission, Disease_communicable, Disease_fatality) VALUES
+  (1,"Alzheimer","Early on","1","","","Low"),
+  (2,"Asthma","Moderate","1","","","Low"),
+  (3,"Autoimmune Disease","Moderate","2","","","Low"),
+  (4,"E. Coli","Early on","1","Raw foods","Easy","Medium"),
+  (5,"Eczema","Early on","2","","","Low"),
+  (6,"Gonorrhea","Early on","2","Sexual contact","Moderate","Low"),
+  (7,"Hepatitis","Severe","2","Blood","Easy","Low"),
+  (8,"Lyme Disease","Moderate","1","Infected tick","Easy","Low"),
+  (9,"Malaria","Severe","2","Mosquitoes","Easy","Medium"),
+  (10,"Tuberculosis","Moderate","3","Air","High","Low"),
+  (11,"Celiac Disease","Early on","2","","","High"),
+  (12,"Cryptosporidiosis","Moderate","3","Parasite","Easy","Low"),
+  (13,"Cyclospora","Moderate","1","Ingestion","Moderate","Low"),
+  (14,"Arboviral Encephalitis","Early on","3","Infected tick or mosquitoes","Easy","Medium"),
+  (15,"Chlamydia","Early on","2","Sexual contact","Moderate","Low"),
+  (16,"Diphtheria","Early on","3","Poisonous bacteria","Moderate","Moderate"),
+  (17,"Chancroid","Severe","3","Sexual contact","Easy","Low"),
+  (18,"Chickenpox","Moderate","3","Varicella zoster vacteria","Easy","Low"),
+  (19,"Alphaviruses","Severe","2","Mosquitoes bites","Easy","Medium"),
+  (20,"Arthritis","Moderate","2","Genetics","","Low"),
+  (21,"Cancer","Severe","1","Genetics","","Medium"),
+  (22,"COVID","Moderate","2","Direct contact & Air","","High"),
+  (23,"Lung Cancer","Severe","3","Genetics","","Medium"),
+  (24,"Monkeypox","Severe","2","Direct contact","Easy","Medium"),
+  (25,"Tuberculosis","Severe","1","Direct contact & Air","Easy","High"),
+  (26,"Skin Cancer","Severe","3","Genetics","","Medium"),
+  (27,"Heart disease","Severe","2","Genetics","","Low"),
+  (28,"Dengue","Moderate","1","People & Mosquitoes","Easy","Medium"),
+  (29,"Malaria","Moderate","3","Infected mosquitoes","","Low"),
+  (30,"Diarrheal Diseases","Severe","1","Uncleanliness","Easy","High"),
+  (31,"Respiratory Cancer","Severe","1","Genetics","","High"),
+  (32,"Conjunctivitis (pink eye)","Severe","3","People","Easy","High"),
+  (33,"Cold and Flu","Low","1","Direct contact","Easy","Low"),
+  (34,"Leukemia","Moderate","2","","","Moderate"),
+  (35,"Mononucleosis","Moderate","3","Saliva","Moderate","Medium"),
+  (36,"Mad Cow (BSE)","Moderate","2","Through ingestion of BSE-tainted beef and beef products","High","Low"),
+  (37,"Listeriosis","Moderate","3","Food & Mother to fetus","Moderate","Medium"),
+  (38,"Measles","High","2","Mucus particle in the Air","High","Low"),
+  (39,"Rubella","Low","1","Direct contact","Easy","High"),
+  (40,"Tetanus","Low","2","","","Medium");
 
 SELECT * FROM Disease;
 
@@ -592,3 +637,14 @@ INSERT INTO Doctor(Doctor_Patient_ID ,Doctor_ID, Doctor_name, Doctor_start_date)
   (40,40,"Dr.Cermeno","1993-08-12");
 
 SELECT * FROM Doctor;
+
+INSERT INTO Doctor_Checkups(Doctor_ID, Doctor_name, Doctor_Checkups_date) VALUES
+ 
+  (1,"Dr.Shepherd","2005-01-21"),
+  (2,"Dr.McIness","2010-10-01"),
+  (3,"Dr.Tang","2020-07-17"),
+  (4,"Dr.Roland","2022-06-04"),
+  (5,"Dr.Albert","2022-05-18");
+
+SELECT * FROM Doctor_Checkups;
+     
