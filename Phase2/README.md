@@ -1,4 +1,16 @@
-# Phase 2 documentation
-This folder contains individual artifacts for successful completion of Phase 2 submission.
+# Problem Statement
+## Authors: Lazaro Camero, Khoi Tran, Mir Ali
 
-This file contains the overall submission, with embedded images or links to relevant files, either within this folder or not.
+## Introduction
+
+In light of today’s modern society, scientists around the world are innovating new ways to combat illnesses and prolong the human lifespan. One approach to this is identifying what influences population health - in other words, recognizing predictors of health, such as race and gender. Studies around the globe show that racial and ethnic minority groups experience higher rates of illnesses and deaths across a wide range of health conditions, such as diabetes, hypertension, obesity, and heart-related diseases, when compared to their White counterparts. In addition, the role of gender can impact the health outcomes of an individual as it often is associated with health behaviors such as physical activity.<br />
+&nbsp; &nbsp; &nbsp; &nbsp;The main focus of this project will investigate how particular diseases spread among different racial and gender groups. It’s important to remember that people of different races mix in today’s culture, so illnesses that affect, for instance, a group of Africans particularly may also affect, to some extent, a group of people who have some African in them. Studies have revealed that some diseases can develop over the course of a person’s life, while some diseases are more likely to affect particular ethnic groups.<br />
+&nbsp; &nbsp; &nbsp; &nbsp;The biology department at Virginia Commonwealth University is in need of a database that allows for a quick and easy retrieval of data associated with certain key concepts or names and attributes. It seems like they have too much data everywhere in their system, making it difficult for them to group their patients into their corresponding type of disease and treatments for them. Data is to be stored about patients, diseases, ages, and doctor’s appointment. This data includes the disease name, complications, activity habits, and family history, Data to be stored about the patients include location in between doctor’s appointments, patient’s ID, date when they weren’t visiting the doctor. Data stored about the doctor’s visit include the date the patients visited the doctors, and time.
+
+## What we took from the class?
+
+We cover SQL fundamentals such as how to manage large datasets and analyze real-world data. The course was designed such that we could progress from fundamentals to more advanced SQL topics during the semester. We learned how to use relational databases, which divide data into columns and rows, to store, generate, and retrieve information. We were required to learn some PHP foundations for our final project because it was utilized for website creation. Working on this final project helped us to become more acquainted with both SQL and PHP in order to better comprehend how a website and its data function interact. We would spend more time to better comprehend certain topics next time. For example, because we were all new to PHP, we met a lot of difficulties when learning it. As a result, I believe that having more time to focus on a certain topic will be quite beneficial to us.
+
+## Improvements to the semester project
+
+The project could have been considerably better. I believe the deadline was not on our side; yet, we believe we did an excellent job with the task we completed. Things can only get better from here, or so the hope goes. We believe that the project can be enhanced by making it more dynamic and adding more features to improve how it appears when users visit the website and data.
