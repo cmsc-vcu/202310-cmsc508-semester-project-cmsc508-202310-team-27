@@ -152,9 +152,11 @@ ORDER BY  Medical_Check_up_reason;
 -- How can we manage this in the database? Write a query to update 
 -- the a patient's name.
 
+
 UPDATE Patient
 SET Patient_last_name = 'Poff'
 WHERE Patient_gender = 'Female' AND Patient_age = 23;
+
 
 -- task 15
 -- What is the environmental status of Canada?

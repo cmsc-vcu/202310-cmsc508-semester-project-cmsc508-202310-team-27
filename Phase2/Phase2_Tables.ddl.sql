@@ -10,16 +10,23 @@
 --
 
 -- SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Patient;
 DROP TABLE IF EXISTS Region;
 DROP TABLE IF EXISTS Medical_Check_up;
-DROP TABLE IF EXISTS Disease;
-DROP TABLE IF EXISTS Treatment;
 DROP TABLE IF EXISTS Doctor;
+DROP TABLE IF EXISTS Treatment;
+DROP TABLE IF EXISTS Disease;
+DROP TABLE IF EXISTS Patient;
+DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Trigger_insert;
 DROP VIEW IF EXISTS Doctor_Patients;
 -- SET FOREIGN_KEY_CHECKS = 1;
+
+-- View tables that have references to a 
+-- specific table I want to drop
+-- Order of tables to drop goes down-up
+SELECT * 
+FROM information_schema.KEY_COLUMN_USAGE 
+WHERE REFERENCED_TABLE_NAME = 'Patient';
 
 -- Create a table with information
 -- of the different roles for every
@@ -62,8 +69,9 @@ CREATE TABLE Patient(
     primary key(Patient_ID)
 );
 
+------------------------------------- TRIGGERS -------------------------------------------------------------------------
 -- TRIGGER TASK 1: 
--- Create "Trigger_INSERT" table
+-- Create "Trigger_insert" table
 DROP TABLE IF EXISTS Trigger_insert;
 CREATE TABLE Trigger_insert (
     Trigger_ID INT AUTO_INCREMENT,
@@ -72,16 +80,16 @@ CREATE TABLE Trigger_insert (
     Patient_last_name VARCHAR(255) NOT NULL,
     Updated_date DATETIME DEFAULT NULL,
     action VARCHAR(255) DEFAULT NULL,
-    
+
     primary key(Trigger_ID)
 );
 
--- TRIGGER TASK 2:
+
 -- Create a trigger to update when a change has been made
 -- in the database
 DROP TRIGGER IF EXISTS after_patient_update;
 CREATE TRIGGER after_patient_update 
-    AFTER UPDATE ON Patient
+    AFTER UPDATE ON Patient 
     FOR EACH ROW 
  INSERT INTO Trigger_insert
  SET action = 'UPDATE',
@@ -108,10 +116,102 @@ CREATE TRIGGER after_patient_update
     FOR EACH ROW 
  INSERT INTO Trigger_insert
  SET action = 'DELETE',
-     Patient_ID = NEW.Patient_ID,
-     Patient_first_name = NEW.Patient_first_name,
-     Patient_last_name = NEW.Patient_last_name,
+     Patient_ID = OLD.Patient_ID,
+     Patient_first_name = OLD.Patient_first_name,
+     Patient_last_name = OLD.Patient_last_name,
      Updated_date = NOW();
+
+
+
+-- TRIGGER TASK 2: 
+-- Create "Trigger_Disease" table to store the changes in Disease
+DROP TABLE IF EXISTS Trigger_Disease;
+CREATE TABLE Trigger_Disease (
+    Trigger_ID INT AUTO_INCREMENT,
+    Disease_ID INT NOT NULL,
+    Disease_name VARCHAR(255) NOT NULL,
+    Updated_date DATETIME DEFAULT NULL,
+    action VARCHAR(255) DEFAULT NULL,
+
+    primary key(Trigger_ID)
+);
+
+DROP TRIGGER IF EXISTS after_disease_update;
+CREATE TRIGGER after_disease_update 
+    AFTER INSERT ON Disease 
+    FOR EACH ROW 
+ INSERT INTO Trigger_Disease
+ SET action = 'INSERT',
+     Disease_ID = OLD.Disease_ID,
+     Disease_name = OLD.Disease_name,
+     Updated_date = NOW();
+
+DROP TRIGGER IF EXISTS after_disease_update;
+CREATE TRIGGER after_disease_update 
+    AFTER UPDATE ON Disease 
+    FOR EACH ROW 
+ INSERT INTO Trigger_Disease
+ SET action = 'UPDATE',
+     Disease_ID = NEW.Disease_ID,
+     Disease_name = NEW.Disease_name,
+     Updated_date = NOW();
+
+DROP TRIGGER IF EXISTS after_disease_update;
+CREATE TRIGGER after_disease_update 
+    AFTER DELETE ON Disease 
+    FOR EACH ROW 
+ INSERT INTO Trigger_Disease
+ SET action = 'DELETE',
+     Disease_ID = OLD.Disease_ID,
+     Disease_name = OLD.Disease_name,
+     Updated_date = NOW();
+
+
+-- TRIGGER TASK 2: 
+-- Create "Trigger_Disease" table to store the changes in Disease
+DROP TABLE IF EXISTS Trigger_Doctor;
+CREATE TABLE Trigger_Doctor (
+    Trigger_ID INT AUTO_INCREMENT,
+    Doctor_ID INT NOT NULL,
+    Doctor_name VARCHAR(255) NOT NULL,
+    Updated_date DATETIME DEFAULT NULL,
+    action VARCHAR(255) DEFAULT NULL,
+
+    primary key(Trigger_ID)
+);
+
+DROP TRIGGER IF EXISTS after_disease_update;
+CREATE TRIGGER after_disease_update 
+    AFTER INSERT ON Disease 
+    FOR EACH ROW 
+ INSERT INTO Trigger_Disease
+ SET action = 'INSERT',
+     Doctor_ID = OLD.Disease_ID,
+     Doctore_name = OLD.Disease_name,
+     Updated_date = NOW();
+
+DROP TRIGGER IF EXISTS after_disease_update;
+CREATE TRIGGER after_disease_update 
+    AFTER UPDATE ON Disease 
+    FOR EACH ROW 
+ INSERT INTO Trigger_Disease
+ SET action = 'UPDATE',
+     Doctor_ID = NEW.Disease_ID,
+     Docotr_name = NEW.Disease_name,
+     Updated_date = NOW();
+
+DROP TRIGGER IF EXISTS after_disease_update;
+CREATE TRIGGER after_disease_update 
+    AFTER DELETE ON Disease 
+    FOR EACH ROW 
+ INSERT INTO Trigger_Disease
+ SET action = 'DELETE',
+     Doctor_ID = OLD.Disease_ID,
+     Doctor_name = OLD.Disease_name,
+     Updated_date = NOW();
+
+
+------------------------------------- END OF TRIGGERS -------------------------------------------------------------------------
 
 -- VIEW IMPLEMENTATION:
 -- Sometimes, it can be tedious to
@@ -134,9 +234,9 @@ JOIN Patient b
 
 DROP TABLE IF EXISTS Region;
 CREATE TABLE Region(
-    Region_Disease_ID INT NOT NULL,
-    Region_Patient_ID INT NOT NULL AUTO_INCREMENT, 
     Region_country_code VARCHAR(255) NOT NULL,
+    Region_Disease_ID INT NOT NULL,
+    Region_Patient_ID INT NOT NULL, 
     Region_country_short_name VARCHAR(255),
     Region_nationality VARCHAR(255),
     Region VARCHAR(255),
@@ -151,8 +251,8 @@ CREATE TABLE Region(
 
 DROP TABLE IF EXISTS Medical_Check_up;
 CREATE TABLE Medical_Check_up(
-    Medical_Check_up_Patient_ID INT NOT NULL,
     Medical_Check_up_ID INT NOT NULL,
+    Medical_Check_up_Patient_ID INT NOT NULL,
     Medical_Check_up_date VARCHAR(255) NOT NULL,
     Medical_Check_up_time VARCHAR(255) NOT NULL,
     Medical_Check_up_reason VARCHAR(255) NOT NULL,
@@ -167,8 +267,8 @@ CREATE TABLE Medical_Check_up(
 
 DROP TABLE IF EXISTS Disease;
 CREATE TABLE Disease(
-    Disease_Patient_ID INT NOT NULL,
     Disease_ID INT NOT NULL,
+    Disease_Patient_ID INT NOT NULL,
     Disease_name VARCHAR(255) NOT NULL,
     Disease_type VARCHAR(255) NOT NULL,
     Disease_stage INT NOT NULL,
@@ -178,6 +278,7 @@ CREATE TABLE Disease(
 
     primary key(Disease_ID),
     foreign key(Disease_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
+
 
 -- task 6 - Create "Treatment" table
 
@@ -204,7 +305,106 @@ CREATE TABLE Doctor(
     primary key(Doctor_ID),
     foreign key(Doctor_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
 
--- task 8 - Insert records into Patient table using an API
+
+
+-- task 8 - Insert records into Region table using an API
+
+
+INSERT INTO Region( Region_Disease_ID, Region_Patient_ID, Region_country_code, Region_country_short_name, Region_nationality, Region, Region_environment) VALUES
+  (1,1,"ABW","Aruba","Arubans","Latin America & Caribbean","Hot"),
+  (2,2,"AFG","Afghanistan","Afghans","South Asia","Hot"),
+  (3,3,"AGO","Angola","Angolans","Sub-Saharan Africa","Warm & Hot"),
+  (4,4,"ALB","Albania","Albanians","Europe & Central Asia","Warm & Hot"),
+  (5,5,"AND","Andorra","Andorrans","Europe & Central Asia","Warm & Cold"),
+  (6,6,"ARE","United Arab Emirates","The Emiratis","Middle East & North Africa","Hot & Cool"),
+  (7,7,"ARG","Argentina","Argentinians","Latin America & Caribbean","Mild to Warm && Very Hot "),
+  (8,8,"ARM","Armenia","Armenians","Europe & Central Asia","Hot & Cold"),
+  (9,9,"ASM","American Samoa","Samoans","East Asia & Pacific","Warm"),
+  (10,10,"ATG","Antigua and Barbuda","Antiguans","Latin America & Caribbean","Hot"),
+  (11,11,"AUS","Australia","Australians","East Asia & Pacific","Warm & Hot"),
+  (12,12,"AUT","Austria","Austrins","Europe & Central Asia","Warm & Humid"),
+  (13,13,"AZE","Azerbaijan","Azerbaijani","Europe & Central Asia","Hot & Cold"),
+  (14,14,"BDI","Burundi","Burundians","Sub-Saharan Africa","Warm or Hot"),
+  (15,15,"BEL","Belgium","Belgians","Europe & Central Asia","Slightly warm & Cold"),
+  (16,16,"BEN","Benin","Beninese","Sub-Saharan Africa","Warm"),
+  (17,17,"BFA","Burkina Faso","Burkinabé","Sub-Saharan Africa","Hot & Humid"),
+  (18,18,"BGD","Bangladesh","Bangladeshi","South Asia","Hot"),
+  (19,19,"BGR","Bulgaria","Bulgarians","Europe & Central Asia","Hot & Cold"),
+  (20,20,"BHR","Bahrain","Bahrainis","Middle East & North Africa","Hot and Slightly Cold"),
+  (21,21,"BHS","The Bahamas","Bahamians","Latin America & Caribbean","Hot"),
+  (22,22,"BIH","Bosnia and Herzegovina","Bosanac","Europe & Central Asia","Hot & Cool"),
+  (23,23,"BLR","Belarus","Belarusians","Europe & Central Asia","Hot & Cold"),
+  (24,24,"BLZ","Belize","Belizeans","Latin America & Caribbean","Hot & Humid"),
+  (25,25,"BMU","Bermuda","Bermudians","North America","Hot & Slightly Cold"),
+  (26,26,"BOL","Bolivia","Bolivian","Latin America & Caribbean","Hot & Humid"),
+  (27,27,"BRA","Brazil","Brazilian","Latin America & Caribbean","Hot & Cold"),
+  (28,28,"BRB","Barbados","Barbadians","Latin America & Caribbean","Warm"),
+  (29,29,"BRN","Brunei","Bruneian","East Asia & Pacific","Hot"),
+  (30,30,"BTN","Bhutan","Bhutanese","South Asia","Hot,Humid & Cold"),
+  (31,31,"BWA","Botswana","Batswana","Sub-Saharan Africa","Warm to Hot"),
+  (32,32,"CAF","Central African Republic","Sangos","Sub-Saharan Africa","Warm"),
+  (33,33,"CAN","Canada","Canadians","North America","Cold"),
+  (34,34,"CHE","Switzerland","Swiss","Europe & Central Asia","Warm & Slightly Cold"),
+  (35,35,"CHI","Channel Islands","Jersey","Europe & Central Asia","Hot & Cool"),
+  (36,36,"CHL","Chile","Chileans","Latin America & Caribbean","Warm"),
+  (37,37,"MEX","Mexico","Mexicans","North America","Hot & Cold"),
+  (38,38,"CMR","Cameroon","Cameroonian","Sub-Saharan Africa","Hot"),
+  (39,39,"COD","Dem. Rep. Congo","Congolese","Sub-Saharan Africa","Hot & Humid"),
+  (40,40,"GTM","Guatemala","Guatemalans","Central America","Hot & Humid");
+
+SELECT * FROM Region;
+
+
+
+-- task 9 - Insert records into Medical_Check_up table using an API
+
+
+INSERT INTO Medical_Check_up(Medical_Check_up_Patient_ID, Medical_Check_up_ID, Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation) VALUES
+  (1,110,"03/23/2019","12:00 PM","High temperature","The patient has high temperature"),
+  (2,111,"02/27/2015","4:45 PM","Headaches","The patient has a headache and hasn't been able to sleep well due to this, therefore, more test will be done"),
+  (3,112,"10/23/2018","8:30 AM","High temperature","The patient has high temperature"),
+  (4,113,"06/22/2015","6:20 AM","Bladder changes","The patient needs further test"),
+  (5,114,"04/13/2020","6:55 PM","Cough","The patient is not feeling good, has a really bad cough"),
+  (6,115,"05/16/2020","5:50 PM","Eating problems","Patient has no appetite"),
+  (7,116,"12/22/2022","11:30 AM","Severe fatigue","The patient has fainted due to fatigue"),
+  (8,117,"06/20/2021","7:23 AM","Trouble urinating","The patient hasn't been able to urinate properly and occasional bladder pain is involved"),
+  (9,118,"11/15/2022","10:30 AM","Nausea","The patient has been feeling nauseous for the past week"),
+  (10,119,"01/27/2018","8:50 AM","Nose bleeding","The patient is suffering form severe dehydration"),
+  (11,120,"12/12/2020","4:25 PM","Severe rash"," The patient has a severe rash accompanied with a fever"),
+  (12,121,"07/21/2018","5:30 PM","Skin infection","The patent has redness of skin and scrashes the skin constantly"),
+  (13,122,"10/12/2021","5:20 PM","Persisting cough & headache","The patient has a fever of 102° F or greater (which may indicate a more serious infection)"),
+  (14,123,"03/12/2020","8:59 AM","Unclear vision and red eyes","The patient has had redness, itching, tearing, burning sensation, pus-like discharge and/or crusting of the eyelids for several weeks"),
+  (15,124,"04/04/2020","4:50 PM","Watery, loose stools","The patient has cramping or pain in the abdomen, nausea, bloating"),
+  (16,125,"04/07/2021","10:32 AM","Extreme fatigue, and frequent naps","The patient has extreme fatigue accompanied by other symptoms, such as swollen lymph glands and spleen, sore throat, fever, loss of appetite"),
+  (17,126,"05/12/2020","6:35 PM","Insomnia, restlessness, slurred speech, or unresponsiveness","The patient seems to have a mental deterioration."),
+  (18,127,"05/21/2020","8:57 PM","Random fevers","The patient is pregnant and seems to have a self-limiting influenza-like illness"),
+  (19,128,"06/12/2020","6:20 PM","Cold, cough and a mild fever","The patient seems to have a cold with a runny nose and a mild fever"),
+  (20,129,"06/11/2022","10:35 PM","Fever and sore throat","The patient seems to have a mild fever, sore throat and a rash that starts on the face and spreads to the rest of the body"),
+  (21,130,"07/06/2020","8:57 AM","Painful muscle spasms"," The patient has painful muscle spasms and stiff, immovable muscles in the jaw & difficulty swallowing"),
+  (22,131,"07/19/2020","5:46 PM","Painful urination","The patient has pain while urinating as well as testicular pain"),
+  (23,132,"07/22/2022","10:40 PM","Memory loss & poor judgment","The patient's family is concern becasue the patient has had cases of memory loss, poor judgment, etc"),
+  (24,133,"08/12/2019","4:15 PM","Painful urination","The patient finds it painful to urinate. Abdominal or pelvic pain is also involved"),
+  (25,134,"08/23/2020","6:10 PM","Fever, fatigue","The patient has a variety of symptoms such as loss of appetite, nausea, vomiting, but the most concerning ones are fever and fatigue."),
+  (26,135,"08/25/2021","10:46 AM","pain, swelling","The patient has continuous joint pain and swelling of the area as well"),
+  (27,136,"08/28/2022","8:52 PM","Dry, cracked skin","The patient shows very dry and cracked skin with rashes"),
+  (28,137,"09/18/2019","11:20 AM","Nausea and vomiting","The patient seems to be vomiting often, diarrhea is also involved"),
+  (29,138,"09/20/2022","8:53 AM","Fever, headache and muscle pain","The patient shows a veriety of symptoms such as Severe headache, stiff neck, confusion, seizures. The patient's life may be in danger. Intensive care is needed"),
+  (30,139,"09/09/2022","4:30 PM","Fever, chills, and malaise","The patient seems to be developing his fever, and chills from multiple lesions and inguinal adenopathy"),
+  (31,140,"10/03/2020","6:15 PM","Shortness of breath and chest tightness or pain","The patient seems to be having wheezing when exhaling, shortness of breat and tightness of the chest"),
+  (32,141,"10/08/2021","11:10 AM","characteristic skin rash called erythema migrans","The patient has a characteristic skin rash called erythema migrans, as well as fever, headache and fatigue"),
+  (33,142,"10/09/2018","10:50 AM","Skin problems.Abdominal pain or digestive issues","The patient has Skin problems and abdominal pain"),
+  (34,143,"11/11/2019","4:35 PM","Drowsiness, fever","The patient seems to be feeling unwell lately. Fever has developed as well as muscle soreness or trembling"),
+  (35,144,"11/12/2020","6:50 PM","Ocasional confusion, and seizures","Patient has been having cases wehre he seems very confused. Seizures have also been present three times a week"),
+  (36,145,"11/27/2021","11:40 AM","Head usually hurts on both sides","The patient seems to be having serious headaches"),
+  (37,146,"11/23/2022","8:51 PM","New loss of taste or smell","The patient has lost the sense of smell and taste"),
+  (38,147,"01/01/2020","10:45 AM","Watery diarrhea","The patient has had Watery diarrhea for a weeks now and seems very dehydrated"),
+  (39,148,"01/02/2021","8:52 AM","fever and flu-like illness","The patient has a fever and flu-like illness"),
+  (40,149,"01/03/2022","4:15 PM","Aches and pains","The patient seems to be having aches and pains (eye pain, typically behind the eyes, muscle, joint, or bone pain)");
+
+SELECT * FROM Medical_Check_up;
+
+
+-- task 10 - Insert records into Patient table using an API
 
 
 INSERT INTO Patient(Patient_ID, Patient_first_name, Patient_last_name, Patient_gender, Patient_age, Patient_ethnicity, Patient_socioeconomic_status) VALUES
@@ -251,101 +451,6 @@ INSERT INTO Patient(Patient_ID, Patient_first_name, Patient_last_name, Patient_g
   (40,"Karen","Rosales","Female",35,"Latinx","Middle Class");
 
 SELECT * FROM Patient;
-
--- task 9 - Insert records into Region table using an API
-
-
-INSERT INTO Region(Region_Disease_ID, Region_country_code, Region_country_short_name, Region_nationality, Region, Region_environment) VALUES
-  (1,"ABW","Aruba","Arubans","Latin America & Caribbean","Hot"),
-  (2,"AFG","Afghanistan","Afghans","South Asia","Hot"),
-  (3,"AGO","Angola","Angolans","Sub-Saharan Africa","Warm & Hot"),
-  (4,"ALB","Albania","Albanians","Europe & Central Asia","Warm & Hot"),
-  (5,"AND","Andorra","Andorrans","Europe & Central Asia","Warm & Cold"),
-  (6,"ARE","United Arab Emirates","The Emiratis","Middle East & North Africa","Hot & Cool"),
-  (7,"ARG","Argentina","Argentinians","Latin America & Caribbean","Mild to Warm && Very Hot "),
-  (8,"ARM","Armenia","Armenians","Europe & Central Asia","Hot & Cold"),
-  (9,"ASM","American Samoa","Samoans","East Asia & Pacific","Warm"),
-  (10,"ATG","Antigua and Barbuda","Antiguans","Latin America & Caribbean","Hot"),
-  (11,"AUS","Australia","Australians","East Asia & Pacific","Warm & Hot"),
-  (12,"AUT","Austria","Austrins","Europe & Central Asia","Warm & Humid"),
-  (13,"AZE","Azerbaijan","Azerbaijani","Europe & Central Asia","Hot & Cold"),
-  (14,"BDI","Burundi","Burundians","Sub-Saharan Africa","Warm or Hot"),
-  (15,"BEL","Belgium","Belgians","Europe & Central Asia","Slightly warm & Cold"),
-  (16,"BEN","Benin","Beninese","Sub-Saharan Africa","Warm"),
-  (17,"BFA","Burkina Faso","Burkinabé","Sub-Saharan Africa","Hot & Humid"),
-  (18,"BGD","Bangladesh","Bangladeshi","South Asia","Hot"),
-  (19,"BGR","Bulgaria","Bulgarians","Europe & Central Asia","Hot & Cold"),
-  (20,"BHR","Bahrain","Bahrainis","Middle East & North Africa","Hot and Slightly Cold"),
-  (21,"BHS","The Bahamas","Bahamians","Latin America & Caribbean","Hot"),
-  (22,"BIH","Bosnia and Herzegovina","Bosanac","Europe & Central Asia","Hot & Cool"),
-  (23,"BLR","Belarus","Belarusians","Europe & Central Asia","Hot & Cold"),
-  (24,"BLZ","Belize","Belizeans","Latin America & Caribbean","Hot & Humid"),
-  (25,"BMU","Bermuda","Bermudians","North America","Hot & Slightly Cold"),
-  (26,"BOL","Bolivia","Bolivian","Latin America & Caribbean","Hot & Humid"),
-  (27,"BRA","Brazil","Brazilian","Latin America & Caribbean","Hot & Cold"),
-  (28,"BRB","Barbados","Barbadians","Latin America & Caribbean","Warm"),
-  (29,"BRN","Brunei","Bruneian","East Asia & Pacific","Hot"),
-  (30,"BTN","Bhutan","Bhutanese","South Asia","Hot,Humid & Cold"),
-  (31,"BWA","Botswana","Batswana","Sub-Saharan Africa","Warm to Hot"),
-  (32,"CAF","Central African Republic","Sangos","Sub-Saharan Africa","Warm"),
-  (33,"CAN","Canada","Canadians","North America","Cold"),
-  (34,"CHE","Switzerland","Swiss","Europe & Central Asia","Warm & Slightly Cold"),
-  (35,"CHI","Channel Islands","Jersey","Europe & Central Asia","Hot & Cool"),
-  (36,"CHL","Chile","Chileans","Latin America & Caribbean","Warm"),
-  (37,"MEX","Mexico","Mexicans","North America","Hot & Cold"),
-  (38,"CMR","Cameroon","Cameroonian","Sub-Saharan Africa","Hot"),
-  (39,"COD","Dem. Rep. Congo","Congolese","Sub-Saharan Africa","Hot & Humid"),
-  (40,"GTM","Guatemala","Guatemalans","Central America","Hot & Humid");
-
-SELECT * FROM Region;
-
-
--- task 10 - Insert records into Medical_Check_up table using an API
-
-
-INSERT INTO Medical_Check_up(Medical_Check_up_Patient_ID, Medical_Check_up_ID, Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation) VALUES
-  (1,110,"03/23/2019","12:00 PM","High temperature","The patient has high temperature"),
-  (2,111,"02/27/2015","4:45 PM","Headaches","The patient has a headache and hasn't been able to sleep well due to this, therefore, more test will be done"),
-  (3,112,"10/23/2018","8:30 AM","High temperature","The patient has high temperature"),
-  (4,113,"06/22/2015","6:20 AM","Bladder changes","The patient needs further test"),
-  (5,114,"04/13/2020","6:55 PM","Cough","The patient is not feeling good, has a really bad cough"),
-  (6,115,"05/16/2020","5:50 PM","Eating problems","Patient has no appetite"),
-  (7,116,"12/22/2022","11:30 AM","Severe fatigue","The patient has fainted due to fatigue"),
-  (8,117,"06/20/2021","7:23 AM","Trouble urinating","The patient hasn't been able to urinate properly and occasional bladder pain is involved"),
-  (9,118,"11/15/2022","10:30 AM","Nausea","The patient has been feeling nauseous for the past week"),
-  (10,119,"01/27/2018","8:50 AM","Nose bleeding","The patient is suffering form severe dehydration"),
-  (11,120,"12/12/2020","4:25 PM","Severe rash"," The patient has a severe rash accompanied with a fever"),
-  (12,121,"07/21/2018","5:30 PM","Skin infection","The patent has redness of skin and scrashes the skin constantly"),
-  (13,122,"10/12/2021","5:20 PM","Persisting cough & headache","The patient has a fever of 102° F or greater (which may indicate a more serious infection)"),
-  (14,123,"03/12/2020","8:59 AM","Unclear vision and red eyes","The patient has had redness, itching, tearing, burning sensation, pus-like discharge and/or crusting of the eyelids for several weeks"),
-  (15,124,"04/04/2020","4:50 PM","Watery, loose stools","The patient has cramping or pain in the abdomen, nausea, bloating"),
-  (16,125,"04/07/2021","10:32 AM","Extreme fatigue, and frequent naps","The patient has extreme fatigue accompanied by other symptoms, such as swollen lymph glands and spleen, sore throat, fever, loss of appetite"),
-  (17,126,"05/12/2020","6:35 PM","Insomnia, restlessness, slurred speech, or unresponsiveness","The patient seems to have a mental deterioration."),
-  (18,127,"05/21/2020","8:57 PM","Random fevers","The patient is pregnant and seems to have a self-limiting influenza-like illness"),
-  (19,128,"06/12/2020","6:20 PM","Cold, cough and a mild fever","The patient seems to have a cold with a runny nose and a mild fever"),
-  (20,129,"06/11/2022","10:35 PM","Fever and sore throat","The patient seems to have a mild fever, sore throat and a rash that starts on the face and spreads to the rest of the body"),
-  (21,130,"07/06/2020","8:57 AM","Painful muscle spasms"," The patient has painful muscle spasms and stiff, immovable muscles in the jaw & difficulty swallowing"),
-  (22,131,"07/19/2020","5:46 PM","Painful urination","The patient has pain while urinating as well as testicular pain"),
-  (23,132,"07/22/2022","10:40 PM","Memory loss & poor judgment","The patient's family is concern becasue the patient has had cases of memory loss, poor judgment, etc"),
-  (24,133,"08/12/2019","4:15 PM","Painful urination","The patient finds it painful to urinate. Abdominal or pelvic pain is also involved"),
-  (25,134,"08/23/2020","6:10 PM","Fever, fatigue","The patient has a variety of symptoms such as loss of appetite, nausea, vomiting, but the most concerning ones are fever and fatigue."),
-  (26,135,"08/25/2021","10:46 AM","pain, swelling","The patient has continuous joint pain and swelling of the area as well"),
-  (27,136,"08/28/2022","8:52 PM","Dry, cracked skin","The patient shows very dry and cracked skin with rashes"),
-  (28,137,"09/18/2019","11:20 AM","Nausea and vomiting","The patient seems to be vomiting often, diarrhea is also involved"),
-  (29,138,"09/20/2022","8:53 AM","Fever, headache and muscle pain","The patient shows a veriety of symptoms such as Severe headache, stiff neck, confusion, seizures. The patient's life may be in danger. Intensive care is needed"),
-  (30,139,"09/09/2022","4:30 PM","Fever, chills, and malaise","The patient seems to be developing his fever, and chills from multiple lesions and inguinal adenopathy"),
-  (31,140,"10/03/2020","6:15 PM","Shortness of breath and chest tightness or pain","The patient seems to be having wheezing when exhaling, shortness of breat and tightness of the chest"),
-  (32,141,"10/08/2021","11:10 AM","characteristic skin rash called erythema migrans","The patient has a characteristic skin rash called erythema migrans, as well as fever, headache and fatigue"),
-  (33,142,"10/09/2018","10:50 AM","Skin problems.Abdominal pain or digestive issues","The patient has Skin problems and abdominal pain"),
-  (34,143,"11/11/2019","4:35 PM","Drowsiness, fever","The patient seems to be feeling unwell lately. Fever has developed as well as muscle soreness or trembling"),
-  (35,144,"11/12/2020","6:50 PM","Ocasional confusion, and seizures","Patient has been having cases wehre he seems very confused. Seizures have also been present three times a week"),
-  (36,145,"11/27/2021","11:40 AM","Head usually hurts on both sides","The patient seems to be having serious headaches"),
-  (37,146,"11/23/2022","8:51 PM","New loss of taste or smell","The patient has lost the sense of smell and taste"),
-  (38,147,"01/01/2020","10:45 AM","Watery diarrhea","The patient has had Watery diarrhea for a weeks now and seems very dehydrated"),
-  (39,148,"01/02/2021","8:52 AM","fever and flu-like illness","The patient has a fever and flu-like illness"),
-  (40,149,"01/03/2022","4:15 PM","Aches and pains","The patient seems to be having aches and pains (eye pain, typically behind the eyes, muscle, joint, or bone pain)");
-
-SELECT * FROM Medical_Check_up;
 
 -- task 11 - Insert records into Disease table
 
