@@ -34,7 +34,7 @@ if($_SESSION['role']=='doctor') {
             $query->bindParam("role", $role, PDO::PARAM_STR);
             $result = $query->execute();
             if ($result) {
-                echo '<p class="success">Your registration was successful!</p>';
+                header("Location: doctor.php");
             } else {
                 echo '<p class="error">Something went wrong!</p>';
             }
