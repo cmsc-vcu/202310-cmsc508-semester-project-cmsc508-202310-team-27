@@ -44,7 +44,7 @@ session_start();
                 $_SESSION['role'] = $result['role'];
                 echo '<p class="success">Congratulations, you are logged in!</p>';
                 if($_SESSION['role']=='admin'){
-                    header("Location: admin/admin.php");
+                    header("Location: admin.php");
                 }
                 if($_SESSION['role']=='doctor'){
                     header("Location: doctor.php");
