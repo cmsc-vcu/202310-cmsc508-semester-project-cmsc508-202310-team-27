@@ -1,25 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> LOGIN </title>
-    <link rel="stylesheet" type="text/css" href="style.css " >
+    <title>Global Health</title>
+    <link rel="stylesheet" href="css/indexstyle.css">
+    <link rel="stylesheet" href="css/signinStyles.css">
 </head>
 <body>
-    <form action = "Login.php" method = "post">
-        <h2> LOGIN </h2>
-        <?php if(isset ($_GET["error"])) {?>
-            <p class = "error"> <?php echo $_GET ["error"]; ?></p>
+<section class="hero">
+    <div class="hero-inner">
+        <h1>Global Health</h1>
+        <div class="actions">
+            <a href="Login.php" class="btn2">Sign in</a>
+        </div>
         
-        <?php } ?>
-        <label> User Name </label>
-        <input type = "text" name = "uname" placeholder = "User Name"><br>
-        <label> Password </label>
-        <input type = "password" name = "password" placeholder = "Password "><br>
-
-        <button type = "submit"> Login </button>
-        </form> 
+        <p><br><br><br><br><br>
+        Thanks for visiting our site!</p>
+        <p>If you dont have an account please reach out to your healthcare provider</p>
+    </div>
+</section>
 </body>
 </html>
