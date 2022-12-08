@@ -40,14 +40,14 @@ session_start();
         if (!$result) {
             echo '<p class="error">Username and password combination is wrong!</p>';
         } else {
-            if ($password==$result['PASSWORD']) {
-                $_SESSION['role'] = $result['ROLE'];
+            if ($password==$result['password']) {
+                $_SESSION['role'] = $result['role'];
                 echo '<p class="success">Congratulations, you are logged in!</p>';
                 if($_SESSION['role']=='admin'){
                     header("Location: admin/admin.php");
                 }
                 if($_SESSION['role']=='doctor'){
-                    header("Location: doctor/doctor.php");
+                    header("Location: doctor.php");
                  }
                 if($_SESSION['role']=='patient'){
                     header("Location: patient.php");
