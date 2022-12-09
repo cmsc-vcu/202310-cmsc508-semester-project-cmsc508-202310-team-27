@@ -30,7 +30,7 @@ ORDER BY  Disease_stage, Disease_name;
 -- task 2
 -- Write a query to display the cost of the Alzheimer’s treatment?
 
-SELECT Disease_name, Treatment_cost
+SELECT Disease_name, CONCAT('$',Treatment_cost)
 FROM Disease a
 LEFT JOIN Treatment b
     ON (Disease_ID = Treatment_Disease_ID)
@@ -49,9 +49,9 @@ WHERE Disease_name LIKE 'Cancer';
 -- What is the fatality rate of COVID in Mexico?
 
 SELECT Region_country_short_name, Disease_fatality
-FROM Region a
-JOIN Disease b
-    ON (Region_Disease_ID = Disease_ID)
+FROM Region_Disease a
+    JOIN Region b ON (a.Region_country_code = b.Region_country_code)
+    JOIN Disease c ON (a.Disease_ID = c.Disease_ID)
 WHERE Region_country_short_name = 'Mexico';
 
 -- task 5
