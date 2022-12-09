@@ -17,6 +17,26 @@
 
 ![Phase2](https://user-images.githubusercontent.com/69920518/206764632-28382d9c-35a3-4b60-8a25-f944a29dbfc4.jpg)
 
+## Queries 1: How many people have Cancer?
+
+![query1](https://user-images.githubusercontent.com/69920518/206793967-0f9e515d-2ad1-40c3-b7f9-31bc819e31b7.svg)
+
+## Queries 2: What date did the patients receive their check-up in the hospital?
+
+![query2](https://user-images.githubusercontent.com/69920518/206794141-17532ede-3bfd-4030-816f-1a907998b488.svg)
+
+
+## Queries 3: What was the reason for the patient medical check up?
+
+![query3](https://user-images.githubusercontent.com/69920518/206794152-7358930e-11d1-4431-b746-ef3155f68413.svg)
+
+## Queries 4: When was the last medical checkup of every patient?
+
+![query4](https://user-images.githubusercontent.com/69920518/206794312-ec694394-a2d9-4ab6-9462-c915f2d2495d.svg)
+
+## Queries 5: 
+
+
 ## What we took from the class?
 
 &nbsp; &nbsp; &nbsp; &nbsp;We cover SQL fundamentals such as how to manage large datasets and analyze real-world data. The course was designed such that we could progress from fundamentals to more advanced SQL topics during the semester. We learned how to use relational databases, which divide data into columns and rows, to store, generate, and retrieve information. We were required to learn some PHP foundations for our final project because it was utilized for website creation. Working on this final project helped us to become more acquainted with both SQL and PHP in order to better comprehend how a website and its data function interact. We would spend more time to better comprehend certain topics next time. For example, because we were all new to PHP, we met a lot of difficulties when learning it. As a result, I believe that having more time to focus on a certain topic will be quite beneficial to us.
