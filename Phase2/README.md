@@ -34,8 +34,9 @@
 
 ![query4](https://user-images.githubusercontent.com/69920518/206794312-ec694394-a2d9-4ab6-9462-c915f2d2495d.svg)
 
-## Queries 5: 
+## Queries 5: What is the environmental status of Canada?
 
+![query5](https://user-images.githubusercontent.com/69920518/206813875-61b4ec1b-b12c-4144-a356-d607ac9e88fa.svg)
 
 ## What we took from the class?
 
