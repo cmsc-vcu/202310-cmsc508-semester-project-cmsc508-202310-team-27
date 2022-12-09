@@ -442,7 +442,7 @@ INSERT INTO Medical_Check_up(Medical_Check_up_ID, Medical_Check_up_date, Medical
   (131,"07/19/2020","5:46 PM","Painful urination","The patient has pain while urinating as well as testicular pain"),
   (132,"07/22/2022","10:40 PM","Memory loss & poor judgment","The patient's family is concern becasue the patient has had cases of memory loss, poor judgment, etc"),
   (133,"08/12/2019","4:15 PM","Painful urination","The patient finds it painful to urinate. Abdominal or pelvic pain is also involved"),
-  (34,"08/23/2020","6:10 PM","Fever, fatigue","The patient has a variety of symptoms such as loss of appetite, nausea, vomiting, but the most concerning ones are fever and fatigue."),
+  (134,"08/23/2020","6:10 PM","Fever, fatigue","The patient has a variety of symptoms such as loss of appetite, nausea, vomiting, but the most concerning ones are fever and fatigue."),
   (135,"08/25/2021","10:46 AM","pain, swelling","The patient has continuous joint pain and swelling of the area as well"),
   (136,"08/28/2022","8:52 PM","Dry, cracked skin","The patient shows very dry and cracked skin with rashes"),
   (137,"09/18/2019","11:20 AM","Nausea and vomiting","The patient seems to be vomiting often, diarrhea is also involved"),
@@ -476,11 +476,11 @@ CREATE TABLE Patients_Checkups(
 -- Populating the Join table between Patient and medical checkups.
 INSERT INTO Patients_Checkups(Medical_Check_up_ID, Patient_ID, Patients_Checkups_date ) VALUES
 
-  (1,1,'2019-02-12'),
-  (2, 2, '2019-02-12'),
-  (3, 3, '2019-02-12'),
-  (4, 4, '2019-02-12'),
-  (5, 5, '2019-02-12');
+  (134,1,'2019-02-12'),
+  (117, 2, '2019-02-12'),
+  (120, 3, '2019-02-12'),
+  (128, 4, '2019-02-12'),
+  (142, 5, '2019-02-12');
 
 SELECT * FROM Patients_Checkups;
 

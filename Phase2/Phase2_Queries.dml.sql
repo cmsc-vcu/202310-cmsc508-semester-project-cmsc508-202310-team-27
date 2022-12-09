@@ -70,12 +70,11 @@ WHERE 1=1
 -- task 6
 -- What date did the patients receive their check-up in the hospital?
 
-SELECT CONCAT(Patient_first_name,' ',Patient_last_name)
-        AS 'Patient', 
+SELECT CONCAT(Patient_first_name,' ',Patient_last_name) AS 'Patients', 
         Medical_Check_up_date
-FROM Patient a
-JOIN Medical_Check_up b
-    ON (Patient_ID = Medical_Check_up_Patient_ID)
+FROM Patients_Checkups a
+JOIN Medical_Check_up b ON (b.Medical_Check_up_ID = a.Medical_Check_up_ID)
+JOIN Patient c ON (c.Patient_ID = a.Patient_ID)
 ORDER BY  Medical_Check_up_date;
 
 -- task 7
