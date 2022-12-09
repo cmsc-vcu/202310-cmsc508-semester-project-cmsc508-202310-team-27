@@ -9,30 +9,23 @@
 -- store your drop table statements in this block
 --
 
--- SET FOREIGN_KEY_CHECKS = 0;
-DELIMETER //
-CREATE PROCEDURE Reset_Database
-BEGIN 
-    DROP TABLE IF EXISTS Region;
-    DROP TABLE IF EXISTS Medical_Check_up;
-    DROP TABLE IF EXISTS Doctor_Checkups;
-    DROP TABLE IF EXISTS Doctor;
-    DROP TABLE IF EXISTS Region_Disease;
-    DROP TABLE IF EXISTS Treatment;
-    DROP TABLE IF EXISTS Disease;
-    DROP TABLE IF EXISTS Patient;
-    DROP TABLE IF EXISTS Patients_Checkups;
-    DROP TABLE IF EXISTS Users;
-    DROP TABLE IF EXISTS Trigger_Patient;
-    DROP TABLE IF EXISTS Trigger_Disease
-    DROP TABLE IF EXISTS Trigger_Doctor;
-    DROP TABLE IF EXISTS Trigger_Treatment;
-    DROP VIEW IF EXISTS Doctor_Patients;
-END; //
 
-DELIMETER;
+DROP TABLE IF EXISTS Region;
+DROP TABLE IF EXISTS Medical_Check_up;
+DROP TABLE IF EXISTS Doctor_Checkups;
+DROP TABLE IF EXISTS Doctor;
+DROP TABLE IF EXISTS Region_Disease;
+DROP TABLE IF EXISTS Treatment;
+DROP TABLE IF EXISTS Disease;
+DROP TABLE IF EXISTS Patient;
+DROP TABLE IF EXISTS Patients_Checkups;
+DROP TABLE IF EXISTS Users;
+DROP VIEW IF EXISTS Doctor_Patients;
+DROP TABLE IF EXISTS Trigger_Patient;
+DROP TABLE IF EXISTS Trigger_Disease
+DROP TABLE IF EXISTS Trigger_Doctor;
+DROP TABLE IF EXISTS Trigger_Treatment;
 
--- SET FOREIGN_KEY_CHECKS = 1;
 
 -- View tables that have references to a 
 -- specific table I want to drop
