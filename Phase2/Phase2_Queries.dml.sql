@@ -192,34 +192,25 @@ WHERE Region = 'Latin America & Caribbean'
 GROUP BY  Region, Disease_name,Patient_first_name, Patient_last_name;
 
 -- task 18
--- Some of the patients come for medical checkups, however, in the meanwhile
--- they discover that there is something wrong with their health.
--- List the reasons patients might return for a medical checkup and the symptoms 
--- they have when going to see the doctor
+-- List the reasons where patients might have to go to get a medical checkup and the symptoms
 
-SELECT CONCAT(Patient_first_name, ' ', Patient_last_name) AS "Name",
-        Disease_name, Medical_Check_up_reason, Medical_Check_up_documentation, Treatment_option
-FROM Patient a
-LEFT JOIN Medical_Check_up b
-    ON (Patient_ID = Medical_Check_up_Patient_ID)
-LEFT JOIN Disease c
-    ON (Patient_ID = Disease_Patient_ID)
-LEFT JOIN Treatment d
-    ON (Disease_Patient_ID = Treatment_Disease_ID)
-WHERE Treatment_option LIKE '%come back for a checkup%';
+SELECT CONCAT(Patient_first_name, ' ', Patient_last_name) AS "Patients", Medical_Check_up_reason
+FROM Patients_Checkups a
+JOIN Patient b
+    ON (a.Patient_ID = b.Patient_ID)
+JOIN Medical_Check_up c
+    ON (a.Medical_Check_up_ID = c.Medical_Check_up_ID)
+WHERE Medical_Check_up_reason LIKE '%fever%';
 
 -- task 19 
 -- Certain diseases affect one ethnic group more than others. Therefore, 
 -- list the ethnic group with the highest number of Alzheimer’s disease cases. Do Asians have a higher  
 -- prevalence of this illness than Europeans?
 
-SELECT CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name",
-         COUNT(Patient_ethnicity) AS "Ethnicity count", Patient_ethnicity, Disease_name
-FROM Patient a
-LEFT JOIN Disease b
-    ON (Patient_ID = Disease_Patient_ID)
-WHERE Disease_name LIKE '%Alzheimer%'
-GROUP BY Patient_first_name, Patient_last_name ,Patient_ethnicity, Disease_name;
+SELECT CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name", Region
+FROM Patient 
+LEFT JOIN Region  ON (Patient_ID = Region_Patient_ID)
+WHERE Region LIKE "%Asia%";
 
 -- task 20
 -- What ethnic group does Tuberculosis affect?
@@ -228,6 +219,6 @@ SELECT CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name",
          COUNT(Patient_ethnicity) AS "Ethnicity count", Patient_ethnicity, Disease_name
 FROM Patient a
 LEFT JOIN Disease b
-    ON (Patient_ID = Disease_Patient_ID)
+    ON (Patient_ID = Disease_ID)
 WHERE Disease_name = 'Tuberculosis'
 GROUP BY  Patient_first_name, Patient_last_name ,Patient_ethnicity, Disease_name;
