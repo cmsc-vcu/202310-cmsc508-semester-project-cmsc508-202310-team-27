@@ -30,7 +30,7 @@ ORDER BY  Disease_stage, Disease_name;
 -- task 2
 -- Write a query to display the cost of the Alzheimer’s treatment?
 
-SELECT Disease_name, Treatment_cost
+SELECT Disease_name, CONCAT('$',Treatment_cost)
 FROM Disease a
 LEFT JOIN Treatment b
     ON (Disease_ID = Treatment_Disease_ID)
@@ -49,9 +49,9 @@ WHERE Disease_name LIKE 'Cancer';
 -- What is the fatality rate of COVID in Mexico?
 
 SELECT Region_country_short_name, Disease_fatality
-FROM Region a
-JOIN Disease b
-    ON (Region_Disease_ID = Disease_ID)
+FROM Region_Disease a
+    JOIN Region b ON (a.Region_country_code = b.Region_country_code)
+    JOIN Disease c ON (a.Disease_ID = c.Disease_ID)
 WHERE Region_country_short_name = 'Mexico';
 
 -- task 5
@@ -64,18 +64,17 @@ FROM Treatment a
 JOIN Disease b
     ON (Disease_ID = Treatment_Disease_ID)
 WHERE 1=1
-        AND Disease_name = 'Ebola';
+        AND Disease_name = 'E. Coli';
 
 
 -- task 6
 -- What date did the patients receive their check-up in the hospital?
 
-SELECT CONCAT(Patient_first_name,' ',Patient_last_name)
-        AS 'Patient', 
+SELECT CONCAT(Patient_first_name,' ',Patient_last_name) AS 'Patients', 
         Medical_Check_up_date
-FROM Patient a
-JOIN Medical_Check_up b
-    ON (Patient_ID = Medical_Check_up_Patient_ID)
+FROM Patients_Checkups a
+JOIN Medical_Check_up b ON (b.Medical_Check_up_ID = a.Medical_Check_up_ID)
+JOIN Patient c ON (c.Patient_ID = a.Patient_ID)
 ORDER BY  Medical_Check_up_date;
 
 -- task 7
@@ -84,17 +83,17 @@ ORDER BY  Medical_Check_up_date;
 SELECT *
 FROM Disease
 WHERE 1=1
-        AND Disease_name = 'Flu';
+        AND Disease_name = 'Diphtheria';
 
 -- task 8
 -- How many Asian people have the mad cow disease?
 
-SELECT count(Patient_ethnicity) AS 'Ethnicity', Disease_name
+SELECT COUNT(Patient_ethnicity) AS 'Asians', Disease_name
 FROM Patient a
 JOIN Disease b
-    ON (Patient_ID = Disease_Patient_ID)
+    ON (Patient_ID = Disease_ID)
 WHERE 1=1
-        AND Disease_name LIKE 'Mad Cow'
+        AND Disease_name LIKE 'COVID'
 GROUP BY  disease_name;
 
 -- task 9
@@ -114,10 +113,11 @@ WHERE 1=1
 
 SELECT CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name",
         Medical_Check_up_date AS "Last Checkup"
-FROM Patient a
-JOIN Medical_Check_up b
-    ON (Patient_ID = Medical_Check_up_Patient_ID)
+FROM Patients_Checkups a
+JOIN Patient b ON (a.Patient_ID = b.Patient_ID)
+JOIN Medical_Check_up c ON (a.Medical_Check_up_ID = c.Medical_Check_up_ID)
 ORDER BY  Patient_last_name, Medical_Check_up_date;
+
 
 -- task 11
 -- What is the socioeconomic status of every patient?
@@ -130,31 +130,28 @@ FROM Patient;
 -- List every patient's medical history?
 
 SELECT
-CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name",
-Medical_Check_up_documentation
-FROM Patient a 
-JOIN Medical_Check_up b ON (Patient_ID = Medical_Check_up_Patient_ID)
+CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name", Medical_Check_up_documentation
+FROM Patients_Checkups a 
+JOIN Medical_Check_up b ON (a.Medical_Check_up_ID = b.Medical_Check_up_ID)
+JOIN Patient c ON (a.Patient_ID = c.Patient_ID)
 ORDER BY Patient_last_name, Medical_Check_up_documentation;
 
 -- task 13
--- Write a single query that shows the reason for the patients medical checkups 
--- Display first name and last name of the patients and order by medical checkups
+-- A patient has changed her last name. She just got married
+-- Update an entry in the Patient's table
+-- What changes have been made to the patient's table?
 
-SELECT CONCAT(Patient_first_name,' ', Patient_last_name)
-        AS "Name", Medical_Check_up_reason
-FROM Patient a
-LEFT JOIN Medical_Check_up b
-    ON (Patient_ID = Medical_Check_up_Patient_ID)
-ORDER BY  Medical_Check_up_reason;
+UPDATE Patient 
+SET Patient_last_name = "Poff"
+WHERE Patient_gender = 'Female' AND Patient_age = 23;
+
+SELECT * FROM Trigger_Patient;
 
 -- task 14
--- If a patient gets married and changes her last name,
--- How can we manage this in the database? Write a query to update 
--- the a patient's name.
+-- Display a list with of all the doctors' informations
 
-UPDATE Patient
-SET Patient_last_name = 'Poff'
-WHERE Patient_gender = 'Female' AND Patient_age = 23;
+SELECT * FROM Doctor;
+
 
 -- task 15
 -- What is the environmental status of Canada?
@@ -166,7 +163,7 @@ WHERE 1=1
         AND Region_country_short_name = "Canada"
 ORDER BY Region_country_short_name, Region_environment;
 
--- task 16
+-- task 
 -- How many people got their medical checkups in the year 2020?
 
 SELECT COUNT(Patient_first_name) AS "People",
@@ -183,46 +180,37 @@ ORDER BY  2;
 -- Their origins come from places outside of the United States, therefore
 -- how many patients from Latin America & Caribbean have a disease?
 
-SELECT COUNT(Patient_first_name) AS "Patient",
+SELECT CONCAT(Patient_first_name, ' ', Patient_last_name) AS "Patient",
          Region,
          Disease_name
 FROM Patient a
 JOIN Region b
     ON (Patient_ID = Region_Patient_ID)
 JOIN Disease c
-    ON (Patient_ID = Disease_Patient_ID)
+    ON (c.Disease_ID = b.Region_Disease_ID)
 WHERE Region = 'Latin America & Caribbean'
-GROUP BY  Region, Disease_name;
+GROUP BY  Region, Disease_name,Patient_first_name, Patient_last_name;
 
 -- task 18
--- Some of the patients come for medical checkups, however, in the meanwhile
--- they discover that there is something wrong with their health.
--- List the reasons patients might return for a medical checkup and the symptoms 
--- they have when going to see the doctor
+-- List the reasons where patients might have to go to get a medical checkup and the symptoms
 
-SELECT CONCAT(Patient_first_name, ' ', Patient_last_name) AS "Name",
-        Disease_name, Medical_Check_up_reason, Medical_Check_up_documentation, Treatment_option
-FROM Patient a
-LEFT JOIN Medical_Check_up b
-    ON (Patient_ID = Medical_Check_up_Patient_ID)
-LEFT JOIN Disease c
-    ON (Patient_ID = Disease_Patient_ID)
-LEFT JOIN Treatment d
-    ON (Disease_Patient_ID = Treatment_Disease_ID)
-WHERE Treatment_option LIKE '%come back for a checkup%';
+SELECT CONCAT(Patient_first_name, ' ', Patient_last_name) AS "Patients", Medical_Check_up_reason
+FROM Patients_Checkups a
+JOIN Patient b
+    ON (a.Patient_ID = b.Patient_ID)
+JOIN Medical_Check_up c
+    ON (a.Medical_Check_up_ID = c.Medical_Check_up_ID)
+WHERE Medical_Check_up_reason LIKE '%fever%';
 
 -- task 19 
 -- Certain diseases affect one ethnic group more than others. Therefore, 
 -- list the ethnic group with the highest number of Alzheimer’s disease cases. Do Asians have a higher  
 -- prevalence of this illness than Europeans?
 
-SELECT CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name",
-         COUNT(Patient_ethnicity) AS "Ethnicity count", Patient_ethnicity, Disease_name
-FROM Patient a
-LEFT JOIN Disease b
-    ON (Patient_ID = Disease_Patient_ID)
-WHERE Disease_name LIKE '%Alzheimer%'
-GROUP BY Patient_first_name, Patient_last_name ,Patient_ethnicity, Disease_name;
+SELECT CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name", Region
+FROM Patient 
+LEFT JOIN Region  ON (Patient_ID = Region_Patient_ID)
+WHERE Region LIKE "%Asia%";
 
 -- task 20
 -- What ethnic group does Tuberculosis affect?
@@ -231,6 +219,6 @@ SELECT CONCAT(Patient_first_name,' ', Patient_last_name) AS "Name",
          COUNT(Patient_ethnicity) AS "Ethnicity count", Patient_ethnicity, Disease_name
 FROM Patient a
 LEFT JOIN Disease b
-    ON (Patient_ID = Disease_Patient_ID)
+    ON (Patient_ID = Disease_ID)
 WHERE Disease_name = 'Tuberculosis'
 GROUP BY  Patient_first_name, Patient_last_name ,Patient_ethnicity, Disease_name;
