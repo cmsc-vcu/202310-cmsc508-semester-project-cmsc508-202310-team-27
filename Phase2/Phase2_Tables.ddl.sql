@@ -10,18 +10,25 @@
 --
 
 -- SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS Region;
-DROP TABLE IF EXISTS Medical_Check_up;
-DROP TABLE IF EXISTS Doctor_Checkups;
-DROP TABLE IF EXISTS Doctor;
-DROP TABLE IF EXISTS Region_Disease;
-DROP TABLE IF EXISTS Treatment;
-DROP TABLE IF EXISTS Disease;
-DROP TABLE IF EXISTS Patient;
-DROP TABLE IF EXISTS Patients_Checkups;
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Trigger_insert;
-DROP VIEW IF EXISTS Doctor_Patients;
+DELIMETER //
+CREATE PROCEDURE Reset_Database
+BEGIN 
+    DROP TABLE IF EXISTS Region;
+    DROP TABLE IF EXISTS Medical_Check_up;
+    DROP TABLE IF EXISTS Doctor_Checkups;
+    DROP TABLE IF EXISTS Doctor;
+    DROP TABLE IF EXISTS Region_Disease;
+    DROP TABLE IF EXISTS Treatment;
+    DROP TABLE IF EXISTS Disease;
+    DROP TABLE IF EXISTS Patient;
+    DROP TABLE IF EXISTS Patients_Checkups;
+    DROP TABLE IF EXISTS Users;
+    DROP TABLE IF EXISTS Trigger_insert;
+    DROP VIEW IF EXISTS Doctor_Patients;
+END; //
+
+DELIMETER;
+
 -- SET FOREIGN_KEY_CHECKS = 1;
 
 -- View tables that have references to a 
@@ -71,6 +78,53 @@ CREATE TABLE Patient(
 
     primary key(Patient_ID)
 );
+
+-- Insert records into Patient table using an API
+
+INSERT INTO Patient(Patient_ID, Patient_first_name, Patient_last_name, Patient_gender, Patient_age, Patient_ethnicity, Patient_socioeconomic_status) VALUES
+
+  (1,"Alex","Crus","Male",34,"White","High Class"),
+  (2,"Luz","Jackson","Female",23,"White","Middle Class"),
+  (3,"Alex","Carter","Male",54,"Asian","Low Class"),
+  (4,"Kim","Long","Male",44,"African American","High Class"),
+  (5,"Praisy","Biguvu","Female",15,"Latinx","High Class"),
+  (6,"Maisha","Mahamood","Female",50,"Latinx","Low Class"),
+  (7,"Mir","Ali","Male",43,	"Asian","Middle Class"),
+  (8,"David","Coleman","Male",56,"African American","High Class"),
+  (9,"Lenice","Jackson","Female",26,"Asian","High Class"),
+  (10,"Charles","Cooper","Male",28,"White","Middle Class"),
+  (11,"Gabby","Dixon","Female",35,"Latinx","Low Class"),
+  (12,"Jon","Ortega","Male",54,"Latinx","Middle Class"),
+  (13,"Alexander","Nichols","Male",65,"White","High Class"),
+  (14,"Melinda","Marshall","Female",34,"White","Low Class"),
+  (15,"Darlene","Fox","Female",76,"White","Middle Class"),
+  (16,"Ryan","Fox","Male",22,"African American","Middle Class"),
+  (17,"Melvin","Chandler","Male",88,"African American","High Class"),
+  (18,"Daniel","Bolton","Male",45,"Asian","Low Class"),
+  (19,"Joseph","Beasley","Male",66,"African American","High Class"),
+  (20,"Stacey","Nichols","Female",35,"White","Middle Class"),
+  (21,"Jessica","Graves","Female",55,"Asian","Low Class"),
+  (22,"Angela","Hubbard","Female",44,"White","High Class"),
+  (23,"Sarah","Howe","Female",66,"African American","Middle Class"),
+  (24,"Brett","Schultz","Male",54,"White","High Class"),
+  (25,"Nicholas","Salinas","Male",32,"Latinx","Low Class"),
+  (26,"Holly","Duran","Female",22,"Latinx","Low Class"),
+  (27,"Gwendolyn","Gonzalez","Female",54,"Latinx","Middle Class"),
+  (28,"Colleen","Alexander","Male",23,"Latinx","Low Class"),
+  (29,"Ashley","Garcia","Female",77,"Latinx","High Class"),
+  (30,"Travis","Greene","Male",87,"Asian","High Class"),
+  (31,"Deborah","Harris","Female",45,"White","Middle Class"),
+  (32,"Tonya","Young","Female",87,"Asian","Low Class"),
+  (33,"Jillian","Anderson","Male",99,"White","High Class"),
+  (34,"Carlos","Johnson","Male",55,"Asian","Low Class"),
+  (35,"Anthony","Williams","Male",20,"Asian","Middle Class"),
+  (36,"Jodi","Hughes","Male",18,"Asian","High Class"),
+  (37,"Brent","Ross","Male",60,"White","Low Class"),
+  (38,"Luke","Turner","Male",19,"African American","High Class"),
+  (39,"Frank","Davis","Male",22,"African American","Middle Class"),
+  (40,"Karen","Rosales","Female",35,"Latinx","Middle Class");
+
+SELECT * FROM Patient;
 
 ------------------------------------- TRIGGERS -------------------------------------------------------------------------
 -- TRIGGER TASK 1: 
@@ -248,119 +302,7 @@ CREATE TABLE Region(
     primary key(Region_country_code),
     foreign key(Region_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
 
-
--- Join Table between Region and Disease
-DROP TABLE IF EXISTS Region_Disease;
-CREATE TABLE Region_Disease(
-    Region_Disease_ID INT AUTO_INCREMENT,
-    Region_country_code VARCHAR(255) NOT NULL,
-    Disease_ID INT NOT NULL,
-    Region_Disease_date  DATE NOT NULL,
-
-    primary key(Region_Disease_ID));
-
--- task 4 - Create "Medical_Check_up" table
-
-DROP TABLE IF EXISTS Medical_Check_up;
-CREATE TABLE Medical_Check_up(
-    Medical_Check_up_ID INT NOT NULL,
-    Medical_Check_up_date VARCHAR(255) NOT NULL,
-    Medical_Check_up_time VARCHAR(255) NOT NULL,
-    Medical_Check_up_reason VARCHAR(255) NOT NULL,
-    Medical_Check_up_documentation VARCHAR(255) NOT NULL,
-
-    primary key(Medical_Check_up_ID));
-
-
--- Join table between Patient and Medical_Checkups
-DROP TABLE IF EXISTS Patients_Checkups;
-CREATE TABLE Patients_Checkups(
-    Patients_Checkups_ID INT AUTO_INCREMENT,
-    Medical_Check_up_ID INT NOT NULL,
-    Patient_ID INT NOT NULL,
-    Patients_Checkups_date  DATE NOT NULL,
-
-    primary key(Patients_Checkups_ID));
-
--- task 5 - Create "Disease" table
-
-DROP TABLE IF EXISTS Disease;
-CREATE TABLE Disease(
-    Disease_ID INT NOT NULL,
-    Disease_Patient_ID INT NOT NULL,
-    Disease_name VARCHAR(255) NOT NULL,
-    Disease_type VARCHAR(255) NOT NULL,
-    Disease_stage INT NOT NULL,
-    Disease_transmission VARCHAR(255) NOT NULL,
-    Disease_communicable VARCHAR(255) NOT NULL,
-    Disease_fatality VARCHAR(255) NOT NULL,
-
-    primary key(Disease_ID),
-    foreign key(Disease_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
-
-
--- task 6 - Create "Treatment" table
-
-DROP TABLE IF EXISTS Treatment;
-CREATE TABLE Treatment(
-    Treatment_Disease_ID INT NOT NULL,
-    Treatment_ID INT NOT NULL,
-    Treatment_stage INT NOT NULL,
-    Treatment_cost INT NOT NULL,
-    Treatment_option VARCHAR(255) NOT NULL,
-
-    primary key(Treatment_ID),
-    foreign key(Treatment_Disease_ID) REFERENCES Disease (Disease_ID) ON DELETE CASCADE ON UPDATE CASCADE);
-
--- task 7 - Create "Doctor" table
-
-DROP TABLE IF EXISTS Doctor;
-CREATE TABLE Doctor(
-    Doctor_Patient_ID INT NOT NULL,
-    Doctor_ID INT NOT NULL,
-    Doctor_name VARCHAR(255) NOT NULL,
-    Doctor_start_date VARCHAR(255) NOT NULL,
-
-    primary key(Doctor_ID),
-    foreign key(Doctor_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
-
-
-DROP TABLE IF EXISTS Doctor_Checkups;
-CREATE TABLE Doctor_Checkups(
-    Doctor_Checkups_ID INT AUTO_INCREMENT,
-    Doctor_ID INT NOT NULL,
-    Doctor_name VARCHAR(255) NOT NULL,
-    Doctor_Checkups_date  DATE NOT NULL,
-
-    primary key(Doctor_Checkups_ID));
-
-
-----------------------------------------------------------------------------Start of Procedures-----------------------------------------------------------------------
-
--- This procedure is fetching every data related to patients and their checkups
--- Do a left join to get the data of regions from the Region table that is related 
--- to the patients.
--- 
-
-DROP PROCEDURE IF EXISTS GetProductDesc;
-CREATE PROCEDURE GetProductDesc ()
-BEGIN 
-    SELECT Region_country_short_name,
-           Region_environment
-    FROM Region
-    WHERE 1=1
-        AND Region_country_short_name = "Canada"
-    ORDER BY Region_country_short_name, Region_environment;
-END
-
-
-CALL GetProductDesc;
-
-
-----------------------------------------------------------------------------End of Procedures-----------------------------------------------------------------------
-
-
--- task 8 - Insert records into Region table
+-- Insert records into Region table
 
 INSERT INTO Region( Region_Disease_ID, Region_Patient_ID, Region_country_code, Region_country_short_name, Region_nationality, Region, Region_environment) VALUES
   (1,1,"ABW","Aruba","Arubans","Latin America & Caribbean","Hot"),
@@ -406,6 +348,18 @@ INSERT INTO Region( Region_Disease_ID, Region_Patient_ID, Region_country_code, R
 
 SELECT * FROM Region;
 
+
+-- Join Table between Region and Disease
+DROP TABLE IF EXISTS Region_Disease;
+CREATE TABLE Region_Disease(
+    Region_Disease_ID INT AUTO_INCREMENT,
+    Region_country_code VARCHAR(255) NOT NULL,
+    Disease_ID INT NOT NULL,
+    Region_Disease_date  DATE NOT NULL,
+
+    primary key(Region_Disease_ID));
+
+-- Join table filled up
 INSERT INTO Region_Disease(Region_country_code, Disease_ID,Region_Disease_date) VALUES
  
   ("ABW",1,'2022-06-20'),
@@ -416,7 +370,23 @@ INSERT INTO Region_Disease(Region_country_code, Disease_ID,Region_Disease_date) 
   ("COD", 6, '2022-06-20');
     
 SELECT * FROM Region_Disease;
--- task 9 - Insert records into Medical_Check_up table using an API
+
+
+
+-- task 4 - Create "Medical_Check_up" table
+
+DROP TABLE IF EXISTS Medical_Check_up;
+CREATE TABLE Medical_Check_up(
+    Medical_Check_up_ID INT NOT NULL,
+    Medical_Check_up_date VARCHAR(255) NOT NULL,
+    Medical_Check_up_time VARCHAR(255) NOT NULL,
+    Medical_Check_up_reason VARCHAR(255) NOT NULL,
+    Medical_Check_up_documentation VARCHAR(255) NOT NULL,
+
+    primary key(Medical_Check_up_ID));
+
+
+-- Insert records into Medical_Check_up table using an API
 
 
 INSERT INTO Medical_Check_up(Medical_Check_up_ID, Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation) VALUES
@@ -464,6 +434,17 @@ INSERT INTO Medical_Check_up(Medical_Check_up_ID, Medical_Check_up_date, Medical
 SELECT * FROM Medical_Check_up;
 
 
+-- Join table between Patient and Medical_Checkups
+DROP TABLE IF EXISTS Patients_Checkups;
+CREATE TABLE Patients_Checkups(
+    Patients_Checkups_ID INT AUTO_INCREMENT,
+    Medical_Check_up_ID INT NOT NULL,
+    Patient_ID INT NOT NULL,
+    Patients_Checkups_date  DATE NOT NULL,
+
+    primary key(Patients_Checkups_ID));
+
+
 -- Populating the Join table between Patient and medical checkups.
 INSERT INTO Patients_Checkups(Medical_Check_up_ID, Patient_ID, Patients_Checkups_date ) VALUES
 
@@ -474,56 +455,27 @@ INSERT INTO Patients_Checkups(Medical_Check_up_ID, Patient_ID, Patients_Checkups
   (5, 5, '2019-02-12');
 
 SELECT * FROM Patients_Checkups;
--- task 10 - Insert records into Patient table using an API
 
 
-INSERT INTO Patient(Patient_ID, Patient_first_name, Patient_last_name, Patient_gender, Patient_age, Patient_ethnicity, Patient_socioeconomic_status) VALUES
+-- task 5 - Create "Disease" table
 
-  (1,"Alex","Crus","Male",34,"White","High Class"),
-  (2,"Luz","Jackson","Female",23,"White","Middle Class"),
-  (3,"Alex","Carter","Male",54,"Asian","Low Class"),
-  (4,"Kim","Long","Male",44,"African American","High Class"),
-  (5,"Praisy","Biguvu","Female",15,"Latinx","High Class"),
-  (6,"Maisha","Mahamood","Female",50,"Latinx","Low Class"),
-  (7,"Mir","Ali","Male",43,	"Asian","Middle Class"),
-  (8,"David","Coleman","Male",56,"African American","High Class"),
-  (9,"Lenice","Jackson","Female",26,"Asian","High Class"),
-  (10,"Charles","Cooper","Male",28,"White","Middle Class"),
-  (11,"Gabby","Dixon","Female",35,"Latinx","Low Class"),
-  (12,"Jon","Ortega","Male",54,"Latinx","Middle Class"),
-  (13,"Alexander","Nichols","Male",65,"White","High Class"),
-  (14,"Melinda","Marshall","Female",34,"White","Low Class"),
-  (15,"Darlene","Fox","Female",76,"White","Middle Class"),
-  (16,"Ryan","Fox","Male",22,"African American","Middle Class"),
-  (17,"Melvin","Chandler","Male",88,"African American","High Class"),
-  (18,"Daniel","Bolton","Male",45,"Asian","Low Class"),
-  (19,"Joseph","Beasley","Male",66,"African American","High Class"),
-  (20,"Stacey","Nichols","Female",35,"White","Middle Class"),
-  (21,"Jessica","Graves","Female",55,"Asian","Low Class"),
-  (22,"Angela","Hubbard","Female",44,"White","High Class"),
-  (23,"Sarah","Howe","Female",66,"African American","Middle Class"),
-  (24,"Brett","Schultz","Male",54,"White","High Class"),
-  (25,"Nicholas","Salinas","Male",32,"Latinx","Low Class"),
-  (26,"Holly","Duran","Female",22,"Latinx","Low Class"),
-  (27,"Gwendolyn","Gonzalez","Female",54,"Latinx","Middle Class"),
-  (28,"Colleen","Alexander","Male",23,"Latinx","Low Class"),
-  (29,"Ashley","Garcia","Female",77,"Latinx","High Class"),
-  (30,"Travis","Greene","Male",87,"Asian","High Class"),
-  (31,"Deborah","Harris","Female",45,"White","Middle Class"),
-  (32,"Tonya","Young","Female",87,"Asian","Low Class"),
-  (33,"Jillian","Anderson","Male",99,"White","High Class"),
-  (34,"Carlos","Johnson","Male",55,"Asian","Low Class"),
-  (35,"Anthony","Williams","Male",20,"Asian","Middle Class"),
-  (36,"Jodi","Hughes","Male",18,"Asian","High Class"),
-  (37,"Brent","Ross","Male",60,"White","Low Class"),
-  (38,"Luke","Turner","Male",19,"African American","High Class"),
-  (39,"Frank","Davis","Male",22,"African American","Middle Class"),
-  (40,"Karen","Rosales","Female",35,"Latinx","Middle Class");
+DROP TABLE IF EXISTS Disease;
+CREATE TABLE Disease(
+    Disease_ID INT NOT NULL,
+    Disease_Patient_ID INT NOT NULL,
+    Disease_name VARCHAR(255) NOT NULL,
+    Disease_type VARCHAR(255) NOT NULL,
+    Disease_stage INT NOT NULL,
+    Disease_transmission VARCHAR(255) NOT NULL,
+    Disease_communicable VARCHAR(255) NOT NULL,
+    Disease_fatality VARCHAR(255) NOT NULL,
 
-SELECT * FROM Patient;
+    primary key(Disease_ID),
+    foreign key(Disease_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
+
+
 
 -- task 11 - Insert records into Disease table
-
 
 INSERT INTO Disease(Disease_ID, Disease_name, Disease_type, Disease_stage, Disease_transmission, Disease_communicable, Disease_fatality) VALUES
   (1,"Alzheimer","Early on","1","","","Low"),
@@ -569,8 +521,22 @@ INSERT INTO Disease(Disease_ID, Disease_name, Disease_type, Disease_stage, Disea
 
 SELECT * FROM Disease;
 
--- task 12 - Insert records into Patient table using an API
 
+-- task 6 - Create "Treatment" table
+
+DROP TABLE IF EXISTS Treatment;
+CREATE TABLE Treatment(
+    Treatment_Disease_ID INT NOT NULL,
+    Treatment_ID INT NOT NULL,
+    Treatment_stage INT NOT NULL,
+    Treatment_cost INT NOT NULL,
+    Treatment_option VARCHAR(255) NOT NULL,
+
+    primary key(Treatment_ID),
+    foreign key(Treatment_Disease_ID) REFERENCES Disease (Disease_ID) ON DELETE CASCADE ON UPDATE CASCADE);
+
+
+-- task 12 - Insert records into Patient table using an API
 
 INSERT INTO Treatment(Treatment_Disease_ID, Treatment_ID, Treatment_stage, Treatment_cost, Treatment_option) VALUES
   (1,1,2,300,"Run a second test, then prescribe some antibiotics"),
@@ -616,8 +582,21 @@ INSERT INTO Treatment(Treatment_Disease_ID, Treatment_ID, Treatment_stage, Treat
 
 SELECT * FROM Treatment;
 
--- task 13 - Insert records into Doctor table using an API
 
+-- task 7 - Create "Doctor" table
+
+DROP TABLE IF EXISTS Doctor;
+CREATE TABLE Doctor(
+    Doctor_Patient_ID INT NOT NULL,
+    Doctor_ID INT NOT NULL,
+    Doctor_name VARCHAR(255) NOT NULL,
+    Doctor_start_date VARCHAR(255) NOT NULL,
+
+    primary key(Doctor_ID),
+    foreign key(Doctor_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
+
+
+-- task 13 - Insert records into Doctor table using an API
 
 INSERT INTO Doctor(Doctor_Patient_ID ,Doctor_ID, Doctor_name, Doctor_start_date) VALUES
   (1,1,"Dr.Shepherd","2001-01-21"),
@@ -663,6 +642,20 @@ INSERT INTO Doctor(Doctor_Patient_ID ,Doctor_ID, Doctor_name, Doctor_start_date)
 
 SELECT * FROM Doctor;
 
+
+-- Join table between Doctors and Checkups
+
+DROP TABLE IF EXISTS Doctor_Checkups;
+CREATE TABLE Doctor_Checkups(
+    Doctor_Checkups_ID INT AUTO_INCREMENT,
+    Doctor_ID INT NOT NULL,
+    Doctor_name VARCHAR(255) NOT NULL,
+    Doctor_Checkups_date  DATE NOT NULL,
+
+    primary key(Doctor_Checkups_ID));
+
+
+-- Filled up table 
 INSERT INTO Doctor_Checkups(Doctor_ID, Doctor_name, Doctor_Checkups_date) VALUES
  
   (1,"Dr.Shepherd","2005-01-21"),
@@ -672,4 +665,28 @@ INSERT INTO Doctor_Checkups(Doctor_ID, Doctor_name, Doctor_Checkups_date) VALUES
   (5,"Dr.Albert","2022-05-18");
 
 SELECT * FROM Doctor_Checkups;
+----------------------------------------------------------------------------Start of Procedures-----------------------------------------------------------------------
+
+-- This procedure is fetching every data related to patients and their checkups
+-- Do a left join to get the data of regions from the Region table that is related 
+-- to the patients.
+-- 
+
+DROP PROCEDURE IF EXISTS GetProductDesc;
+CREATE PROCEDURE GetProductDesc ()
+BEGIN 
+    SELECT Region_country_short_name,
+           Region_environment
+    FROM Region
+    WHERE 1=1
+        AND Region_country_short_name = "Canada"
+    ORDER BY Region_country_short_name, Region_environment;
+END
+
+
+CALL GetProductDesc;
+
+
+----------------------------------------------------------------------------End of Procedures------------------------------------------------------------------------
+
      
