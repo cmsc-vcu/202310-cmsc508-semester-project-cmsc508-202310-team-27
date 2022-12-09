@@ -37,8 +37,8 @@ WHERE REFERENCED_TABLE_NAME = 'Patient';
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users(
   username VARCHAR(255) NOT NULL,
-  PASSWORD VARCHAR(255) NOT NULL,
-  ROLE VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  role VARCHAR(255) NOT NULL,
 
   primary key(username));
 
@@ -170,7 +170,7 @@ CREATE TRIGGER after_disease_update
      Updated_date = NOW();
 
 
--- TRIGGER TASK 2: 
+-- TRIGGER TASK 3: 
 -- Create "Trigger_Disease" table to store the changes in Disease
 DROP TABLE IF EXISTS Trigger_Doctor;
 CREATE TABLE Trigger_Doctor (
@@ -334,8 +334,33 @@ CREATE TABLE Doctor_Checkups(
 
     primary key(Doctor_Checkups_ID));
 
--- task 8 - Insert records into Region table using an API
 
+----------------------------------------------------------------------------Start of Procedures-----------------------------------------------------------------------
+
+-- This procedure is fetching every data related to patients and their checkups
+-- Do a left join to get the data of regions from the Region table that is related 
+-- to the patients.
+-- 
+
+DROP PROCEDURE IF EXISTS GetProductDesc;
+CREATE PROCEDURE GetProductDesc ()
+BEGIN 
+    SELECT Region_country_short_name,
+           Region_environment
+    FROM Region
+    WHERE 1=1
+        AND Region_country_short_name = "Canada"
+    ORDER BY Region_country_short_name, Region_environment;
+END
+
+
+CALL GetProductDesc;
+
+
+----------------------------------------------------------------------------End of Procedures-----------------------------------------------------------------------
+
+
+-- task 8 - Insert records into Region table
 
 INSERT INTO Region( Region_Disease_ID, Region_Patient_ID, Region_country_code, Region_country_short_name, Region_nationality, Region, Region_environment) VALUES
   (1,1,"ABW","Aruba","Arubans","Latin America & Caribbean","Hot"),
