@@ -12,6 +12,19 @@
             "database": "202310_users_trankp2",
             "username": "trankp2",
             "password": "Shout4_trankp2_GOME"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "cmsc508.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "CMSC508 Server Team",
+            "database": "202310_teams_team27",
+            "username": "team27",
+            "password": "Shout4_team27_GOTEAM"
         }
     ]
 }
