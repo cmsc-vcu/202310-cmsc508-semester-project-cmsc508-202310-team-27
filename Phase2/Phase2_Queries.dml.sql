@@ -64,7 +64,7 @@ FROM Treatment a
 JOIN Disease b
     ON (Disease_ID = Treatment_Disease_ID)
 WHERE 1=1
-        AND Disease_name = 'Ebola';
+        AND Disease_name = 'E. Coli';
 
 
 -- task 6
