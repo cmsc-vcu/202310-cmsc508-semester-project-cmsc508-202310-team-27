@@ -63,8 +63,7 @@ CREATE TABLE Patient(
     Patient_ethnicity VARCHAR(255) NOT NULL,
     Patient_socioeconomic_status VARCHAR(255) NOT NULL,
 
-    primary key(Patient_ID)
-);
+    primary key(Patient_ID));
 
 -- Insert records into Patient table using an API
 
@@ -414,8 +413,7 @@ CREATE TABLE Medical_Check_up(
     primary key(Medical_Check_up_ID));
 
 
--- Insert records into Medical_Check_up table using an API
-
+-- Insert records into Medical_Check_up table 
 
 INSERT INTO Medical_Check_up(Medical_Check_up_ID, Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation) VALUES
   (110,"03/23/2019","12:00 PM","High temperature","The patient has high temperature"),
@@ -693,7 +691,7 @@ INSERT INTO Doctor_Checkups(Doctor_ID, Doctor_name, Doctor_Checkups_date) VALUES
 SELECT * FROM Doctor_Checkups;
 ------------------------------------------------------------------------------------ START OF PROCEDURES -----------------------------------------------------------------------
 
--- We were told not to use procedures
+-- We were told not to use procedures by Dr. Leonard
 
 ----------------------------------------------------------------------------------- END OF PROCEDURES -------------------------------------------------------------------------------
 
