@@ -52,15 +52,6 @@ INSERT INTO Users(username, PASSWORD, ROLE) VALUES
 
 
 -- task 2 - Create "Patient" table
--- label the columns using the following schema:
---  Patient(Patient_ID,
---              Patient_name,
---              Patient_gender,
---              Patient_age,
---              Patient_ethnicity,
---              Patient_socioeconomic_status)
--- Assign appropriate data types.
--- Assign an appropriate primary key.
 
 DROP TABLE IF EXISTS Patient;
 CREATE TABLE Patient(
@@ -499,7 +490,6 @@ SELECT * FROM Patients_Checkups;
 DROP TABLE IF EXISTS Disease;
 CREATE TABLE Disease(
     Disease_ID INT NOT NULL,
-    Disease_Patient_ID INT NOT NULL,
     Disease_name VARCHAR(255) NOT NULL,
     Disease_type VARCHAR(255) NOT NULL,
     Disease_stage INT NOT NULL,
@@ -507,8 +497,7 @@ CREATE TABLE Disease(
     Disease_communicable VARCHAR(255) NOT NULL,
     Disease_fatality VARCHAR(255) NOT NULL,
 
-    primary key(Disease_ID),
-    foreign key(Disease_Patient_ID) REFERENCES Patient (Patient_ID) ON DELETE CASCADE ON UPDATE CASCADE);
+    primary key(Disease_ID));
 
 
 
