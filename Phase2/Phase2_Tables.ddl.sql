@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS Patients_Checkups;
 DROP TABLE IF EXISTS Users;
 DROP VIEW IF EXISTS Doctor_Patients;
 DROP TABLE IF EXISTS Trigger_Patient;
-DROP TABLE IF EXISTS Trigger_Disease
+DROP TABLE IF EXISTS Trigger_Disease;
 DROP TABLE IF EXISTS Trigger_Doctor;
 DROP TABLE IF EXISTS Trigger_Treatment;
 
