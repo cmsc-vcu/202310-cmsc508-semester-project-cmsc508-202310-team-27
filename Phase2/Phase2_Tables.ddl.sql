@@ -704,25 +704,7 @@ INSERT INTO Doctor_Checkups(Doctor_ID, Doctor_name, Doctor_Checkups_date) VALUES
 SELECT * FROM Doctor_Checkups;
 ------------------------------------------------------------------------------------ START OF PROCEDURES -----------------------------------------------------------------------
 
--- This procedure is fetching every data related to patients and their checkups
--- Do a left join to get the data of regions from the Region table that is related 
--- to the patients.
--- 
-
-DROP PROCEDURE IF EXISTS GetProductDesc;
-CREATE PROCEDURE GetProductDesc ()
-BEGIN 
-    SELECT Region_country_short_name,
-           Region_environment
-    FROM Region
-    WHERE 1=1
-        AND Region_country_short_name = "Canada"
-    ORDER BY Region_country_short_name, Region_environment;
-END
-
-
-CALL GetProductDesc;
-
+-- We were told not to use procedures
 
 ----------------------------------------------------------------------------------- END OF PROCEDURES -------------------------------------------------------------------------------
 
