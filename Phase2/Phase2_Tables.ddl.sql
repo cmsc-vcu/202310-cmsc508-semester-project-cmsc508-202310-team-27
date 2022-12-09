@@ -23,7 +23,10 @@ BEGIN
     DROP TABLE IF EXISTS Patient;
     DROP TABLE IF EXISTS Patients_Checkups;
     DROP TABLE IF EXISTS Users;
-    DROP TABLE IF EXISTS Trigger_insert;
+    DROP TABLE IF EXISTS Trigger_Patient;
+    DROP TABLE IF EXISTS Trigger_Disease
+    DROP TABLE IF EXISTS Trigger_Doctor;
+    DROP TABLE IF EXISTS Trigger_Treatment;
     DROP VIEW IF EXISTS Doctor_Patients;
 END; //
 
@@ -128,9 +131,9 @@ SELECT * FROM Patient;
 
 ------------------------------------- TRIGGERS -------------------------------------------------------------------------
 -- TRIGGER TASK 1: 
--- Create "Trigger_insert" table
-DROP TABLE IF EXISTS Trigger_insert;
-CREATE TABLE Trigger_insert (
+-- Create "Trigger_Patient" table
+DROP TABLE IF EXISTS Trigger_Patient;
+CREATE TABLE Trigger_Patient (
     Trigger_ID INT AUTO_INCREMENT,
     Patient_ID INT NOT NULL,
     Patient_first_name VARCHAR(255) NOT NULL,
@@ -138,41 +141,40 @@ CREATE TABLE Trigger_insert (
     Updated_date DATETIME DEFAULT NULL,
     action VARCHAR(255) DEFAULT NULL,
 
-    primary key(Trigger_ID)
-);
+    primary key(Trigger_ID));
 
 
 -- Create a trigger to update when a change has been made
 -- in the database
-DROP TRIGGER IF EXISTS after_patient_update;
-CREATE TRIGGER after_patient_update 
+DROP TRIGGER IF EXISTS update_patient_trigger;
+CREATE TRIGGER update_patient_trigger 
     AFTER UPDATE ON Patient 
     FOR EACH ROW 
- INSERT INTO Trigger_insert
- SET action = 'UPDATE',
+INSERT INTO Trigger_Patient
+SET action = 'UPDATE',
      Patient_ID = NEW.Patient_ID,
      Patient_first_name = NEW.Patient_first_name,
      Patient_last_name = NEW.Patient_last_name,
      Updated_date = NOW();
 
 
-DROP TRIGGER IF EXISTS after_patient_update;
-CREATE TRIGGER after_patient_update 
+DROP TRIGGER IF EXISTS insert_patient_trigger;
+CREATE TRIGGER insert_patient_trigger
     AFTER INSERT ON Patient
     FOR EACH ROW 
- INSERT INTO Trigger_insert
- SET action = 'INSERT',
+INSERT INTO Trigger_Patient
+SET action = 'INSERT',
      Patient_ID = NEW.Patient_ID,
      Patient_first_name = NEW.Patient_first_name,
      Patient_last_name = NEW.Patient_last_name,
      Updated_date = NOW();
 
-DROP TRIGGER IF EXISTS after_patient_update;
-CREATE TRIGGER after_patient_update 
+DROP TRIGGER IF EXISTS insert_patient_trigger;
+CREATE TRIGGER insert_patient_trigger 
     AFTER DELETE ON Patient
     FOR EACH ROW 
- INSERT INTO Trigger_insert
- SET action = 'DELETE',
+INSERT INTO Trigger_Patient
+SET action = 'DELETE',
      Patient_ID = OLD.Patient_ID,
      Patient_first_name = OLD.Patient_first_name,
      Patient_last_name = OLD.Patient_last_name,
@@ -193,39 +195,39 @@ CREATE TABLE Trigger_Disease (
     primary key(Trigger_ID)
 );
 
-DROP TRIGGER IF EXISTS after_disease_update;
-CREATE TRIGGER after_disease_update 
+DROP TRIGGER IF EXISTS insert_disease_trigger;
+CREATE TRIGGER insert_disease_trigger 
     AFTER INSERT ON Disease 
     FOR EACH ROW 
- INSERT INTO Trigger_Disease
- SET action = 'INSERT',
+INSERT INTO Trigger_Disease
+SET action = 'INSERT',
      Disease_ID = NEW.Disease_ID,
      Disease_name = NEW.Disease_name,
      Updated_date = NOW();
 
-DROP TRIGGER IF EXISTS after_disease_update;
-CREATE TRIGGER after_disease_update 
+DROP TRIGGER IF EXISTS update_disease_trigger;
+CREATE TRIGGER update_disease_trigger
     AFTER UPDATE ON Disease 
     FOR EACH ROW 
- INSERT INTO Trigger_Disease
- SET action = 'UPDATE',
+INSERT INTO Trigger_Disease
+SET action = 'UPDATE',
      Disease_ID = NEW.Disease_ID,
      Disease_name = NEW.Disease_name,
      Updated_date = NOW();
 
-DROP TRIGGER IF EXISTS after_disease_update;
-CREATE TRIGGER after_disease_update 
+DROP TRIGGER IF EXISTS delete_disease_trigger;
+CREATE TRIGGER delete_disease_trigger
     AFTER DELETE ON Disease 
     FOR EACH ROW 
- INSERT INTO Trigger_Disease
- SET action = 'DELETE',
+INSERT INTO Trigger_Disease
+SET action = 'DELETE',
      Disease_ID = OLD.Disease_ID,
      Disease_name = OLD.Disease_name,
      Updated_date = NOW();
 
 
 -- TRIGGER TASK 3: 
--- Create "Trigger_Disease" table to store the changes in Disease
+-- Create "Trigger_Doctor" table to store the changes in Disease
 DROP TABLE IF EXISTS Trigger_Doctor;
 CREATE TABLE Trigger_Doctor (
     Trigger_ID INT AUTO_INCREMENT,
@@ -237,37 +239,79 @@ CREATE TABLE Trigger_Doctor (
     primary key(Trigger_ID)
 );
 
-DROP TRIGGER IF EXISTS after_disease_update;
-CREATE TRIGGER after_disease_update 
-    AFTER INSERT ON Disease 
+DROP TRIGGER IF EXISTS insert_doctor_trigger;
+CREATE TRIGGER insert_doctor_trigger 
+    AFTER INSERT ON Doctor
     FOR EACH ROW 
- INSERT INTO Trigger_Disease
- SET action = 'INSERT',
-     Doctor_ID = OLD.Disease_ID,
-     Doctore_name = OLD.Disease_name,
-     Updated_date = NOW();
+INSERT INTO Trigger_Doctor
+SET action = 'INSERT',
+    Doctor_ID = NEW.Doctor_ID,
+    Doctor_name = NEW.Doctor_name,
+    Updated_date = NOW();
 
-DROP TRIGGER IF EXISTS after_disease_update;
-CREATE TRIGGER after_disease_update 
-    AFTER UPDATE ON Disease 
+DROP TRIGGER IF EXISTS update_doctor_trigger;
+CREATE TRIGGER update_doctor_trigger 
+    AFTER UPDATE ON Doctor 
     FOR EACH ROW 
- INSERT INTO Trigger_Disease
+ INSERT INTO Trigger_Doctor
  SET action = 'UPDATE',
-     Doctor_ID = NEW.Disease_ID,
-     Docotr_name = NEW.Disease_name,
-     Updated_date = NOW();
+    Doctor_ID = NEW.Doctor_ID,
+    Doctor_name = NEW.Doctor_name,
+    Updated_date = NOW();
 
-DROP TRIGGER IF EXISTS after_disease_update;
-CREATE TRIGGER after_disease_update 
-    AFTER DELETE ON Disease 
+DROP TRIGGER IF EXISTS delete_doctor_trigger;
+CREATE TRIGGER delete_doctor_trigger 
+    AFTER DELETE ON Doctor
     FOR EACH ROW 
- INSERT INTO Trigger_Disease
- SET action = 'DELETE',
-     Doctor_ID = OLD.Disease_ID,
-     Doctor_name = OLD.Disease_name,
-     Updated_date = NOW();
+INSERT INTO Trigger_Doctor
+SET action = 'DELETE',
+    Doctore_ID = OLD.Doctor_ID,
+    Doctor_name = OLD.Doctor_name,
+    Updated_date = NOW();
 
 
+-- TRIGGER TASK 4: 
+-- Create "Trigger_Disease" table to store the changes in Disease
+DROP TABLE IF EXISTS Trigger_Treatment;
+CREATE TABLE Trigger_Treatment (
+    Trigger_ID INT AUTO_INCREMENT,
+    Treatment_ID INT NOT NULL,
+    Treatment_option VARCHAR(255) NOT NULL,
+    Updated_date DATETIME DEFAULT NULL,
+    action VARCHAR(255) DEFAULT NULL,
+
+    primary key(Trigger_ID)
+);
+
+DROP TRIGGER IF EXISTS insert_treatment_trigger;
+CREATE TRIGGER insert_treatment_trigger 
+    AFTER INSERT ON Treatment
+    FOR EACH ROW 
+ INSERT INTO Trigger_Treatment
+ SET action = 'INSERT',
+    Treatment_ID = NEW.Treatment_ID,
+    Treatment_option = NEW.Treatment_option,
+    Updated_date = NOW();
+
+DROP TRIGGER IF EXISTS update_treatment_trigger;
+CREATE TRIGGER after_disease_update 
+    AFTER UPDATE ON Treatment 
+    FOR EACH ROW 
+ INSERT INTO Trigger_Treatment
+ SET action = 'UPDATE',
+    Treatment_ID = NEW.Treatment_ID,
+    Treatment_option = NEW.Treatment_option,
+    Updated_date = NOW();
+
+DROP TRIGGER IF EXISTS delete_treatment_trigger;
+CREATE TRIGGER delete_treatment_trigger 
+    AFTER DELETE ON Treatment 
+    FOR EACH ROW 
+INSERT INTO Trigger_Treatment
+SET action = 'DELETE',
+    Treatment_ID = OLD.Treatment_ID,
+    Treatment_option = OLD.Treatment_option,
+    Updated_date = NOW();
 ------------------------------------- END OF TRIGGERS -------------------------------------------------------------------------
 
 -- VIEW IMPLEMENTATION:
