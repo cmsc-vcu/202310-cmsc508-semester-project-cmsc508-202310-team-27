@@ -122,7 +122,7 @@ INSERT INTO Patient(Patient_ID, Patient_first_name, Patient_last_name, Patient_g
 
 SELECT * FROM Patient;
 
-------------------------------------- TRIGGERS -------------------------------------------------------------------------
+----------------------------------------------------------------- START OF TRIGGERS -------------------------------------------------------------------------
 -- TRIGGER TASK 1: 
 -- Create "Trigger_Patient" table
 DROP TABLE IF EXISTS Trigger_Patient;
@@ -305,7 +305,7 @@ SET action = 'DELETE',
     Treatment_ID = OLD.Treatment_ID,
     Treatment_option = OLD.Treatment_option,
     Updated_date = NOW();
-------------------------------------- END OF TRIGGERS -------------------------------------------------------------------------
+----------------------------------------------------------------------------- END OF TRIGGERS -------------------------------------------------------------------------
 
 -- VIEW IMPLEMENTATION:
 -- Sometimes, it can be tedious to
@@ -702,7 +702,7 @@ INSERT INTO Doctor_Checkups(Doctor_ID, Doctor_name, Doctor_Checkups_date) VALUES
   (5,"Dr.Albert","2022-05-18");
 
 SELECT * FROM Doctor_Checkups;
-----------------------------------------------------------------------------Start of Procedures-----------------------------------------------------------------------
+------------------------------------------------------------------------------------ START OF PROCEDURES -----------------------------------------------------------------------
 
 -- This procedure is fetching every data related to patients and their checkups
 -- Do a left join to get the data of regions from the Region table that is related 
@@ -724,6 +724,6 @@ END
 CALL GetProductDesc;
 
 
-----------------------------------------------------------------------------End of Procedures------------------------------------------------------------------------
+----------------------------------------------------------------------------------- END OF PROCEDURES -------------------------------------------------------------------------------
 
      
