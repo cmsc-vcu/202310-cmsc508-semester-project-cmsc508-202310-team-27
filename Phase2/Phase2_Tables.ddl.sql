@@ -325,7 +325,7 @@ FROM Patient);
 DROP VIEW IF EXISTS User_View;
 CREATE VIEW User_View AS( 
 SELECT *
-FROM Patient);
+FROM Users);
 
 -------------------------------------------------------------------------------END OF VIEWS -------------------------------------------------------------------------
 
