@@ -9,13 +9,13 @@ Table of content
 ------------------
 
 * [Introduction](#Introduction)
-* [Database Description](#Database_Description)
-* [ER Diagram](#ER_Diagram)
-* [Relational Schemas](#Relational_Schemas)
-* [Functional Dependencies](#Functional_Dependencies)
-* [Query Examples](#Query_Examples)
-* [What we took from the class?](#What_we_took_from_the_class?)
-* [Improvements to the semester project](#Improvements_to_the_semester_project)
+* [Database_Description](#Database-Description)
+* [ER Diagram](#ER-Diagram)
+* [Relational Schemas](#Relational-Schemas)
+* [Functional Dependencies](#Functional-Dependencies)
+* [Query Examples](#Query-Examples)
+* [What we took from the class?](#What-we-took-from-the-class?)
+* [Improvements to the semester project](#Improvements-to-the-semester-project)
 
 
 
