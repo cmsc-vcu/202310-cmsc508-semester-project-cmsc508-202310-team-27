@@ -1,6 +1,21 @@
 # Problem Statement
 ## Authors: Lazaro Camero, Khoi Tran, Mir Ali
 
+
+Table of content
+------------------
+
+* [Introduction](#Introduction)
+* [Database Description](#Database Description)
+* [ER Diagram](#ER Diagram)
+* [Relational Schemas](#Relational Schemas)
+* [Functional Dependencies](#Functional Dependencies)
+* [Query Examples](#Query Examples)
+* [What we took from the class?](#What we took from the class?)
+* [Improvements to the semester project](#Improvements to the semester project)
+
+
+
 ## Introduction
 
 &nbsp; &nbsp; &nbsp; &nbsp;In light of today’s modern society, scientists around the world are innovating new ways to combat illnesses and prolong the human lifespan. One approach to this is identifying what influences population health - in other words, recognizing predictors of health, such as race and gender. Studies around the globe show that racial and ethnic minority groups experience higher rates of illnesses and deaths across a wide range of health conditions, such as diabetes, hypertension, obesity, and heart-related diseases, when compared to their White counterparts. In addition, the role of gender can impact the health outcomes of an individual as it often is associated with health behaviors such as physical activity.<br />
@@ -50,26 +65,30 @@ Medical_Check_up_date, Disease_ID ->
 Patient_ID, Region_country_code -> <br />
 Medical_check_up_ID, Doctor_ID -><br />
 
-## Queries 1: How many people have Cancer?
+
+## Query Examples
+
+# Query 1: How many people have Cancer?
 
 ![query1](https://user-images.githubusercontent.com/69920518/206793967-0f9e515d-2ad1-40c3-b7f9-31bc819e31b7.svg)
 
-## Queries 2: What date did the patients receive their check-up in the hospital?
+# Query 2: What date did the patients receive their check-up in the hospital?
 
 ![query2](https://user-images.githubusercontent.com/69920518/206794141-17532ede-3bfd-4030-816f-1a907998b488.svg)
 
 
-## Queries 3: What was the reason for the patient medical check up?
+# Query 3: What was the reason for the patient medical check up?
 
 ![query3](https://user-images.githubusercontent.com/69920518/206794152-7358930e-11d1-4431-b746-ef3155f68413.svg)
 
-## Queries 4: When was the last medical checkup of every patient?
+# Query 4: When was the last medical checkup of every patient?
 
 ![query4](https://user-images.githubusercontent.com/69920518/206794312-ec694394-a2d9-4ab6-9462-c915f2d2495d.svg)
 
-## Queries 5: What is the environmental status of Canada?
+# Query 5: What is the environmental status of Canada?
 
 ![query5](https://user-images.githubusercontent.com/69920518/206813875-61b4ec1b-b12c-4144-a356-d607ac9e88fa.svg)
+
 
 ## What we took from the class?
 
