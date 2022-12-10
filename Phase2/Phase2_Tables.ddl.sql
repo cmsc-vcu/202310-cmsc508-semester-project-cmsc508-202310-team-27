@@ -332,6 +332,8 @@ CREATE VIEW Region_View AS(
 SELECT *
 FROM Region);
 
+SELECT * from Region_View
+
 -- Disease's View
 
 DROP VIEW IF EXISTS Disease_View;
