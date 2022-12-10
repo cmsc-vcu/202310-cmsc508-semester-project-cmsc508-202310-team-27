@@ -312,7 +312,6 @@ SELECT Doctor_ID,
 FROM Doctor);
 
 
-
 -- Patient's View
 
 DROP VIEW IF EXISTS Patient_View;
@@ -340,6 +339,17 @@ DROP VIEW IF EXISTS Disease_View;
 CREATE VIEW Disease_View AS( 
 SELECT *
 FROM Disease);
+
+-- Disease's View
+DROP VIEW IF EXISTS Treatment_View;
+CREATE VIEW Treatment_View AS( 
+SELECT
+ Treatment_ID, 
+ Treatment_stage, 
+ CONCAT('$', Treatment_cost), 
+ Treatment_option
+FROM 
+  Treatment);
 
 -- Medical_Check_up's View
 
