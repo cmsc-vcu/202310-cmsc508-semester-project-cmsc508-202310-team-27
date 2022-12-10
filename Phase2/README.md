@@ -21,7 +21,7 @@ A database is in Boyce-Codd Normal Form if every non-prime attribute depends on 
 
 ## Relational Schemas
 
-Patient (<ins>Patient ID</ins>, Patient_first_name, Patient_last_name, Patient_gender, Patient_age, Patient_ethnicity, Patient_socioeconomic_status)<br />
+Patient (<ins>Patient_ID</ins>, Patient_first_name, Patient_last_name, Patient_gender, Patient_age, Patient_ethnicity, Patient_socioeconomic_status)<br />
 Medical CheckUp(<ins>Medical_check_up_ID</ins>, (fk)Medical_check_up_patient_ID, Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation)<br />
 Doctor(<ins>Doctor_ID</ins>, (fk)Doctor_Patient_ID, Doctor_name, Doctor_start_date)<br />
 Disease (<ins>Disease_ID</ins>, (fk)Disease_patient_ID, Disease_name, Disease_type, Disease_stage, Disease_transmission, Disease_communicable, Disease_fatality)<br />
@@ -33,6 +33,22 @@ Doctor_Checkup(<ins>Doctor_ID</ins>, <ins>Medical_check_up_ID</ins>)<br />
 Location(<ins>Patient ID</ins>, <ins>Region_country_code</ins>)<br />
 Region_Disease(<ins>Region_country_code</ins>, <ins>Disease_ID</ins>)<br />
 Administer(<ins>Disease_ID</ins>, <ins>Treatment ID</ins>)<br />
+
+## Functional Dependencies
+
+Patient_ID -> Patient_first_name, Patient_last_name, Patient_gender, Patient_age, Patient_ethnicity, Patient_socioeconomic_status<br />
+Patient_ID, Medical_check_up_ID -> <br />
+Patient_ID -> Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation<br />
+Patient_ID, Disease_ID -> <br />
+Disease_ID -> Disease_name, Disease_type, Disease_stage, Disease_transmission, Disease_communicable, Disease_fatality<br />
+Medical_check_up_ID, Doctor_ID -> <br />
+Doctor_ID -> Doctor_name, Doctor_start_date <br />
+Region_country_code -> Region_country_short_name, Region_nationality, Region, Region_environment<br />
+Region_country_code, Disease_ID -> <br />
+Treatment_ID -> Treatment_stage, Treatment_cost, Treatment_option<br />
+Medical_Check_up_date, Disease_ID ->
+Patient_ID, Region_country_code -> <br />
+Medical_check_up_ID, Doctor_ID -><br />
 
 ## Queries 1: How many people have Cancer?
 
