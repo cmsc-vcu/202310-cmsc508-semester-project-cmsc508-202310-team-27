@@ -297,22 +297,31 @@ SET action = 'DELETE',
     Updated_date = NOW();
 ----------------------------------------------------------------------------- END OF TRIGGERS -------------------------------------------------------------------------
 
+
+-------------------------------------------------------------------------------START OF VIEWS -------------------------------------------------------------------------
 -- VIEW IMPLEMENTATION:
 -- Sometimes, it can be tedious to
 -- write select statements to view a specific table.
 -- To avoid doing this each time, create a view that 
 -- stores a specific table in the database.
-DROP VIEW IF EXISTS Doctor_Patients;
-CREATE VIEW Doctor_Patients AS( 
+DROP VIEW IF EXISTS Doctor_View;
+CREATE VIEW Doctor_View AS( 
 SELECT Doctor_ID,
          Doctor_name,
-         Doctor_start_date,
-         CONCAT(Patient_first_name,'', Patient_last_name) AS "Patient Name",
-         Patient_ethnicity, Patient_gender
-FROM Doctor a
-JOIN Patient b
-    ON (Doctor_Patient_ID = Patient_ID)
-);
+         Doctor_start_date
+FROM Doctor);
+
+
+
+-- Patient's View
+
+DROP VIEW IF EXISTS Patient_View;
+CREATE VIEW Patient_View AS( 
+SELECT *
+FROM Patient);
+
+
+-------------------------------------------------------------------------------END OF VIEWS -------------------------------------------------------------------------
 
 -- task 3 - Create "Region" table
 
