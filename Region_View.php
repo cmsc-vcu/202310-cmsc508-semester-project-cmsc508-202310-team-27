@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>Doctor View Table</title>
+<title>Region View Table</title>
 </head>
 <style>
 h1{
@@ -39,32 +39,42 @@ padding-bottom:70px;
 }
 </style>
 <body class="container-fluid">
-<h1 class="text-monocase text-capitalize text-center text-light">Doctor View Table</h1>
+<h1 class="text-monocase text-capitalize text-center text-light">Region View Table</h1>
     
 <ul class="text-center font-weight-bold text-monospace text-dark">  
 <table border="1" 
 class="table table-hover table-dark">
   <thead>
     <tr>
-      <th scope="col" >ID</th>
-      <th scope="col" >D_Name</th>
-      <th scope="col" >Start_D</th>
+      <th scope="col" >Code</th>
+      <th scope="col" >R_Disease_ID</th>
+      <th scope="col" >R_Patient_ID</th>
+      <th scope="col" >C_short_name</th>
+      <th scope="col" >Region_nationality</th>
+      <th scope="col" >Region</th>
+      <th scope="col" >Region_environment</th>
     </tr>
   </thead>
 <?php 
 include("connection.php");
 ?><br/>
 <?php
-       $query = "SELECT Doctor_ID AS ID, Doctor_name AS D_Name, Doctor_start_date AS Start_D
-                 FROM Doctor_View";
+       $query = "SELECT Region_country_code AS Code, Region_Disease_ID AS R_Disease_ID, Region_Patient_ID AS R_Patient_ID,
+                 Region_country_short_name AS C_short_name, Region_nationality, Region,
+                 Region_environment
+                 FROM Region_View";
 
             $run = mysqli_query($connection, $query);
 
 				   while($row = mysqli_fetch_array($run))
 				   {
-                    echo "<h3><tr><th>". $row['ID'] ." </h3>";
-                      echo "<h3><th>". $row['D_Name'] ." </h3>";
-                        echo "<h3><th>". $row['Start_D'] ." </th></tr></h3>";
+                    echo "<h3><tr><th>". $row['Code'] ." </h3>";
+                      echo "<h3><th>". $row['R_Disease_ID'] ." </h3>";
+                        echo "<h3><th>". $row['R_Patient_ID'] ." </h3>";
+                          echo "<h3><th>". $row['C_short_name'] ." </h3>";
+                            echo "<h3><th>". $row['Region_nationality'] ." </h3>";
+                            echo "<h3><th>". $row['Region'] ." </h3>";
+                              echo "<h3><th>". $row['Region_environment'] ." </th></tr></h3>";
 				   }
 			   ?></table></ul>
                    
