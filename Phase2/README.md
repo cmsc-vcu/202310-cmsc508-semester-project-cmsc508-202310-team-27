@@ -1,5 +1,8 @@
 # Problem Statement
-## Authors: Lazaro Camero, Khoi Tran, Mir Ali
+## Authors: 
+Lazaro Camero<br /> 
+Khoi Tran<br />
+Mir Ali
 
 
 Table of content
