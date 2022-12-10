@@ -9,7 +9,7 @@ Table of content
 ------------------
 
 * [Introduction](#Introduction)
-* [Database_Description](#Database-Description)
+* [Database Description](#Database-Description)
 * [ER Diagram](#ER-Diagram)
 * [Relational Schemas](#Relational-Schemas)
 * [Functional Dependencies](#Functional-Dependencies)
