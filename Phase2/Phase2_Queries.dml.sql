@@ -45,7 +45,6 @@ SELECT Disease_ID AS People, Disease_name
 FROM Disease
 WHERE Disease_name LIKE 'Cancer';
 
-select * 
 -- task 4
 -- What is the fatality rate of COVID in Mexico?
 

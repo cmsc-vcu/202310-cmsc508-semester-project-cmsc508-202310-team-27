@@ -47,12 +47,12 @@ class="table table-hover table-dark">
   <thead>
     <tr>
       <th scope="col" >ID</th>
-      <th scope="col" >Disease</th>
-      <th scope="col" >Disease_Type</th>
-      <th scope="col" >Disease Stage</th>
-      <th scope="col" >Disease Transmission</th>
-      <th scope="col" >Disease Communicable</th>
-      <th scope="col" >Disease Fatality</th>
+      <th scope="col" >Name</th>
+      <th scope="col" >Type</th>
+      <th scope="col" >Stage</th>
+      <th scope="col" >Transmission</th>
+      <th scope="col" >Communicable</th>
+      <th scope="col" >Fatality</th>
     </tr>
   </thead>
 <?php 
@@ -61,12 +61,12 @@ include("connection.php");
 <?php
        $query = "SELECT 
                     Disease_ID AS ID, 
-                    Disease_name AS Disease, 
-                    Disease_type as Disease_Type, 
-                    Disease_stage as Disease Stage, 
-                    Disease_transmission as Disease Transmission, 
-                    Disease_communicable as Disease Communicable, 
-                    Disease_fatality as Disease Fatality
+                    Disease_name AS Name, 
+                    Disease_type AS Type, 
+                    Disease_stage AS Stage, 
+                    Disease_transmission AS Transmission, 
+                    Disease_communicable AS Communicable, 
+                    Disease_fatality AS Fatality
                  FROM Disease_View";
 
             $run = mysqli_query($connection, $query);
@@ -74,12 +74,12 @@ include("connection.php");
 				   while($row = mysqli_fetch_array($run))
 				   {
                     echo "<h3><tr><th>". $row['ID'] ." </h3>";
-                      echo "<h3><th>". $row['Disease'] ." </h3>";
-                        echo "<h3><th>". $row['Disease_Type'] ." </h3>";
-                            echo "<h3><th>". $row['Disease Stage'] ." </h3>";
-                                echo "<h3><th>". $row['Disease Transmission'] ." </h3>";
-                                    echo "<h3><th>". $row['Disease Communicable'] ." </h3>";
-                                        echo "<h3><th>". $row['Disease Fatality'] ." </th></tr></h3>";
+                      echo "<h3><th>". $row['Name'] ." </h3>";
+                        echo "<h3><th>". $row['Type'] ." </h3>";
+                            echo "<h3><th>". $row['Stage'] ." </h3>";
+                                echo "<h3><th>". $row['Transmission'] ." </h3>";
+                                    echo "<h3><th>". $row['Communicable'] ." </h3>";
+                                        echo "<h3><th>". $row['Fatality'] ." </th></tr></h3>";
 				   }
 			   ?></table></ul>
                    
