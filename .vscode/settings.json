@@ -21,7 +21,7 @@
             "server": "cmsc508.com",
             "port": 3306,
             "driver": "MySQL",
-            "name": "CMSC 508",
+            "name": "CMSC 508 Server Team",
             "database": "202310_teams_team27",
             "username": "team27",
             "password": "Shout4_team27_GOTEAM"
