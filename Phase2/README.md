@@ -99,4 +99,4 @@ Medical_check_up_ID, Doctor_ID -><br />
 
 ## Improvements to the semester project
 
-The project could have been considerably better. I believe the deadline was not on our side; yet, we believe we did an excellent job with the task we completed. Things can only get better from here, or so the hope goes. We believe that the project can be enhanced by making it more dynamic and adding more features to improve how it appears when users visit the website and data.
+The project could have been considerably better. I believe the deadline was not on our side; yet, we believe we did an excellent job with the tasks we completed. Things can only get better from here, or so the hope goes. We think, that having three phases to throught the semester would be a huge help in terems of managing our time. Phase 1 can stay as it is, phase 2, could be getting hands-on PHP, and lastly for phase 3, could be putting everything together.
