@@ -327,6 +327,20 @@ CREATE VIEW User_View AS(
 SELECT *
 FROM Users);
 
+-- Region's View
+
+DROP VIEW IF EXISTS Region_View;
+CREATE VIEW Region_View AS( 
+SELECT *
+FROM Region);
+
+-- Medical_Check_up's View
+
+DROP VIEW IF EXISTS Medical_Check_up_View;
+CREATE VIEW Medical_Check_up_View AS( 
+SELECT *
+FROM Medical_Check_up);
+
 -------------------------------------------------------------------------------END OF VIEWS -------------------------------------------------------------------------
 
 -- task 3 - Create "Region" table
