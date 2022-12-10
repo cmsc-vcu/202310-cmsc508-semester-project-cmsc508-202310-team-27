@@ -13,7 +13,10 @@ SELECT * FROM Doctor_Patients;
 
 
 -- Show Trigger audit
-SELECT * FROM Trigger_insert;
+SELECT * FROM Trigger_Patient;
+SELECT * FROM Trigger_Disease;
+SELECT * FROM Trigger_Doctor;
+SELECT * FROM Trigger_Treatment;
 
 -- task 1
 -- What stage of cancer is this patient in?
