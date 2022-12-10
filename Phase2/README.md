@@ -1,4 +1,4 @@
-# Problem Statement
+# CMSC 508 Semester Project Phase 2 Report and Updates
 ## Authors: 
 Lazaro Camero<br /> 
 Khoi Tran<br />
