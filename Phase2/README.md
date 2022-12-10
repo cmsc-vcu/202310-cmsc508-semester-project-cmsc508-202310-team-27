@@ -7,7 +7,8 @@ Mir Ali
 
 Table of content
 ------------------
-
+* [Link to Web Application](#Link-to-Web-Application)
+* [Video Link](#Video-Link)
 * [Introduction](#Introduction)
 * [Database Description](#Database-Description)
 * [ER Diagram](#ER-Diagram)
@@ -18,7 +19,11 @@ Table of content
 * [Improvements to the semester project](#Improvements-to-the-semester-project)
 
 
+## Video Link
+https://drive.google.com/file/d/1eJZQ0mvjraqz1AP6MKCfhanxXB9Th-CG/view?usp=share_link
 
+## Link to Web Application
+http://cmsc508.com/202310/team27/
 ## Introduction
 
 &nbsp; &nbsp; &nbsp; &nbsp;In light of today’s modern society, scientists around the world are innovating new ways to combat illnesses and prolong the human lifespan. One approach to this is identifying what influences population health - in other words, recognizing predictors of health, such as race and gender. Studies around the globe show that racial and ethnic minority groups experience higher rates of illnesses and deaths across a wide range of health conditions, such as diabetes, hypertension, obesity, and heart-related diseases, when compared to their White counterparts. In addition, the role of gender can impact the health outcomes of an individual as it often is associated with health behaviors such as physical activity.<br />
