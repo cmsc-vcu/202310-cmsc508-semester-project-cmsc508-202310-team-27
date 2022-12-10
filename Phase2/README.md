@@ -1,5 +1,23 @@
 # Problem Statement
-## Authors: Lazaro Camero, Khoi Tran, Mir Ali
+## Authors: 
+Lazaro Camero<br /> 
+Khoi Tran<br />
+Mir Ali
+
+
+Table of content
+------------------
+
+* [Introduction](#Introduction)
+* [Database Description](#Database_Description)
+* [ER Diagram](#ER_Diagram)
+* [Relational Schemas](#Relational_Schemas)
+* [Functional Dependencies](#Functional_Dependencies)
+* [Query Examples](#Query_Examples)
+* [What we took from the class?](#What_we_took_from_the_class?)
+* [Improvements to the semester project](#Improvements_to_the_semester_project)
+
+
 
 ## Introduction
 
@@ -50,26 +68,30 @@ Medical_Check_up_date, Disease_ID ->
 Patient_ID, Region_country_code -> <br />
 Medical_check_up_ID, Doctor_ID -><br />
 
-## Queries 1: How many people have Cancer?
+
+## Query Examples
+
+### Query 1: How many people have Cancer?
 
 ![query1](https://user-images.githubusercontent.com/69920518/206793967-0f9e515d-2ad1-40c3-b7f9-31bc819e31b7.svg)
 
-## Queries 2: What date did the patients receive their check-up in the hospital?
+### Query 2: What date did the patients receive their check-up in the hospital?
 
 ![query2](https://user-images.githubusercontent.com/69920518/206794141-17532ede-3bfd-4030-816f-1a907998b488.svg)
 
 
-## Queries 3: What was the reason for the patient medical check up?
+### Query 3: What was the reason for the patient medical check up?
 
 ![query3](https://user-images.githubusercontent.com/69920518/206794152-7358930e-11d1-4431-b746-ef3155f68413.svg)
 
-## Queries 4: When was the last medical checkup of every patient?
+### Query 4: When was the last medical checkup of every patient?
 
 ![query4](https://user-images.githubusercontent.com/69920518/206794312-ec694394-a2d9-4ab6-9462-c915f2d2495d.svg)
 
-## Queries 5: What is the environmental status of Canada?
+### Query 5: What is the environmental status of Canada?
 
 ![query5](https://user-images.githubusercontent.com/69920518/206813875-61b4ec1b-b12c-4144-a356-d607ac9e88fa.svg)
+
 
 ## What we took from the class?
 
