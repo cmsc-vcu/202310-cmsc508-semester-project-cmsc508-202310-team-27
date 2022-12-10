@@ -15,7 +15,7 @@
 
 ## ER Diagram
 
-![Phase2](https://user-images.githubusercontent.com/69920518/206764632-28382d9c-35a3-4b60-8a25-f944a29dbfc4.jpg)
+![Phase2](https://user-images.githubusercontent.com/69920518/206824105-bdaa3ac5-9245-4653-ae6e-9e42fc2c01a5.jpg)
 
 ## Queries 1: How many people have Cancer?
 
