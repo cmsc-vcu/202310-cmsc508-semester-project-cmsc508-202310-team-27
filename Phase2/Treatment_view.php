@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>Doctor View Table</title>
+<title>Treatment View Table</title>
 </head>
 <style>
 h1{
@@ -39,7 +39,7 @@ padding-bottom:70px;
 }
 </style>
 <body class="container-fluid">
-<h1 class="text-monocase text-capitalize text-center text-light">Disease View Table</h1>
+<h1 class="text-monocase text-capitalize text-center text-light">Treatment View Table</h1>
     
 <ul class="text-center font-weight-bold text-monospace text-dark">  
 <table border="1" 

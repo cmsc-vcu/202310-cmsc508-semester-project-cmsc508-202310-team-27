@@ -336,7 +336,7 @@ CREATE VIEW Treatment_View AS(
 SELECT  
  Treatment_ID, 
  Treatment_stage, 
- Treatment_cost, 
+ CONCAT('$', Treatment_cost), 
  Treatment_option
 FROM 
   Treatment
