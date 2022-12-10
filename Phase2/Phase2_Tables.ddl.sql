@@ -341,6 +341,7 @@ SELECT *
 FROM Disease);
 
 -- Disease's View
+
 DROP VIEW IF EXISTS Treatment_View;
 CREATE VIEW Treatment_View AS( 
 SELECT
