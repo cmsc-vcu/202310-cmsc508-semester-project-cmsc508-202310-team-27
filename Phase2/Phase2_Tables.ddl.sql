@@ -315,6 +315,35 @@ JOIN Patient b
     ON (Doctor_Patient_ID = Patient_ID)
 );
 
+-- View for Disease
+DROP VIEW IF EXISTS Disease_View;
+CREATE VIEW Disease_View AS( 
+SELECT 
+  Disease_ID,
+  Disease_name,
+  Disease_type, 
+  Disease_stage, 
+  Disease_transmission, 
+  Disease_communicable, 
+  Disease_fatality
+FROM 
+  Disease
+);
+
+-- View for Treatment
+DROP VIEW IF EXISTS Treatment_View;
+CREATE VIEW Treatment_View AS( 
+SELECT  
+ Treatment_ID, 
+ Treatment_stage, 
+ Treatment_cost, 
+ Treatment_option
+FROM 
+  Treatment
+);
+
+SELECT * FROM Treatment_View;
+
 -- task 3 - Create "Region" table
 
 DROP TABLE IF EXISTS Region;
