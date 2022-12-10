@@ -17,6 +17,23 @@
 
 ![Phase2](https://user-images.githubusercontent.com/69920518/206824105-bdaa3ac5-9245-4653-ae6e-9e42fc2c01a5.jpg)
 
+A database is in Boyce-Codd Normal Form if every non-prime attribute depends on every other prime attribute and there is no functional redundancy. You can see that this is how our diagram is constructed based on the concept of a BCNF as each non-prime attribute exclusively depends on the prime attribute that distinguishes each schema. A database is in 4NF if there are no multi-value dependencies and based on this diagram, we don't have any multi-value dependencies. A database is 4NF if there are no multi-value dependencies, and according to this diagram, there aren't any.
+
+## Relational Schemas
+
+Patient (<ins>Patient ID</ins>, Patient_first_name, Patient_last_name, Patient_gender, Patient_age, Patient_ethnicity, Patient_socioeconomic_status)<br />
+Medical CheckUp(<ins>Medical_check_up_ID</ins>, (fk)Medical_check_up_patient_ID, Medical_Check_up_date, Medical_Check_up_time, Medical_Check_up_reason, Medical_Check_up_documentation)<br />
+Doctor(<ins>Doctor_ID</ins>, (fk)Doctor_Patient_ID, Doctor_name, Doctor_start_date)<br />
+Disease (<ins>Disease_ID</ins>, (fk)Disease_patient_ID, Disease_name, Disease_type, Disease_stage, Disease_transmission, Disease_communicable, Disease_fatality)<br />
+Region (<ins>Region_country_code</ins>, (fk)Region_Disease_ID, (fk)Region_Patient_ID, Region_country_short_name, Region_nationality, Region, Region_environment)<br />
+Treatment (<ins>Treatment ID</ins>, (fk)Treatment_Disease_ID, Treatment_stage, Treatment_cost, Treatment_option)<br />
+Patient_Checkups(<ins>Patient ID</ins>, <ins>Medical_check_up_ID</ins>)<br />
+Diagnose(<ins>Medical_check_up_ID</ins>, <ins>Disease_ID</ins>)<br />
+Doctor_Checkup(<ins>Doctor_ID</ins>, <ins>Medical_check_up_ID</ins>)<br />
+Location(<ins>Patient ID</ins>, <ins>Region_country_code</ins>)<br />
+Region_Disease(<ins>Region_country_code</ins>, <ins>Disease_ID</ins>)<br />
+Administer(<ins>Disease_ID</ins>, <ins>Treatment ID</ins>)<br />
+
 ## Queries 1: How many people have Cancer?
 
 ![query1](https://user-images.githubusercontent.com/69920518/206793967-0f9e515d-2ad1-40c3-b7f9-31bc819e31b7.svg)
