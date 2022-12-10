@@ -320,6 +320,12 @@ CREATE VIEW Patient_View AS(
 SELECT *
 FROM Patient);
 
+-- User's View
+
+DROP VIEW IF EXISTS User_View;
+CREATE VIEW User_View AS( 
+SELECT *
+FROM Patient);
 
 -------------------------------------------------------------------------------END OF VIEWS -------------------------------------------------------------------------
 
