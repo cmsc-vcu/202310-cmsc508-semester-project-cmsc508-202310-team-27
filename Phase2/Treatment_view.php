@@ -39,7 +39,7 @@ padding-bottom:70px;
 }
 </style>
 <body class="container-fluid">
-<h1 class="text-monocase text-capitalize text-center text-light">Disease View Table</h1>
+<h1 class="text-monocase text-capitalize text-center text-light">Treatment View Table</h1>
     
 <ul class="text-center font-weight-bold text-monospace text-dark">  
 <table border="1" 
@@ -47,9 +47,9 @@ class="table table-hover table-dark">
   <thead>
     <tr>
       <th scope="col" >ID</th>
-      <th scope="col" >Treatment Stage</th>
-      <th scope="col" >Treatment Cost</th>
-      <th scope="col" >Treatment_Option</th>
+      <th scope="col" >Treatment_Stage</th>
+      <th scope="col" >Treatment_Cost</th>
+      <th scope="col" >T_Option</th>
     </tr>
   </thead>
 <?php 
@@ -57,10 +57,10 @@ include("connection.php");
 ?><br/>
 <?php
        $query = "SELECT 
-                    Treatment_ID as ID, 
-                    Treatment_stage as Treatment Stage, 
-                    Treatment_cost as Treatment Cost, 
-                    Treatment_option as Treatment_Option
+                    Treatment_ID AS ID, 
+                    Treatment_stage AS Treatment Stage, 
+                    Treatment_cost AS Treatment Cost, 
+                    Treatment_option AS Treatment_Option
                  FROM Treatment_View";
 
             $run = mysqli_query($connection, $query);
@@ -68,9 +68,9 @@ include("connection.php");
 				   while($row = mysqli_fetch_array($run))
 				   {
                     echo "<h3><tr><th>". $row['ID'] ." </h3>";
-                      echo "<h3><th>". $row['Treatment Stage'] ." </h3>";
-                        echo "<h3><th>". $row['Treatment Cost'] ." </h3>";
-                            echo "<h3><th>". $row['Treatment_Option'] ." </th></tr></h3>";
+                      echo "<h3><th>". $row['Stage'] ." </h3>";
+                        echo "<h3><th>". $row['Cost'] ." </h3>";
+                          echo "<h3><th>". $row['T_Option'] ." </th></tr></h3>";
 				   }
 			   ?></table></ul>
                    
