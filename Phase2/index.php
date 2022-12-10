@@ -12,6 +12,10 @@
         <div class="actions">
             <a href="Login.php" class="btn2">Sign in</a>
         </div>
+
+        <div class="actions">
+            <a href="Registration.php" class="btn2">Register</a>
+        </div>
         
         <p><br><br><br><br><br>
         Thanks for visiting our site!</p>

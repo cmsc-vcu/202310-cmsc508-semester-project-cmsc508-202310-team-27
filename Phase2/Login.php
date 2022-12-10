@@ -24,6 +24,7 @@ session_start();
     <input type="password" name="password" required />
   </div>
   <button type="submit" name="login" value="login">Log In</button>
+  
 
 </form>
 
@@ -50,7 +51,7 @@ session_start();
                     header("Location: doctor.php");
                  }
                 if($_SESSION['role']=='patient'){
-                    header("Location: patient.php");
+                    header("Location: doctorView.php");
                 }
             } 
             else {
