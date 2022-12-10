@@ -71,24 +71,24 @@ Medical_check_up_ID, Doctor_ID -><br />
 
 ## Query Examples
 
-# Query 1: How many people have Cancer?
+### Query 1: How many people have Cancer?
 
 ![query1](https://user-images.githubusercontent.com/69920518/206793967-0f9e515d-2ad1-40c3-b7f9-31bc819e31b7.svg)
 
-# Query 2: What date did the patients receive their check-up in the hospital?
+### Query 2: What date did the patients receive their check-up in the hospital?
 
 ![query2](https://user-images.githubusercontent.com/69920518/206794141-17532ede-3bfd-4030-816f-1a907998b488.svg)
 
 
-# Query 3: What was the reason for the patient medical check up?
+### Query 3: What was the reason for the patient medical check up?
 
 ![query3](https://user-images.githubusercontent.com/69920518/206794152-7358930e-11d1-4431-b746-ef3155f68413.svg)
 
-# Query 4: When was the last medical checkup of every patient?
+### Query 4: When was the last medical checkup of every patient?
 
 ![query4](https://user-images.githubusercontent.com/69920518/206794312-ec694394-a2d9-4ab6-9462-c915f2d2495d.svg)
 
-# Query 5: What is the environmental status of Canada?
+### Query 5: What is the environmental status of Canada?
 
 ![query5](https://user-images.githubusercontent.com/69920518/206813875-61b4ec1b-b12c-4144-a356-d607ac9e88fa.svg)
 
