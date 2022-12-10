@@ -307,10 +307,9 @@ SET action = 'DELETE',
 DROP VIEW IF EXISTS Doctor_View;
 CREATE VIEW Doctor_View AS( 
 SELECT Doctor_ID,
-         Doctor_name,
-         Doctor_start_date
+       Doctor_name,
+       Doctor_start_date
 FROM Doctor);
-
 
 -- Patient's View
 
@@ -340,7 +339,7 @@ CREATE VIEW Disease_View AS(
 SELECT *
 FROM Disease);
 
--- Disease's View
+-- Treatment's View
 
 DROP VIEW IF EXISTS Treatment_View;
 CREATE VIEW Treatment_View AS( 
@@ -358,6 +357,7 @@ DROP VIEW IF EXISTS Medical_Check_up_View;
 CREATE VIEW Medical_Check_up_View AS( 
 SELECT *
 FROM Medical_Check_up);
+
 
 -------------------------------------------------------------------------------END OF VIEWS -------------------------------------------------------------------------
 
